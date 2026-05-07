@@ -61,6 +61,7 @@
     .stats-grid {
         grid-template-columns: repeat(2, 1fr);
         gap: var(--space-md);
+        justify-items: center;
     }
     .stats-container {
         padding: 0 var(--space-lg);
@@ -73,5 +74,9 @@
     }
     .stat-item__number {
         font-size: 2rem;
+    }
+    .stat-item {
+        width: 100%;
+        min-height: 120px;
     }
 }

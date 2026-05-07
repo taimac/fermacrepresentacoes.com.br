@@ -228,22 +228,24 @@
     }
     .section-header {
         max-width: min(100%, 342px);
-        margin-left: 0;
+        margin-left: auto;
         margin-right: auto;
-        text-align: left;
+        text-align: center;
     }
     .section-title,
     .section-subtitle {
-        max-width: min(100%, 342px);
+        width: min(100%, 300px);
+        max-width: min(100%, 300px);
         overflow-wrap: anywhere;
-        text-align: left;
-        margin-left: 0;
+        text-align: center;
+        margin-left: auto;
         margin-right: auto;
     }
     .section-eyebrow {
-        max-width: min(100%, 342px);
+        width: min(100%, 300px);
+        max-width: min(100%, 300px);
         overflow-wrap: anywhere;
-        text-align: left;
+        text-align: center;
     }
     .about-teaser-grid {
         grid-template-columns: 1fr;
@@ -255,15 +257,39 @@
     .about-teaser-text .section-eyebrow {
         text-align: center;
     }
+    .about-teaser-description {
+        width: min(100%, 300px);
+        max-width: min(100%, 300px);
+        margin-left: auto;
+        margin-right: auto;
+        text-align: center;
+    }
+
+    .section p,
+    .container-sm p,
+    .container-lg p,
+    .container p {
+        max-width: min(100%, 300px);
+        margin-left: auto;
+        margin-right: auto;
+        text-align: center;
+        overflow-wrap: anywhere;
+    }
 
     .operation-panel {
         grid-template-columns: 1fr;
         padding: var(--space-xl);
+        text-align: center;
     }
 
     .operation-panel .section-title,
     .operation-panel .section-eyebrow {
-        text-align: left;
+        text-align: center;
+    }
+
+    .operation-panel__text,
+    .operation-item span {
+        text-align: center;
     }
 
     .operation-panel__grid {

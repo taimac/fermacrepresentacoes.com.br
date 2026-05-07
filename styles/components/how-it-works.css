@@ -100,11 +100,14 @@
     .how-it-works-grid {
         grid-template-columns: 1fr;
         gap: var(--space-md);
+        justify-items: center;
     }
     .hiw-connector {
         display: none;
     }
     .hiw-step {
         padding: var(--space-lg);
+        width: 100%;
+        max-width: 342px;
     }
 }

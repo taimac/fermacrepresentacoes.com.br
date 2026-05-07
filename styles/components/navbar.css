@@ -127,23 +127,23 @@
         display: flex;
     }
     .nav-container {
-        padding: 0 var(--space-lg);
+        padding: 0 var(--space-md);
         height: 64px;
     }
     .nav-logo {
-        max-width: 155px;
+        max-width: 142px;
     }
     .nav-logo img {
-        height: 34px;
+        height: 32px;
     }
     .nav-controls {
         gap: var(--space-sm);
+        margin-left: auto;
     }
     .mobile-menu-btn {
-        order: -1;
         position: fixed;
-        left: min(calc(100vw - 56px), 330px);
-        top: 21px;
+        right: var(--space-md);
+        top: 20px;
         z-index: calc(var(--z-fixed) + 1);
     }
 }

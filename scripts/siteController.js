@@ -70,8 +70,15 @@ class LanguageSwitcherController {
     constructor(dictionary) {
         if (!dictionary) return;
         this.dict = dictionary;
-        this.lang = localStorage.getItem('fermac-lang') || 'pt';
-        this._applyLanguage(this.lang);
+        this.isLocalDev = ['127.0.0.1', 'localhost'].includes(window.location.hostname);
+        this.lang = this.isLocalDev ? 'pt' : (localStorage.getItem('fermac-lang') || 'pt');
+
+        if (this.isLocalDev) {
+            this._updateToggleLabel();
+            document.documentElement.lang = 'pt';
+        } else {
+            this._applyLanguage(this.lang);
+        }
         this._bindToggle();
     }
 
@@ -106,10 +113,13 @@ class LanguageSwitcherController {
         // Update document language
         document.documentElement.lang = lang;
 
-        // Update toggle button label (shows the OTHER language)
+        this._updateToggleLabel();
+    }
+
+    _updateToggleLabel() {
         const btn = document.getElementById('langToggle');
         if (btn) {
-            btn.textContent = lang === 'pt' ? 'EN' : 'PT';
+            btn.textContent = this.lang === 'pt' ? 'EN' : 'PT';
         }
     }
 
@@ -118,7 +128,9 @@ class LanguageSwitcherController {
         if (!btn) return;
         btn.addEventListener('click', () => {
             this.lang = this.lang === 'pt' ? 'en' : 'pt';
-            localStorage.setItem('fermac-lang', this.lang);
+            if (!this.isLocalDev) {
+                localStorage.setItem('fermac-lang', this.lang);
+            }
             this._applyLanguage(this.lang);
         });
     }
@@ -218,6 +230,77 @@ class ProductCarouselController {
     }
 }
 
+/* ===================== Local Dev Auto Refresh ===================== */
+
+class DevAutoRefreshController {
+    constructor() {
+        const host = window.location.hostname;
+        if (!['127.0.0.1', 'localhost'].includes(host)) return;
+
+        this.fingerprints = new Map();
+        this.paths = [
+            window.location.pathname || '/index.html',
+            '/translations/strings.js',
+            '/styles/pages/main.css',
+            '/styles/base/reset.css',
+            '/styles/base/variables.css',
+            '/styles/base/typography.css',
+            '/styles/utils/layout.css',
+            '/styles/components/buttons.css',
+            '/styles/components/card.css',
+            '/styles/components/navbar.css',
+            '/styles/components/hero.css',
+            '/styles/components/footer.css',
+            '/styles/components/sections.css',
+            '/styles/components/stats-bar.css',
+            '/styles/components/how-it-works.css',
+            '/styles/components/whatsapp.css',
+            '/styles/components/lang-switcher.css',
+            '/styles/responsive/breakpoints.css',
+            '/styles/utils/animation.css',
+            '/scripts/siteController.js',
+        ];
+        this._prime();
+    }
+
+    async _fingerprint(path) {
+        const response = await fetch(`${path}?dev-check=${Date.now()}`, {
+            method: 'HEAD',
+            cache: 'no-store',
+        });
+        return [
+            response.headers.get('last-modified') || '',
+            response.headers.get('content-length') || '',
+        ].join('|');
+    }
+
+    async _prime() {
+        try {
+            await Promise.all(this.paths.map(async path => {
+                this.fingerprints.set(path, await this._fingerprint(path));
+            }));
+            window.setInterval(() => this._check(), 1200);
+        } catch (error) {
+            window.setTimeout(() => this._prime(), 2000);
+        }
+    }
+
+    async _check() {
+        try {
+            for (const path of this.paths) {
+                const next = await this._fingerprint(path);
+                if (this.fingerprints.get(path) && this.fingerprints.get(path) !== next) {
+                    window.location.reload();
+                    return;
+                }
+                this.fingerprints.set(path, next);
+            }
+        } catch (error) {
+            // Local development convenience only; ignore transient server restarts.
+        }
+    }
+}
+
 /* ===================== Initialization ===================== */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -236,6 +319,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (typeof FERMAC_TRANSLATIONS !== 'undefined') {
         new LanguageSwitcherController(FERMAC_TRANSLATIONS);
     }
+    new DevAutoRefreshController();
 
     // Page-specific
     if (document.body.classList.contains('home-page')) {

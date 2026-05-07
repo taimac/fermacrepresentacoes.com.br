@@ -38,6 +38,13 @@
 
 @media (max-width: 768px) {
     .lang-toggle {
-        display: none;
+        display: inline-flex;
+        min-width: 38px;
+        padding: 0.24rem 0.5rem;
+        font-size: 0.68rem;
+        position: fixed;
+        right: 58px;
+        top: 20px;
+        z-index: calc(var(--z-fixed) + 1);
     }
 }

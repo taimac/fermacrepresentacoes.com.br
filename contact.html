@@ -10,7 +10,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="styles/pages/main.css?v=20260507-fermac-reframe">
+    <link rel="stylesheet" href="styles/pages/main.css?v=20260507-dev-refresh-2">
     <style>
         /* Contact page specific styles */
         .contact-grid {
@@ -135,10 +135,33 @@
             .contact-grid {
                 grid-template-columns: 1fr;
                 gap: var(--space-xl);
+                justify-items: center;
+                text-align: center;
+            }
+
+            .contact-info-card,
+            .contact-form-card {
+                width: 100%;
+                max-width: 342px;
+                padding: var(--space-xl);
+            }
+
+            .contact-info-item {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+
+            .contact-form-card h2 {
+                text-align: center;
+            }
+
+            .form-group {
+                text-align: left;
             }
         }
     </style>
-    <script src="translations/strings.js?v=20260507-fermac-reframe"></script>
+    <script src="translations/strings.js?v=20260507-dev-refresh-2"></script>
 </head>
 <body class="contact-page">
 
@@ -370,6 +393,6 @@
         </a>
     </div>
 
-    <script src="scripts/siteController.js"></script>
+    <script src="scripts/siteController.js?v=20260507-dev-refresh-2"></script>
 </body>
 </html>

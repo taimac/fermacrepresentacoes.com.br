@@ -16,7 +16,7 @@ const FERMAC_TRANSLATIONS = {
         /* ===== HOME HERO ===== */
         'hero.eyebrow':     'Representação Comercial Industrial',
         'hero.tagline':     'Conectamos fabricantes ao mercado industrial com experiência e relacionamento.',
-        'hero.subhead':     'A Fermac atua em Caxias do Sul como escritório de representação comercial, hoje com linha Panatlântica e abertura para fabricantes nacionais e internacionais que buscam presença qualificada no mercado industrial.',
+        'hero.subhead':     'A Fermac atua em toda Serra Gaúcha como escritório de representação comercial, hoje com linha Panatlântica e está aberta para novos portfólios industriais tanto nacionais como internacionais que buscam presença qualificada no mercado industrial.',
         'hero.cta.whatsapp':'Fale com a Fermac',
         'hero.cta.products':'Ver Produtos',
 
@@ -64,8 +64,8 @@ const FERMAC_TRANSLATIONS = {
         'about.story.eyebrow':      'Nossa história',
         'about.story.title':        'De onde viemos e para onde vamos',
         'about.story.p1':           'A Fermac Representações nasceu da trajetória comercial construída por Tailor Maciel no mercado industrial, com foco em relacionamento, confiança e compreensão prática das necessidades de compra das empresas.',
-        'about.story.p2':           'A empresa atua em Caxias do Sul e acompanha a evolução dessa presença comercial: atendimento direto, leitura de aplicação, negociação objetiva, acompanhamento de pedidos e proximidade com compradores industriais.',
-        'about.story.p3':           'Hoje, a Fermac representa a Panatlântica e segue aberta a novas representações nacionais e internacionais alinhadas ao mercado industrial, usando tecnologia para organizar informação, acelerar retornos e melhorar o acompanhamento comercial.',
+        'about.story.p2':           'A empresa atua em toda Serra Gaúcha e região Sul do Brasil e acompanha a evolução dessa presença comercial: atendimento direto, leitura de aplicação, negociação objetiva, acompanhamento de pedidos e proximidade com compradores industriais.',
+        'about.story.p3':           'Hoje, a Fermac representa a Panatlântica S.A e segue aberta a novas representações nacionais e internacionais alinhadas ao mercado industrial, usando tecnologia para organizar informação, acelerar retornos e melhorar o acompanhamento comercial.',
         'about.operation.eyebrow':  'Modo de operação',
         'about.operation.title':    'Experiência comercial com acompanhamento estruturado',
         'about.operation.description': 'A Fermac está modernizando sua rotina comercial com organização de histórico, acompanhamento de pedidos e uso de informações para tornar cada negociação mais clara, rápida e segura.',
@@ -88,10 +88,11 @@ const FERMAC_TRANSLATIONS = {
         'about.differentials.eyebrow':  'Por que a Fermac',
         'about.differentials.title':    'Nossos diferenciais',
         'about.diff1':  'Mais de 20 anos de presença ativa no mercado siderúrgico',
-        'about.diff2':  'Representação atual da linha Panatlântica e abertura para novas representadas',
+        'about.diff2':  'Representação atual da linha Panatlântica S.A e abertura para novas representadas',
         'about.diff3':  'Apoio na leitura de aplicação, produto, prazo, volume e condição comercial',
         'about.diff4':  'Respostas rápidas, cotações objetivas e acompanhamento próximo',
         'about.diff5':  'Abertura para novas representações alinhadas ao mercado industrial',
+        'about.diff6':  'Monitoramento estruturado de potenciais compradores: histórico de compras, curvas ABC, atividade por período e potencial por produto.',
 
         /* ===== PRODUCTS PAGE ===== */
         'products.hero.title':      'Produtos',
@@ -166,7 +167,7 @@ const FERMAC_TRANSLATIONS = {
         /* ===== HOME HERO ===== */
         'hero.eyebrow':     'Industrial Commercial Representation',
         'hero.tagline':     'Connecting manufacturers to the industrial market with experience and relationships.',
-        'hero.subhead':     'Fermac operates in Caxias do Sul as a commercial representation office, currently with the Panatlântica line and open to domestic and international manufacturers seeking qualified industrial market presence.',
+        'hero.subhead':     'Fermac operates across Serra Gaúcha as a commercial representation office, currently with the Panatlântica line and open to new domestic and international industrial portfolios seeking qualified market presence.',
         'hero.cta.whatsapp':'Contact Fermac',
         'hero.cta.products':'See Products',
 
@@ -214,8 +215,8 @@ const FERMAC_TRANSLATIONS = {
         'about.story.eyebrow':      'Our story',
         'about.story.title':        'Where we came from and where we are going',
         'about.story.p1':           'Fermac Representações grew from the commercial path built by Tailor Maciel in the industrial market, with a focus on relationships, trust, and practical understanding of companies\' purchasing needs.',
-        'about.story.p2':           'The company operates from Caxias do Sul and reflects the evolution of that commercial presence: direct service, application reading, objective negotiation, order follow-up, and proximity to industrial buyers.',
-        'about.story.p3':           'Today, Fermac represents Panatlântica and remains open to new domestic and international representation partnerships aligned with the industrial market, using technology to organize information, accelerate responses, and improve commercial follow-up.',
+        'about.story.p2':           'The company operates across Serra Gaúcha and Brazil’s southern region, reflecting the evolution of that commercial presence: direct service, application reading, objective negotiation, order follow-up, and proximity to industrial buyers.',
+        'about.story.p3':           'Today, Fermac represents Panatlântica S.A and remains open to new domestic and international representation partnerships aligned with the industrial market, using technology to organize information, accelerate responses, and improve commercial follow-up.',
         'about.operation.eyebrow':  'Operating model',
         'about.operation.title':    'Commercial experience with structured follow-up',
         'about.operation.description': 'Fermac is modernizing its commercial routine with organized history, order follow-up, and practical information use to make each negotiation clearer, faster, and safer.',
@@ -238,10 +239,11 @@ const FERMAC_TRANSLATIONS = {
         'about.differentials.eyebrow':  'Why Fermac',
         'about.differentials.title':    'Our differentials',
         'about.diff1':  'Over 20 years of active presence in the steel market',
-        'about.diff2':  'Current representation of the Panatlântica line and open to new represented suppliers',
+        'about.diff2':  'Current representation of the Panatlântica S.A line and open to new represented suppliers',
         'about.diff3':  'Support in understanding application, product, deadline, volume, and commercial conditions',
         'about.diff4':  'Fast responses, objective quotations, and close follow-up',
         'about.diff5':  'Open to new representation partnerships aligned with the industrial market',
+        'about.diff6':  'Structured monitoring of potential buyers: purchase history, ABC curves, activity by period, and potential by product.',
 
         /* ===== PRODUCTS PAGE ===== */
         'products.hero.title':      'Products',

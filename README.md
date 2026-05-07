@@ -19,6 +19,22 @@ Deployment is intentionally not enabled yet.
 
 Static HTML, CSS, and vanilla JavaScript.
 
+## Local Review
+
+Use the no-cache development server while editing:
+
+```bash
+python3 dev_server.py
+```
+
+Then open:
+
+```text
+http://127.0.0.1:8001/
+```
+
+The local controller watches HTML, CSS, JavaScript, and translation files and reloads the page after saves. On localhost, Portuguese text is read from the HTML by default so copy edits are visible immediately; use the language toggle only when checking English strings.
+
 ## Boundary
 
 This repo is for the public website only. It should not contain private pipeline, email migration, CRM, client, or operational data.
