@@ -1,0 +1,85 @@
+/*
+ * WhatsApp — Fermac Representações
+ * Floating button + inline variant.
+ */
+
+/* ===== FLOATING BUTTON ===== */
+
+.whatsapp-float {
+    position: fixed;
+    bottom: var(--space-xl);
+    right: var(--space-xl);
+    z-index: var(--z-fixed);
+}
+
+.whatsapp-float__link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 60px;
+    height: 60px;
+    background: var(--whatsapp-green);
+    border-radius: var(--border-radius-full);
+    box-shadow: var(--shadow-lg);
+    text-decoration: none;
+    color: var(--text-white);
+    transition:
+        background var(--duration-normal) var(--ease-out),
+        transform var(--duration-normal) var(--ease-out),
+        box-shadow var(--duration-normal) var(--ease-out);
+    animation: whatsapp-pulse 2.5s ease-in-out infinite;
+}
+
+.whatsapp-float__link:hover {
+    background: var(--whatsapp-hover);
+    transform: scale(1.1);
+    box-shadow: var(--shadow-2xl);
+    text-decoration: none;
+    animation-play-state: paused;
+}
+
+.whatsapp-float__link svg {
+    width: 30px;
+    height: 30px;
+    flex-shrink: 0;
+}
+
+@keyframes whatsapp-pulse {
+    0%, 100% {
+        box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.5), var(--shadow-lg);
+    }
+    50% {
+        box-shadow: 0 0 0 12px rgba(37, 211, 102, 0), var(--shadow-lg);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .whatsapp-float__link {
+        animation: none;
+    }
+}
+
+/* ===== INLINE BUTTON (use .btn.btn-whatsapp in buttons.css) ===== */
+/* Additional icon sizing for inline buttons */
+
+.btn-whatsapp svg {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+}
+
+.btn-whatsapp.btn-lg svg {
+    width: 24px;
+    height: 24px;
+}
+
+@media (max-width: 480px) {
+    .whatsapp-float {
+        bottom: var(--space-lg);
+        right: var(--space-lg);
+    }
+    .whatsapp-float__link {
+        width: 52px;
+        height: 52px;
+    }
+}

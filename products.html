@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="pt" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Produtos Fermac Representações — Linhas industriais atualmente representadas pela Fermac, com consulta por aplicação, medida, volume, prazo e condição comercial.">
+    <title>Produtos — Fermac Representações</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="styles/pages/main.css?v=20260507-fermac-reframe">
+    <script src="translations/strings.js?v=20260507-fermac-reframe"></script>
+</head>
+<body class="products-page">
+
+    <a href="#main-content" class="skip-link" data-i18n="skip.link">Ir para o conteúdo</a>
+
+    <!-- ===== NAVBAR ===== -->
+    <header>
+        <nav class="navbar" id="navbar" role="navigation" aria-label="Navegação principal">
+            <div class="nav-container">
+                <a href="index.html" class="nav-logo" aria-label="Fermac Representações — Página inicial">
+                    <img src="assets/images/logo.png" alt="Fermac Representações" width="120" height="40">
+                </a>
+                <ul class="nav-links" role="list">
+                    <li><a href="index.html" data-i18n="nav.home">Início</a></li>
+                    <li><a href="about.html" data-i18n="nav.about">Sobre</a></li>
+                    <li><a href="products.html" class="active" data-i18n="nav.products">Produtos</a></li>
+                    <li><a href="contact.html" data-i18n="nav.contact">Contato</a></li>
+                </ul>
+                <div class="nav-controls">
+                    <button id="langToggle" class="lang-toggle" aria-label="Mudar idioma" data-i18n-aria="lang.toggle.aria">EN</button>
+                    <button id="mobileMenuBtn" class="mobile-menu-btn" aria-label="Abrir menu" aria-expanded="false">
+                        <span></span><span></span><span></span>
+                    </button>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main id="main-content">
+
+        <!-- ===== PAGE HERO ===== -->
+        <section class="page-hero" aria-label="Produtos">
+            <div class="page-hero-container">
+                <h1 class="page-hero-title" data-i18n="products.hero.title">Produtos</h1>
+                <p class="page-hero-subtitle" data-i18n="products.hero.subtitle">
+                    Linhas industriais atualmente representadas pela Fermac.
+                </p>
+            </div>
+        </section>
+
+        <!-- ===== INTRO ===== -->
+        <section class="section section--white" aria-labelledby="products-intro-title">
+            <div class="container-lg">
+                <div class="section-header">
+                    <span class="section-eyebrow" data-i18n="products.intro.eyebrow">Portfólio atual</span>
+                    <h2 class="section-title" id="products-intro-title" data-i18n="products.intro.title">Produtos representados</h2>
+                    <p class="section-subtitle" data-i18n="products.intro.description">
+                        A Fermac representa comercialmente estas linhas industriais e está aberta a ampliar seu portfólio com fabricantes nacionais e internacionais. Disponibilidade, medidas, especificações, volumes e condições comerciais devem ser consultados caso a caso.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== PRODUCT GRID ===== -->
+        <section class="section section--steel" aria-label="Catálogo de produtos">
+            <div class="container">
+
+                <div class="products-grid">
+
+                    <div class="product-card">
+                        <div class="product-card__media">
+                            <div class="product-visual product-visual--coils" aria-hidden="true"><img src="assets/images/products/coils.png" alt="Bobinas e chapas laminadas a quente" class="product-visual__photo" loading="lazy" onerror="this.style.display='none'"></div>
+                        </div>
+                        <div class="product-card__icon" aria-hidden="true">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/>
+                            </svg>
+                        </div>
+                        <h3 class="product-card__name" data-i18n="product.p1.name">Bobinas e chapas laminadas a quente</h3>
+                        <p class="product-card__description" data-i18n="product.p1.description">Aços planos para aplicações estruturais, componentes industriais e demandas de transformação metalmecânica.</p>
+                        <dl class="product-card__technical">
+                            <div class="product-card__technical-row">
+                                <dt>Formatos</dt>
+                                <dd>Bobinas, chapas e tiras sob consulta.</dd>
+                            </div>
+                            <div class="product-card__technical-row">
+                                <dt>Aplicações</dt>
+                                <dd>Estruturas, implementos, caldeiraria leve e transformação metalmecânica.</dd>
+                            </div>
+                            <div class="product-card__technical-row">
+                                <dt>Confirmar</dt>
+                                <dd>Bitola, largura, qualidade do aço, volume e prazo.</dd>
+                            </div>
+                        </dl>
+                        <div class="product-card__cta">
+                            <a href="mailto:fermac@fermacrepresentacoes.com.br?subject=Contato%20Fermac"
+                               class="btn btn-whatsapp btn-sm"
+                               target="_blank" rel="noopener noreferrer"
+                               data-i18n-aria="whatsapp.aria">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
+                                <span data-i18n="products.card.cta">Solicitar cotação</span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="product-card">
+                        <div class="product-card__media">
+                            <div class="product-visual product-visual--sheets" aria-hidden="true"><img src="assets/images/products/cold-rolled.png" alt="Bobinas e chapas laminadas a frio" class="product-visual__photo" loading="lazy" onerror="this.style.display='none'"></div>
+                        </div>
+                        <div class="product-card__icon" aria-hidden="true">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/>
+                            </svg>
+                        </div>
+                        <h3 class="product-card__name" data-i18n="product.p2.name">Bobinas e chapas laminadas a frio</h3>
+                        <p class="product-card__description" data-i18n="product.p2.description">Produtos com melhor acabamento superficial e controle dimensional para peças, componentes e processos industriais.</p>
+                        <dl class="product-card__technical">
+                            <div class="product-card__technical-row">
+                                <dt>Formatos</dt>
+                                <dd>Bobinas e chapas planas sob consulta.</dd>
+                            </div>
+                            <div class="product-card__technical-row">
+                                <dt>Aplicações</dt>
+                                <dd>Peças com exigência de acabamento, dobra, estampagem e controle dimensional.</dd>
+                            </div>
+                            <div class="product-card__technical-row">
+                                <dt>Confirmar</dt>
+                                <dd>Espessura, acabamento, tolerância, qualidade e condição comercial.</dd>
+                            </div>
+                        </dl>
+                        <div class="product-card__cta">
+                            <a href="mailto:fermac@fermacrepresentacoes.com.br?subject=Contato%20Fermac" class="btn btn-whatsapp btn-sm" target="_blank" rel="noopener noreferrer" data-i18n-aria="whatsapp.aria">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" width="16" height="16"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
+                                <span data-i18n="products.card.cta">Solicitar cotação</span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="product-card">
+                        <div class="product-card__media">
+                            <div class="product-visual product-visual--plates" aria-hidden="true"><img src="assets/images/products/blanks.png" alt="Chapas decapadas" class="product-visual__photo" loading="lazy" onerror="this.style.display='none'"></div>
+                        </div>
+                        <div class="product-card__icon" aria-hidden="true">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                            </svg>
+                        </div>
+                        <h3 class="product-card__name" data-i18n="product.p3.name">Chapas decapadas</h3>
+                        <p class="product-card__description" data-i18n="product.p3.description">Materiais laminados a quente com remoção de carepa, indicados quando a aplicação pede superfície mais limpa.</p>
+                        <dl class="product-card__technical">
+                            <div class="product-card__technical-row">
+                                <dt>Formatos</dt>
+                                <dd>Chapas e bobinas decapadas sob consulta.</dd>
+                            </div>
+                            <div class="product-card__technical-row">
+                                <dt>Aplicações</dt>
+                                <dd>Processos que pedem superfície mais limpa para corte, dobra, solda ou pintura.</dd>
+                            </div>
+                            <div class="product-card__technical-row">
+                                <dt>Confirmar</dt>
+                                <dd>Medida, acabamento, embalagem, volume e disponibilidade.</dd>
+                            </div>
+                        </dl>
+                        <div class="product-card__cta">
+                            <a href="mailto:fermac@fermacrepresentacoes.com.br?subject=Contato%20Fermac" class="btn btn-whatsapp btn-sm" target="_blank" rel="noopener noreferrer" data-i18n-aria="whatsapp.aria">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" width="16" height="16"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
+                                <span data-i18n="products.card.cta">Solicitar cotação</span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="product-card">
+                        <div class="product-card__media">
+                            <div class="product-visual product-visual--plates" aria-hidden="true"><img src="assets/images/products/thick-plates.png" alt="Chapas grossas" class="product-visual__photo" loading="lazy" onerror="this.style.display='none'"></div>
+                        </div>
+                        <div class="product-card__icon" aria-hidden="true">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 3H5a2 2 0 00-2 2v4m6-6h10a2 2 0 012 2v4M9 3v18m0 0h10a2 2 0 002-2v-4M9 21H5a2 2 0 01-2-2v-4m0 0h18"/>
+                            </svg>
+                        </div>
+                        <h3 class="product-card__name" data-i18n="product.p4.name">Chapas grossas</h3>
+                        <p class="product-card__description" data-i18n="product.p4.description">Chapas para estruturas, equipamentos, implementos, caldeiraria e aplicações industriais de maior solicitação.</p>
+                        <dl class="product-card__technical">
+                            <div class="product-card__technical-row">
+                                <dt>Formatos</dt>
+                                <dd>Chapas planas em espessuras e dimensões sob consulta.</dd>
+                            </div>
+                            <div class="product-card__technical-row">
+                                <dt>Aplicações</dt>
+                                <dd>Estruturas, máquinas, equipamentos, bases, implementos e caldeiraria.</dd>
+                            </div>
+                            <div class="product-card__technical-row">
+                                <dt>Confirmar</dt>
+                                <dd>Espessura, largura, comprimento, norma/qualidade e corte.</dd>
+                            </div>
+                        </dl>
+                        <div class="product-card__cta">
+                            <a href="mailto:fermac@fermacrepresentacoes.com.br?subject=Contato%20Fermac" class="btn btn-whatsapp btn-sm" target="_blank" rel="noopener noreferrer" data-i18n-aria="whatsapp.aria">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" width="16" height="16"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
+                                <span data-i18n="products.card.cta">Solicitar cotação</span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="product-card">
+                        <div class="product-card__media">
+                            <div class="product-visual product-visual--painted" aria-hidden="true"><img src="assets/images/products/coated.png" alt="Zincados, galvalume e pré-pintados" class="product-visual__photo" loading="lazy" onerror="this.style.display='none'"></div>
+                        </div>
+                        <div class="product-card__icon" aria-hidden="true">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"/>
+                            </svg>
+                        </div>
+                        <h3 class="product-card__name" data-i18n="product.p5.name">Zincados, galvalume e pré-pintados</h3>
+                        <p class="product-card__description" data-i18n="product.p5.description">Produtos revestidos para aplicações que exigem proteção contra corrosão, acabamento ou exposição externa.</p>
+                        <dl class="product-card__technical">
+                            <div class="product-card__technical-row">
+                                <dt>Formatos</dt>
+                                <dd>Bobinas, chapas e materiais revestidos sob consulta.</dd>
+                            </div>
+                            <div class="product-card__technical-row">
+                                <dt>Aplicações</dt>
+                                <dd>Fechamentos, componentes expostos, acabamento visual e proteção anticorrosiva.</dd>
+                            </div>
+                            <div class="product-card__technical-row">
+                                <dt>Confirmar</dt>
+                                <dd>Revestimento, cor, camada, acabamento, medida e quantidade.</dd>
+                            </div>
+                        </dl>
+                        <div class="product-card__cta">
+                            <a href="mailto:fermac@fermacrepresentacoes.com.br?subject=Contato%20Fermac" class="btn btn-whatsapp btn-sm" target="_blank" rel="noopener noreferrer" data-i18n-aria="whatsapp.aria">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" width="16" height="16"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
+                                <span data-i18n="products.card.cta">Solicitar cotação</span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="product-card">
+                        <div class="product-card__media">
+                            <div class="product-visual product-visual--roofing" aria-hidden="true"><img src="assets/images/products/roofing.png" alt="Telhas metálicas e acessórios" class="product-visual__photo" loading="lazy" onerror="this.style.display='none'"></div>
+                        </div>
+                        <div class="product-card__icon" aria-hidden="true">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4"/>
+                            </svg>
+                        </div>
+                        <h3 class="product-card__name" data-i18n="product.p6.name">Telhas metálicas e acessórios</h3>
+                        <p class="product-card__description" data-i18n="product.p6.description">Telhas trapezoidais, onduladas e acessórios para coberturas, fechamentos e construções industriais ou comerciais.</p>
+                        <dl class="product-card__technical">
+                            <div class="product-card__technical-row">
+                                <dt>Formatos</dt>
+                                <dd>Telhas, perfis e acessórios conforme necessidade do projeto.</dd>
+                            </div>
+                            <div class="product-card__technical-row">
+                                <dt>Aplicações</dt>
+                                <dd>Coberturas, fechamentos laterais, obras industriais e comerciais.</dd>
+                            </div>
+                            <div class="product-card__technical-row">
+                                <dt>Confirmar</dt>
+                                <dd>Perfil, comprimento, cor/revestimento, acessórios e prazo.</dd>
+                            </div>
+                        </dl>
+                        <div class="product-card__cta">
+                            <a href="mailto:fermac@fermacrepresentacoes.com.br?subject=Contato%20Fermac" class="btn btn-whatsapp btn-sm" target="_blank" rel="noopener noreferrer" data-i18n-aria="whatsapp.aria">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" width="16" height="16"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
+                                <span data-i18n="products.card.cta">Solicitar cotação</span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="product-card">
+                        <div class="product-card__media">
+                            <div class="product-visual product-visual--sheets" aria-hidden="true"><img src="assets/images/products/slit-coils.png" alt="Bobinas slitter" class="product-visual__photo" loading="lazy" onerror="this.style.display='none'"></div>
+                        </div>
+                        <div class="product-card__icon" aria-hidden="true">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
+                            </svg>
+                        </div>
+                        <h3 class="product-card__name" data-i18n="product.p7.name">Bobinas slitter (corte longitudinal)</h3>
+                        <p class="product-card__description" data-i18n="product.p7.description">Bobinas estreitas obtidas por corte longitudinal, com largura processada para alimentação direta em linhas de conformação e estampagem.</p>
+                        <dl class="product-card__technical">
+                            <div class="product-card__technical-row">
+                                <dt>Formatos</dt>
+                                <dd>Bobinas estreitas conforme largura solicitada.</dd>
+                            </div>
+                            <div class="product-card__technical-row">
+                                <dt>Aplicações</dt>
+                                <dd>Linhas de conformação, perfilagem, estampagem e dobramento contínuo.</dd>
+                            </div>
+                            <div class="product-card__technical-row">
+                                <dt>Confirmar</dt>
+                                <dd>Largura, bitola, material base, diâmetro e comprimento de bobina.</dd>
+                            </div>
+                        </dl>
+                        <div class="product-card__cta">
+                            <a href="mailto:fermac@fermacrepresentacoes.com.br?subject=Contato%20Fermac" class="btn btn-whatsapp btn-sm" target="_blank" rel="noopener noreferrer" data-i18n-aria="whatsapp.aria">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" width="16" height="16"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
+                                <span data-i18n="products.card.cta">Solicitar cotação</span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="product-card">
+                        <div class="product-card__media">
+                            <div class="product-visual product-visual--coated" aria-hidden="true"><img src="assets/images/products/perfil-u.png" alt="Perfis U e cantoneiras" class="product-visual__photo" loading="lazy" onerror="this.style.display='none'"></div>
+                        </div>
+                        <div class="product-card__icon" aria-hidden="true">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 9l4-4 4 4m0 6l-4 4-4-4"/>
+                            </svg>
+                        </div>
+                        <h3 class="product-card__name" data-i18n="product.p8.name">Perfis U e cantoneiras</h3>
+                        <p class="product-card__description" data-i18n="product.p8.description">Perfis conformados e galvanizados para estruturas metálicas leves, drywall, sistemas de fixação e aplicações construtivas.</p>
+                        <dl class="product-card__technical">
+                            <div class="product-card__technical-row">
+                                <dt>Formatos</dt>
+                                <dd>Perfis U e cantoneiras em diversas bitolas e comprimentos.</dd>
+                            </div>
+                            <div class="product-card__technical-row">
+                                <dt>Aplicações</dt>
+                                <dd>Drywall, estruturas leves, fixação, suporte e obras industriais.</dd>
+                            </div>
+                            <div class="product-card__technical-row">
+                                <dt>Confirmar</dt>
+                                <dd>Medida, espessura, comprimento, revestimento e quantidade.</dd>
+                            </div>
+                        </dl>
+                        <div class="product-card__cta">
+                            <a href="mailto:fermac@fermacrepresentacoes.com.br?subject=Contato%20Fermac" class="btn btn-whatsapp btn-sm" target="_blank" rel="noopener noreferrer" data-i18n-aria="whatsapp.aria">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" width="16" height="16"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
+                                <span data-i18n="products.card.cta">Solicitar cotação</span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="product-card">
+                        <div class="product-card__media">
+                            <div class="product-visual product-visual--coils" aria-hidden="true"><img src="assets/images/products/perfil-w.png" alt="Vigas e perfis W" class="product-visual__photo" loading="lazy" onerror="this.style.display='none'"></div>
+                        </div>
+                        <div class="product-card__icon" aria-hidden="true">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 21h18M3 10h18M3 7l9-4 9 4M4 10h16v11H4V10z"/>
+                            </svg>
+                        </div>
+                        <h3 class="product-card__name" data-i18n="product.p9.name">Vigas e perfis W (laminados)</h3>
+                        <p class="product-card__description" data-i18n="product.p9.description">Perfis estruturais laminados para galpões, pontes, máquinas, equipamentos industriais e aplicações que exigem maior solicitação mecânica.</p>
+                        <dl class="product-card__technical">
+                            <div class="product-card__technical-row">
+                                <dt>Formatos</dt>
+                                <dd>Perfis W conforme norma e especificação do projeto.</dd>
+                            </div>
+                            <div class="product-card__technical-row">
+                                <dt>Aplicações</dt>
+                                <dd>Estruturas, galpões, pontes rolantes, máquinas e equipamentos pesados.</dd>
+                            </div>
+                            <div class="product-card__technical-row">
+                                <dt>Confirmar</dt>
+                                <dd>Perfil, comprimento, qualidade, norma e disponibilidade.</dd>
+                            </div>
+                        </dl>
+                        <div class="product-card__cta">
+                            <a href="mailto:fermac@fermacrepresentacoes.com.br?subject=Contato%20Fermac" class="btn btn-whatsapp btn-sm" target="_blank" rel="noopener noreferrer" data-i18n-aria="whatsapp.aria">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" width="16" height="16"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
+                                <span data-i18n="products.card.cta">Solicitar cotação</span>
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="technical-note">
+                    <strong>Observação técnica:</strong>
+                    as informações acima organizam as famílias de produto para facilitar a conversa comercial.
+                    Espessuras, larguras, comprimentos, normas, acabamentos, revestimentos, tolerâncias,
+                    disponibilidade e condições devem ser confirmados em cada cotação.
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ===== PRODUCTS CTA ===== -->
+        <section class="final-cta" aria-labelledby="products-cta-title">
+            <div class="final-cta-container">
+                <h2 class="final-cta__title" id="products-cta-title" data-i18n="products.cta.title">Precisa confirmar especificação ou disponibilidade?</h2>
+                <p class="final-cta__subtitle" data-i18n="products.cta.description">
+                    Fale com a Fermac para avaliar aplicação, medida, volume, prazo e condição comercial das linhas representadas.
+                </p>
+                <a href="mailto:fermac@fermacrepresentacoes.com.br?subject=Contato%20Fermac"
+                   class="btn btn-whatsapp btn-lg"
+                   target="_blank" rel="noopener noreferrer"
+                   data-i18n-aria="whatsapp.aria">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" width="24" height="24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
+                    <span data-i18n="products.cta.whatsapp">Solicitar cotação</span>
+                </a>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <img src="assets/images/logo.png" alt="Fermac Representações" class="footer-brand__logo" width="100" height="33">
+                    <p class="footer-brand__tagline" data-i18n="footer.tagline">Representação comercial industrial com relacionamento, experiência e acompanhamento próximo.</p>
+                    <p class="footer-brand__location">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" width="14" height="14" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0zM15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                        <span data-i18n="footer.location">Caxias do Sul, RS</span>
+                    </p>
+                </div>
+                <div class="footer-links">
+                    <h3 class="footer-links__title" data-i18n="footer.links.title">Links</h3>
+                    <ul>
+                        <li><a href="index.html" data-i18n="nav.home">Início</a></li>
+                        <li><a href="about.html" data-i18n="nav.about">Sobre</a></li>
+                        <li><a href="products.html" data-i18n="nav.products">Produtos</a></li>
+                        <li><a href="contact.html" data-i18n="nav.contact">Contato</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h3 class="footer-links__title" data-i18n="footer.contact.title">Contato</h3>
+                    <div class="footer-contact__item">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                        <a href="mailto:fermac@fermacrepresentacoes.com.br">fermac@fermacrepresentacoes.com.br</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p class="footer-bottom__copy" data-i18n="footer.copy">© 2026 Fermac Representações.</p>
+                <p class="footer-bottom__cnpj" data-i18n="footer.cnpj">Representação comercial industrial</p>
+            </div>
+        </div>
+    </footer>
+
+    <div class="whatsapp-float">
+        <a href="mailto:fermac@fermacrepresentacoes.com.br?subject=Contato%20Fermac" class="whatsapp-float__link" target="_blank" rel="noopener noreferrer" aria-label="Contato com a Fermac" data-i18n-aria="whatsapp.aria">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
+        </a>
+    </div>
+
+    <script src="scripts/siteController.js"></script>
+</body>
+</html>

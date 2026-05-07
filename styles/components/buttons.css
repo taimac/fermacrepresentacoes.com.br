@@ -1,0 +1,126 @@
+/*
+ * Buttons — Fermac Representações
+ */
+
+/* Base */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-sm);
+    padding: 0.875rem 1.75rem;
+    font-size: var(--text-base);
+    font-weight: var(--font-weight-semibold);
+    line-height: 1;
+    border-radius: var(--border-radius-full);
+    cursor: pointer;
+    text-decoration: none;
+    transition:
+        background var(--duration-normal) var(--ease-out),
+        color var(--duration-normal) var(--ease-out),
+        transform var(--duration-normal) var(--ease-out),
+        box-shadow var(--duration-normal) var(--ease-out);
+    border: 2px solid transparent;
+    white-space: nowrap;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    text-decoration: none;
+}
+
+.btn:active {
+    transform: translateY(0);
+}
+
+/* Primary — amber accent */
+.btn-primary {
+    background: var(--gradient-accent);
+    color: var(--text-white);
+    border-color: transparent;
+    box-shadow: var(--shadow-md);
+}
+
+.btn-primary:hover {
+    box-shadow: var(--shadow-lg);
+    color: var(--text-white);
+}
+
+/* Secondary — outlined white (for dark backgrounds) */
+.btn-secondary {
+    background: transparent;
+    color: var(--text-white);
+    border-color: rgba(255, 255, 255, 0.5);
+}
+
+.btn-secondary:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.8);
+    color: var(--text-white);
+}
+
+/* Secondary dark (for light backgrounds) */
+.btn-secondary-dark {
+    background: transparent;
+    color: var(--primary);
+    border-color: var(--primary);
+}
+
+.btn-secondary-dark:hover {
+    background: var(--primary);
+    color: var(--text-white);
+}
+
+/* WhatsApp button */
+.btn-whatsapp {
+    background: var(--whatsapp-green);
+    color: var(--text-white);
+    border-color: transparent;
+    box-shadow: var(--shadow-md);
+}
+
+.btn-whatsapp:hover {
+    background: var(--whatsapp-hover);
+    color: var(--text-white);
+    box-shadow: var(--shadow-lg);
+}
+
+.btn-whatsapp svg {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+}
+
+/* Small variant */
+.btn-sm {
+    padding: 0.625rem 1.25rem;
+    font-size: var(--text-sm);
+}
+
+/* Large variant */
+.btn-lg {
+    padding: 1.125rem 2.25rem;
+    font-size: var(--text-lg);
+}
+
+/* Text link button */
+.btn-link {
+    background: transparent;
+    color: var(--accent);
+    border: none;
+    padding: 0;
+    font-weight: var(--font-weight-semibold);
+    font-size: inherit;
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-xs);
+    transition: color var(--duration-fast), gap var(--duration-fast);
+    transform: none;
+}
+
+.btn-link:hover {
+    color: var(--accent-hover);
+    gap: var(--space-sm);
+    transform: none;
+    text-decoration: none;
+}

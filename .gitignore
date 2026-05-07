@@ -1,0 +1,9 @@
+# Purpose: Keep local-only Fermac website experiments and OS/runtime files out of the standalone site repo.
+# Date: 2026-05-07
+# Author: Codex
+# Domain: Fermac
+
+.DS_Store
+Thumbs.db
+assets/images/logo-clean.png
+assets/images/logo-original-backup.png

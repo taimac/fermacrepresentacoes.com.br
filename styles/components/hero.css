@@ -1,0 +1,178 @@
+/*
+ * Hero — Fermac Representações
+ * Full-height dark navy hero for home page.
+ * Shorter page-hero for inner pages.
+ */
+
+/* ===== HOME HERO ===== */
+
+.hero {
+    min-height: 92vh;
+    display: flex;
+    align-items: center;
+    background: var(--gradient-hero);
+    position: relative;
+    overflow: hidden;
+    padding-top: 72px; /* navbar height */
+}
+
+/* Subtle steel-grid SVG background pattern */
+.hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+        linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+    background-size: 48px 48px;
+    pointer-events: none;
+}
+
+/* Amber accent glow bottom-right */
+.hero::after {
+    content: '';
+    position: absolute;
+    bottom: -10%;
+    right: -5%;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(217,119,6,0.12) 0%, transparent 70%);
+    pointer-events: none;
+}
+
+.hero-container {
+    position: relative;
+    z-index: 1;
+    max-width: var(--container-xl);
+    margin: 0 auto;
+    padding: var(--space-3xl) var(--space-xl);
+    width: 100%;
+}
+
+.hero-eyebrow {
+    display: inline-block;
+    font-size: var(--text-sm);
+    font-weight: var(--font-weight-semibold);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: var(--space-lg);
+    padding: var(--space-xs) var(--space-md);
+    border: 1px solid rgba(217, 119, 6, 0.4);
+    border-radius: var(--border-radius-full);
+    max-width: 100%;
+    white-space: normal;
+}
+
+.hero-title {
+    font-size: clamp(2.05rem, 4vw, 3.35rem);
+    font-weight: var(--font-weight-extrabold);
+    line-height: var(--line-height-tight);
+    color: var(--text-white);
+    margin-bottom: var(--space-lg);
+    max-width: min(100%, 700px);
+}
+
+.hero-subtitle {
+    font-size: clamp(1.03rem, 1.55vw, var(--text-xl));
+    font-weight: var(--font-weight-normal);
+    color: rgba(255, 255, 255, 0.75);
+    line-height: var(--line-height-relaxed);
+    margin-bottom: var(--space-2xl);
+    max-width: min(100%, 560px);
+}
+
+.hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-md);
+    align-items: center;
+}
+
+/* ===== PAGE HERO (inner pages) ===== */
+
+.page-hero {
+    min-height: 40vh;
+    display: flex;
+    align-items: center;
+    background: var(--gradient-hero);
+    position: relative;
+    overflow: hidden;
+    padding-top: 72px;
+}
+
+.page-hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+        linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+    background-size: 48px 48px;
+    pointer-events: none;
+}
+
+.page-hero-container {
+    position: relative;
+    z-index: 1;
+    max-width: var(--container-xl);
+    margin: 0 auto;
+    padding: var(--space-3xl) var(--space-xl);
+    width: 100%;
+}
+
+.page-hero-title {
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: var(--font-weight-extrabold);
+    color: var(--text-white);
+    margin-bottom: var(--space-md);
+}
+
+.page-hero-subtitle {
+    font-size: var(--text-lg);
+    color: rgba(255, 255, 255, 0.75);
+    max-width: 500px;
+    line-height: var(--line-height-relaxed);
+    margin: 0;
+}
+
+@media (max-width: 768px) {
+    .hero {
+        min-height: auto;
+        padding-top: 64px;
+    }
+    .hero-container, .page-hero-container {
+        padding-left: var(--space-lg);
+        padding-right: var(--space-lg);
+    }
+    .hero-container {
+        padding-top: var(--space-3xl);
+        padding-bottom: var(--space-3xl);
+    }
+    .hero-title {
+        font-size: clamp(1.85rem, 8.8vw, 2.1rem);
+        overflow-wrap: anywhere;
+        max-width: min(100%, 342px);
+    }
+    .hero-subtitle {
+        font-size: var(--text-base);
+        overflow-wrap: anywhere;
+        max-width: min(100%, 342px);
+    }
+    .hero-actions {
+        max-width: min(100%, 342px);
+    }
+    .hero-eyebrow {
+        font-size: var(--text-xs);
+        letter-spacing: 0.08em;
+        line-height: var(--line-height-normal);
+    }
+    .page-hero {
+        min-height: 35vh;
+    }
+    .page-hero-title,
+    .page-hero-subtitle {
+        max-width: min(100%, 342px);
+        overflow-wrap: anywhere;
+    }
+}

@@ -1,0 +1,76 @@
+/* Set height to 100% for body and html to enable the background image to cover the whole page: */
+body,
+html {
+  height: 100%;
+}
+
+.bgimg {
+  /* Background image */
+  background-image: url("./image/page6.jpg");
+  /* Full-screen */
+  height: 100%;
+  /* Center the background image */
+  background-position: center;
+  /* Scale and zoom in the image */
+  background-size: cover;
+  /* Add position: relative to enable absolutely positioned elements inside the image (place text) */
+  position: relative;
+  /* Add a white text color to all elements inside the .bgimg container */
+  color: rgb(250, 250, 250);
+  /* Add a font */
+  font-family: sans-serif;
+  /* Set the font-size to 25 pixels */
+  font-size: 25px;
+}
+
+/* Position text in the top-left corner */
+.topleft {
+  position: absolute;
+  top: -10;
+  left: 6px;
+  font-family: sans-serif;
+}
+
+/* Position text in the bottom-left corner */
+.bottomleft {
+  position: absolute;
+  bottom: 0;
+  left: 16px;
+  font-size: 26px;
+  font-family: cursive;
+  transform: translate(0%, -50%);
+}
+
+.bottomright {
+  position: absolute;
+  bottom: 0;
+  right: 16px;
+  transform: translate(0%, -50%);
+}
+/* Position text in the middle */
+.middle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+/* Style the <hr> element */
+hr {
+  margin: auto;
+  width: 100%;
+  font-size: 35px;
+}
+#New {
+  font-family: "Franklin Gothic Medium";
+  font-size: 85px;
+}
+#Fut {
+  font-family: sans-serif;
+  font-size: 75px;
+}
+#Com {
+  font-family: cursive, "Courier New", "Times New Roman", Times, serif;
+  font-size: 75px;
+}

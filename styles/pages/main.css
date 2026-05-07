@@ -1,0 +1,68 @@
+/*
+ * Main CSS Entry Point — Fermac Representações
+ * Import order: foundation → tokens → typography → layout → components → utils
+ */
+
+/* ===== FOUNDATION ===== */
+@import '../base/reset.css';
+@import '../base/variables.css';
+@import '../base/typography.css';
+
+/* ===== LAYOUT ===== */
+@import '../utils/layout.css';
+
+/* ===== COMPONENTS ===== */
+@import '../components/buttons.css';
+@import '../components/card.css';
+@import '../components/navbar.css';
+@import '../components/hero.css';
+@import '../components/footer.css';
+@import '../components/sections.css';
+@import '../components/stats-bar.css';
+@import '../components/how-it-works.css';
+@import '../components/whatsapp.css';
+@import '../components/lang-switcher.css';
+
+/* ===== RESPONSIVE OVERRIDES ===== */
+@import '../responsive/breakpoints.css';
+
+/* ===== UTILITIES ===== */
+@import '../utils/animation.css';
+
+/* ===== GLOBAL ===== */
+
+.app {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    flex: 1;
+}
+
+/* Skip link */
+.skip-link {
+    position: absolute;
+    top: -40px;
+    left: 6px;
+    background: var(--bg-dark);
+    color: var(--text-white);
+    padding: var(--space-sm) var(--space-md);
+    text-decoration: none;
+    z-index: var(--z-tooltip);
+    border-radius: var(--border-radius-sm);
+    transition: top var(--duration-fast);
+    font-size: var(--text-sm);
+    font-weight: var(--font-weight-medium);
+}
+
+.skip-link:focus {
+    top: 6px;
+}
+
+@media print {
+    .skip-link, .navbar, .footer, .whatsapp-float {
+        display: none;
+    }
+}
