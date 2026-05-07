@@ -41,12 +41,9 @@
 }
 
 .nav-logo img {
-    height: 42px;
+    height: 36px;
     width: auto;
     object-fit: contain;
-    clip-path: inset(13% 2% 13% 2% round 4px);
-    transform: scale(1.08);
-    transform-origin: center;
 }
 
 .nav-logo-text {
@@ -137,7 +134,7 @@
         max-width: 155px;
     }
     .nav-logo img {
-        height: 36px;
+        height: 34px;
     }
     .nav-controls {
         gap: var(--space-sm);

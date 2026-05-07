@@ -57,10 +57,33 @@
     }
     .mobile-menu-btn { display: flex; }
 
+    /* Hero */
+    .hero-grid {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        overflow: hidden;
+        text-align: center;
+    }
+    .hero-copy {
+        width: 100%;
+        max-width: 300px;
+        margin: 0 auto;
+    }
+    .hero-eyebrow {
+        max-width: 100%;
+    }
+    .product-carousel {
+        width: 100%;
+        max-width: 300px;
+    }
+
     /* Hero actions */
     .hero-actions {
         flex-direction: column;
         align-items: stretch;
+        width: min(100%, 300px);
     }
     .btn-primary, .btn-secondary, .btn-whatsapp {
         width: 100%;

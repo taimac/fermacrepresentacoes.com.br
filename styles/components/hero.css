@@ -148,31 +148,44 @@
     .hero-container {
         padding-top: var(--space-3xl);
         padding-bottom: var(--space-3xl);
+        text-align: center;
     }
     .hero-title {
-        font-size: clamp(1.85rem, 8.8vw, 2.1rem);
+        font-size: clamp(1.72rem, 7.4vw, 1.95rem);
         overflow-wrap: anywhere;
-        max-width: min(100%, 342px);
+        max-width: min(100%, 300px);
+        margin-left: auto;
+        margin-right: auto;
     }
     .hero-subtitle {
         font-size: var(--text-base);
         overflow-wrap: anywhere;
-        max-width: min(100%, 342px);
+        max-width: min(100%, 300px);
+        margin-left: auto;
+        margin-right: auto;
     }
     .hero-actions {
-        max-width: min(100%, 342px);
+        width: min(100%, 300px);
+        max-width: min(100%, 300px);
+        margin-left: auto;
+        margin-right: auto;
     }
     .hero-eyebrow {
-        font-size: var(--text-xs);
-        letter-spacing: 0.08em;
+        font-size: 0.68rem;
+        letter-spacing: 0.04em;
         line-height: var(--line-height-normal);
     }
     .page-hero {
         min-height: 35vh;
     }
+    .page-hero-container {
+        text-align: center;
+    }
     .page-hero-title,
     .page-hero-subtitle {
-        max-width: min(100%, 342px);
+        max-width: min(100%, 300px);
         overflow-wrap: anywhere;
+        margin-left: auto;
+        margin-right: auto;
     }
 }
