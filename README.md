@@ -11,9 +11,11 @@ Static website candidate for Fermac Representações.
 
 ## Status
 
-Private standalone repository prepared for staging and review.
+**Live — pending HTTPS certificate.**
 
-Deployment is intentionally not enabled yet.
+Repository is public. GitHub Pages is enabled from `main` / root. HTTPS cert is issued automatically by GitHub/Let's Encrypt (~30 min from Pages activation). Custom domain: `fermacrepresentacoes.com.br`.
+
+Last deployment commit: `bb47538`
 
 ## Stack
 
