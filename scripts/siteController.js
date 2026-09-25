@@ -241,26 +241,15 @@ class EnvieSuaListaController {
         this.confirmation = this.wrap.querySelector('.envie-confirmation');
         if (!this.form || !this.confirmation) return;
         this.origem = this.form.querySelector('input[name="origem"]');
-        this.fileInput = this.form.querySelector('input[type="file"]');
-        this.fileText = this.form.querySelector('.envie-drop__text');
-        this.fileTextDefault = this.fileText ? this.fileText.textContent : '';
-        this.lista = this.form.querySelector('textarea[name="lista"]');
-        this.listaMark = this.lista ? this.lista.closest('.envie-field').querySelector('.envie-req') : null;
         this.openers = Array.from(document.querySelectorAll('button[data-origem][aria-controls="' + wrapId + '"]'));
         this.smooth = !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
         this.openers.forEach(button => button.addEventListener('click', () => this.open(button)));
-        if (this.fileInput) {
-            this.fileInput.addEventListener('change', () => {
-                this._showFileName();
-                this._syncListaRequired();
-            });
-        }
         this.form.addEventListener('submit', event => this._submit(event));
     }
 
-    // "Enviar arquivo" and "Escrever lista" open the same form; the hidden
-    // origem field records which one did.
+    // "Escrever lista" opens the form; the hidden origem field records the
+    // button that opened it. Files go through WhatsApp (card 2) since v1.1.
     open(button) {
         this.openers.forEach(other => {
             const pressed = other === button;
@@ -277,26 +266,7 @@ class EnvieSuaListaController {
             return;
         }
         this.origem.value = button.dataset.origem;
-        if (button.dataset.origem === 'FER-WEB-FILE' && this.fileInput) {
-            this.fileInput.focus({ preventScroll: true });
-            this.fileInput.closest('.envie-drop').scrollIntoView({ behavior, block: 'center' });
-        } else {
-            this.wrap.scrollIntoView({ behavior, block: 'start' });
-        }
-    }
-
-    _showFileName() {
-        if (!this.fileText) return;
-        const file = this.fileInput.files && this.fileInput.files[0];
-        this.fileText.textContent = file ? file.name : this.fileTextDefault;
-    }
-
-    // "Sua lista" is required unless a file is attached: a buyer may send only the file.
-    _syncListaRequired() {
-        if (!this.lista) return;
-        const hasFile = !!(this.fileInput && this.fileInput.files && this.fileInput.files.length);
-        this.lista.required = !hasFile;
-        if (this.listaMark) this.listaMark.hidden = hasFile;
+        this.wrap.scrollIntoView({ behavior, block: 'start' });
     }
 
     async _submit(event) {

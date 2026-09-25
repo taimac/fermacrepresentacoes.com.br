@@ -80,7 +80,8 @@
                             <p class="envie-card__support">Planilha, PDF ou foto do pedido</p>
                         </div>
                     </div>
-                    <button type="button" class="envie-btn envie-btn--outline" data-origem="FER-WEB-FILE" aria-controls="envie-form" aria-expanded="false">Enviar arquivo</button>
+                    <a class="envie-btn envie-btn--outline" href="https://wa.me/5554999921239?text=Ol%C3%A1%2C%20vim%20pelo%20site%20da%20Fermac.%20Vou%20anexar%20minha%20lista%20(planilha%2C%20PDF%20ou%20foto%20do%20pedido).%0A%0AEmpresa%3A%0APrazo%3A%0ACidade%20de%20entrega%3A%0A%0ARef.%3A%20FER-WEB-FILE" target="_blank" rel="noopener" data-origem="FER-WEB-FILE">Enviar pelo WhatsApp</a>
+                    <p class="envie-card__hint">Anexe o arquivo na conversa.</p>
                 </article>
 
                 <article class="envie-card" data-card="FER-WEB-FORM">
@@ -102,7 +103,7 @@
         <!-- ===== FORMULÁRIO (abre abaixo dos cards) ===== -->
         <section class="envie-form-wrap" id="envie-form" hidden>
             <div class="envie-container">
-                <form class="envie-form" action="https://formspree.io/f/xwvywjgd" method="POST" enctype="multipart/form-data">
+                <form class="envie-form" action="https://formspree.io/f/xwvywjgd" method="POST">
                     <input type="hidden" name="origem" value="FER-WEB-FORM">
 
                     <label class="envie-field">
@@ -135,16 +136,6 @@
                         <input type="text" name="cidade" autocomplete="address-level2">
                     </label>
 
-                    <label class="envie-field envie-field--full">
-                        <span class="envie-field__label">Anexar arquivo <span class="envie-opt">(planilha, PDF, JPG/PNG)</span></span>
-                        <span class="envie-drop">
-                            <span class="envie-drop__tile" aria-hidden="true">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.44 11.05-9.19 9.19a6 6 0 0 1-8.49-8.49l8.57-8.57A4 4 0 1 1 18 8.84l-8.59 8.57a2 2 0 0 1-2.83-2.83l8.49-8.48"></path></svg>
-                            </span>
-                            <span class="envie-drop__text">Planilha, PDF ou foto do pedido</span>
-                            <input class="envie-drop__input" type="file" name="anexo" accept=".xls,.xlsx,.csv,.pdf,.jpg,.jpeg,.png">
-                        </span>
-                    </label>
 
                     <div class="envie-form__actions">
                         <button type="submit" class="envie-btn envie-btn--primary envie-btn--submit">Enviar lista</button>
