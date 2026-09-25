@@ -145,49 +145,20 @@
     color: #4B5563;
 }
 
-/* v1.1: 12px hint under card 2's WhatsApp button */
+/*
+ * v1.1: 12px hint under card 2's WhatsApp button. On desktop it sits in the
+ * card's own bottom padding (8px under the button), so no card grows and the
+ * three buttons stay level; on mobile it flows under the button.
+ */
 .envie-card__hint {
-    margin: -8px 0 0;
+    position: absolute;
+    left: 36px;
+    right: 36px;
+    bottom: 10px;
+    margin: 0;
     font: 400 12px/1.5 var(--font-primary);
     color: #6B7280;
     text-align: center;
-}
-
-/*
- * Desktop: only card 2 has a hint, so the cards share row tracks (subgrid):
- * heads, buttons and the hint row line up across the three cards and the
- * buttons stay level. Browsers without subgrid fall back to the flex column.
- */
-@supports (grid-template-rows: subgrid) {
-    @media (min-width: 769px) {
-        .envie-cards__grid {
-            grid-template-rows: auto auto auto;
-            row-gap: 0;
-        }
-
-        .envie-card {
-            display: grid;
-            grid-row: span 3;
-            grid-template-rows: subgrid;
-            row-gap: 16px;
-            align-content: start;
-        }
-
-        .envie-card__head {
-            align-self: start;
-        }
-
-        .envie-card .envie-btn {
-            grid-row: 2;
-            align-self: end;
-            margin-top: 0;
-        }
-
-        .envie-card__hint {
-            grid-row: 3;
-            margin-top: -8px;
-        }
-    }
 }
 
 /* ===== Buttons ===== */
@@ -484,6 +455,43 @@
     color: #AEB6C8;
 }
 
+/*
+ * Narrow desktop (769–960px): three cards share ~700–870px, so the side
+ * padding tightens (the 36px bottom keeps room for the hint) and button
+ * labels may wrap instead of overflowing.
+ */
+@media (min-width: 769px) and (max-width: 960px) {
+    .envie-card {
+        padding: 36px 24px;
+    }
+
+    .envie-card--accent {
+        padding: 35px 23px;
+    }
+
+    .envie-card.is-pressed {
+        padding: 35.5px 23.5px;
+    }
+
+    .envie-card__hint {
+        left: 24px;
+        right: 24px;
+    }
+
+    .envie-btn {
+        height: auto;
+        min-height: 52px;
+        padding: 8px 16px;
+        white-space: normal;
+        line-height: 1.2;
+        text-align: center;
+    }
+
+    .envie-btn--primary {
+        min-height: 56px;
+    }
+}
+
 /* ===== Mobile (artboard 03 / 05 / 06, 390 wide) ===== */
 
 @media (max-width: 768px) {
@@ -588,6 +596,7 @@
     }
 
     .envie-card__hint {
+        position: static;
         margin-top: -6px;
     }
 
@@ -624,7 +633,6 @@
         font-size: 15px;
         line-height: 1.55;
     }
-
 
     .envie-form__actions {
         align-items: stretch;
