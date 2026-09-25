@@ -145,6 +145,51 @@
     color: #4B5563;
 }
 
+/* v1.1: 12px hint under card 2's WhatsApp button */
+.envie-card__hint {
+    margin: -8px 0 0;
+    font: 400 12px/1.5 var(--font-primary);
+    color: #6B7280;
+    text-align: center;
+}
+
+/*
+ * Desktop: only card 2 has a hint, so the cards share row tracks (subgrid):
+ * heads, buttons and the hint row line up across the three cards and the
+ * buttons stay level. Browsers without subgrid fall back to the flex column.
+ */
+@supports (grid-template-rows: subgrid) {
+    @media (min-width: 769px) {
+        .envie-cards__grid {
+            grid-template-rows: auto auto auto;
+            row-gap: 0;
+        }
+
+        .envie-card {
+            display: grid;
+            grid-row: span 3;
+            grid-template-rows: subgrid;
+            row-gap: 16px;
+            align-content: start;
+        }
+
+        .envie-card__head {
+            align-self: start;
+        }
+
+        .envie-card .envie-btn {
+            grid-row: 2;
+            align-self: end;
+            margin-top: 0;
+        }
+
+        .envie-card__hint {
+            grid-row: 3;
+            margin-top: -8px;
+        }
+    }
+}
+
 /* ===== Buttons ===== */
 
 .envie-btn {
@@ -294,67 +339,6 @@
 .envie-field textarea:focus {
     border-color: #D97706;
     box-shadow: 0 0 0 3px rgba(217, 119, 6, .2);
-}
-
-.envie-drop {
-    position: relative;
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    min-height: 72px;
-    padding: 0 20px;
-    border: 1.5px dashed #C3C8D2;
-    border-radius: 8px;
-    background: #F9FAFB;
-    cursor: pointer;
-    transition: border-color var(--duration-fast) var(--ease-out),
-                box-shadow var(--duration-fast) var(--ease-out);
-}
-
-.envie-drop:hover {
-    border-color: #1B2747;
-}
-
-.envie-drop:focus-within {
-    border-color: #D97706;
-    box-shadow: 0 0 0 3px rgba(217, 119, 6, .2);
-}
-
-.envie-drop__tile {
-    flex: none;
-    width: 40px;
-    height: 40px;
-    display: grid;
-    place-items: center;
-    border-radius: 10px;
-    background: #F3F4F6;
-    color: #1B2747;
-}
-
-.envie-drop__tile svg {
-    width: 20px;
-    height: 20px;
-}
-
-.envie-drop__text {
-    min-width: 0;
-    overflow-wrap: anywhere;
-    font: 400 15px/1.4 var(--font-primary);
-    color: #4B5563;
-}
-
-/* Visually hidden but focusable, so "Enviar arquivo" can focus it */
-.envie-drop__input {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0 0 0 0);
-    white-space: nowrap;
-    border: 0;
-    opacity: 0;
 }
 
 .envie-form__actions {
@@ -603,6 +587,10 @@
         line-height: 1.4;
     }
 
+    .envie-card__hint {
+        margin-top: -6px;
+    }
+
     .envie-btn {
         height: 48px;
         font-size: 15px;
@@ -637,26 +625,6 @@
         line-height: 1.55;
     }
 
-    .envie-drop {
-        gap: 12px;
-        min-height: 64px;
-        padding: 0 14px;
-    }
-
-    .envie-drop__tile {
-        width: 36px;
-        height: 36px;
-        border-radius: 8px;
-    }
-
-    .envie-drop__tile svg {
-        width: 18px;
-        height: 18px;
-    }
-
-    .envie-drop__text {
-        font-size: 14px;
-    }
 
     .envie-form__actions {
         align-items: stretch;
