@@ -1,0 +1,731 @@
+/*
+ * Envie sua lista — Fermac Representações
+ * Page-only styles for /envie-sua-lista, from the Claude Design handoff
+ * "design_handoff_envie_sua_lista" (Fermac v0.1): artboards 02 desktop,
+ * 03 mobile, 05 form, 06 confirmation. Values are the handoff tokens.
+ * Loaded after styles/pages/main.css; every rule is scoped to .envie-*
+ * or to this page's body class, so no other page changes.
+ */
+
+.envie-page {
+    background: #FFFFFF;
+}
+
+.envie-container {
+    width: 100%;
+    max-width: calc(1100px + 48px);
+    margin: 0 auto;
+    padding: 0 24px;
+}
+
+/* ===== Hero ===== */
+
+.envie-hero {
+    background-color: #17223F;
+    background-image:
+        linear-gradient(rgba(255, 255, 255, .035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, .035) 1px, transparent 1px),
+        linear-gradient(100deg, #1B2848 0%, #152040 60%, #101831 100%);
+    background-size: 48px 48px, 48px 48px, 100% 100%;
+    padding: calc(72px + 88px) 0 176px; /* fixed navbar is 72px */
+}
+
+.envie-hero__inner {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 24px;
+}
+
+.envie-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    height: 32px;
+    padding: 0 16px;
+    margin: 0;
+    border-radius: 999px;
+    border: 1px solid rgba(217, 119, 6, .7);
+    color: #F59E0B;
+    font: 600 13px/1 var(--font-primary);
+    letter-spacing: .14em;
+    text-transform: uppercase;
+}
+
+.envie-title {
+    margin: 0;
+    font: 800 clamp(34px, 5.2vw, 68px)/1.04 var(--font-primary);
+    letter-spacing: -.025em;
+    color: #FFFFFF;
+}
+
+.envie-subtitle {
+    margin: 0;
+    max-width: 740px;
+    font: 400 20px/1.6 var(--font-primary);
+    color: #C9CFDC;
+    text-wrap: pretty;
+}
+
+/* ===== Cards ===== */
+
+.envie-cards {
+    position: relative;
+    z-index: 1;
+}
+
+.envie-cards__grid {
+    margin-top: -112px;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 24px;
+    align-items: stretch;
+}
+
+.envie-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 36px;
+    background: #FFFFFF;
+    border: 1px solid #E5E7EB;
+    border-radius: 16px;
+    box-shadow: 0 24px 48px -32px rgba(17, 26, 51, .3);
+}
+
+.envie-card--accent {
+    padding: 35px;
+    border: 2px solid #D97706;
+    box-shadow: 0 32px 64px -28px rgba(17, 26, 51, .45);
+}
+
+.envie-card__head {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.envie-card__text {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.envie-card__tile {
+    width: 52px;
+    height: 52px;
+    flex: none;
+    display: grid;
+    place-items: center;
+    border-radius: 12px;
+    background: #F3F4F6;
+    color: #1B2747;
+}
+
+.envie-card__tile svg {
+    width: 26px;
+    height: 26px;
+}
+
+.envie-card--accent .envie-card__tile {
+    background: #FEF3C7;
+    color: #D97706;
+}
+
+.envie-card__title {
+    margin: 0;
+    font: 700 26px/1.2 var(--font-primary);
+    letter-spacing: -.01em;
+    color: #1B2747;
+}
+
+.envie-card__support {
+    margin: 0;
+    font: 400 16px/1.5 var(--font-primary);
+    color: #4B5563;
+}
+
+/* ===== Buttons ===== */
+
+.envie-btn {
+    margin-top: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 52px;
+    padding: 0 20px;
+    border-radius: 999px;
+    border: 1.5px solid #1B2747;
+    background: #FFFFFF;
+    color: #1B2747;
+    font: 600 16px/1 var(--font-primary);
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color var(--duration-fast) var(--ease-out),
+                color var(--duration-fast) var(--ease-out),
+                filter var(--duration-fast) var(--ease-out);
+}
+
+.envie-btn:hover,
+.envie-btn:focus-visible {
+    background: #1B2747;
+    color: #FFFFFF;
+    text-decoration: none;
+}
+
+.envie-btn:focus-visible {
+    outline: 2px solid #D97706;
+    outline-offset: 3px;
+}
+
+.envie-btn--primary {
+    height: 56px;
+    border: 0;
+    background: linear-gradient(180deg, #D97706, #B45309);
+    color: #FFFFFF;
+    font-size: 17px;
+    box-shadow: 0 10px 24px -10px rgba(180, 83, 9, .7);
+}
+
+.envie-btn--primary:hover,
+.envie-btn--primary:focus-visible {
+    background: linear-gradient(180deg, #D97706, #B45309);
+    color: #FFFFFF;
+    filter: brightness(1.06);
+}
+
+/* Pressed: the card whose button opened the form */
+
+.envie-card.is-pressed {
+    padding: 35.5px;
+    border: 1.5px solid #1B2747;
+}
+
+.envie-card.is-pressed .envie-card__tile {
+    background: #1B2747;
+    color: #FFFFFF;
+}
+
+.envie-card.is-pressed .envie-btn {
+    background: #1B2747;
+    color: #FFFFFF;
+}
+
+.envie-card.is-pressed::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: -11px;
+    width: 18px;
+    height: 18px;
+    margin-left: -9px;
+    background: #FFFFFF;
+    border-right: 1.5px solid #1B2747;
+    border-bottom: 1.5px solid #1B2747;
+    transform: rotate(45deg);
+}
+
+/* ===== Form (artboard 05) ===== */
+
+.envie-form-wrap {
+    margin-top: 24px;
+}
+
+.envie-form {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px;
+    padding: 48px;
+    background: #FFFFFF;
+    border: 1.5px solid #1B2747;
+    border-radius: 16px;
+    box-shadow: 0 24px 48px -32px rgba(17, 26, 51, .3);
+}
+
+.envie-field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    min-width: 0;
+    font: 600 14px/1.3 var(--font-primary);
+    color: #1B2747;
+}
+
+.envie-field--full {
+    grid-column: 1 / -1;
+}
+
+.envie-req {
+    color: #B45309;
+}
+
+.envie-opt {
+    font-weight: 400;
+    color: #6B7280;
+}
+
+.envie-field input[type="text"],
+.envie-field textarea {
+    width: 100%;
+    height: 52px;
+    padding: 0 16px;
+    border: 1px solid #D1D5DB;
+    border-radius: 8px;
+    background: #FFFFFF;
+    color: #1B2747;
+    font: 400 16px/1.4 var(--font-primary);
+    outline: none;
+    transition: border-color var(--duration-fast) var(--ease-out),
+                box-shadow var(--duration-fast) var(--ease-out);
+}
+
+.envie-field textarea {
+    height: auto;
+    min-height: 188px;
+    padding: 14px 16px;
+    line-height: 1.6;
+    resize: vertical;
+}
+
+.envie-field input[type="text"]:focus,
+.envie-field textarea:focus {
+    border-color: #D97706;
+    box-shadow: 0 0 0 3px rgba(217, 119, 6, .2);
+}
+
+.envie-drop {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    min-height: 72px;
+    padding: 0 20px;
+    border: 1.5px dashed #C3C8D2;
+    border-radius: 8px;
+    background: #F9FAFB;
+    cursor: pointer;
+    transition: border-color var(--duration-fast) var(--ease-out),
+                box-shadow var(--duration-fast) var(--ease-out);
+}
+
+.envie-drop:hover {
+    border-color: #1B2747;
+}
+
+.envie-drop:focus-within {
+    border-color: #D97706;
+    box-shadow: 0 0 0 3px rgba(217, 119, 6, .2);
+}
+
+.envie-drop__tile {
+    flex: none;
+    width: 40px;
+    height: 40px;
+    display: grid;
+    place-items: center;
+    border-radius: 10px;
+    background: #F3F4F6;
+    color: #1B2747;
+}
+
+.envie-drop__tile svg {
+    width: 20px;
+    height: 20px;
+}
+
+.envie-drop__text {
+    min-width: 0;
+    overflow-wrap: anywhere;
+    font: 400 15px/1.4 var(--font-primary);
+    color: #4B5563;
+}
+
+/* Visually hidden but focusable, so "Enviar arquivo" can focus it */
+.envie-drop__input {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+    border: 0;
+    opacity: 0;
+}
+
+.envie-form__actions {
+    grid-column: 1 / -1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+    padding-top: 8px;
+}
+
+.envie-btn--submit {
+    width: auto;
+    margin-top: 0;
+    padding: 0 40px;
+}
+
+.envie-btn--submit:disabled {
+    cursor: progress;
+    filter: saturate(.7);
+}
+
+.envie-legal {
+    margin: 0;
+    max-width: 640px;
+    font: 400 12px/1.5 var(--font-primary);
+    color: #6B7280;
+}
+
+/* ===== Confirmation (artboard 06) ===== */
+
+.envie-confirmation {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+    padding: 56px 48px;
+    background: #FFFFFF;
+    border: 1.5px solid #1B2747;
+    border-radius: 16px;
+    box-shadow: 0 24px 48px -32px rgba(17, 26, 51, .3);
+}
+
+.envie-confirmation[hidden] {
+    display: none;
+}
+
+.envie-confirmation__check {
+    flex: none;
+    width: 64px;
+    height: 64px;
+    display: grid;
+    place-items: center;
+    border-radius: 999px;
+    background: #FEF3C7;
+    color: #B45309;
+}
+
+.envie-confirmation__check svg {
+    width: 32px;
+    height: 32px;
+}
+
+.envie-confirmation__text {
+    margin: 0;
+    max-width: 760px;
+    font: 700 28px/1.3 var(--font-primary);
+    letter-spacing: -.01em;
+    color: #1B2747;
+    text-wrap: pretty;
+}
+
+/* ===== O que acontece depois ===== */
+
+.envie-after {
+    padding: 72px 0 88px;
+}
+
+.envie-after .envie-container {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+}
+
+.envie-after__label {
+    margin: 0;
+    font: 700 12px/1 var(--font-primary);
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: #D97706;
+}
+
+.envie-after__list {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 24px;
+    margin: 0;
+    padding: 28px 0 0;
+    border-top: 1px solid #E5E7EB;
+    list-style: none;
+}
+
+.envie-after__list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    font: 500 17px/1.5 var(--font-primary);
+    color: #1B2747;
+}
+
+.envie-after__list li > span:last-child {
+    padding-top: 2px;
+}
+
+.envie-check {
+    flex: none;
+    width: 28px;
+    height: 28px;
+    display: grid;
+    place-items: center;
+    border-radius: 999px;
+    background: #FEF3C7;
+    color: #B45309;
+}
+
+.envie-check svg {
+    width: 16px;
+    height: 16px;
+}
+
+.envie-after__legal {
+    margin-top: 12px;
+}
+
+/* ===== Footer trust line (spec §1 "Rodapé de confiança") ===== */
+
+.envie-page .footer-trust {
+    margin: 0 0 var(--space-xl);
+    font: 400 14px/1.5 var(--font-primary);
+    color: #AEB6C8;
+}
+
+/* ===== Mobile (artboard 03 / 05 / 06, 390 wide) ===== */
+
+@media (max-width: 768px) {
+    .envie-hero {
+        background-size: 32px 32px, 32px 32px, 100% 100%;
+        padding: calc(64px + 28px) 0 96px; /* fixed navbar is 64px here */
+    }
+
+    .envie-hero .envie-container {
+        padding: 0 20px;
+    }
+
+    .envie-hero__inner {
+        gap: 14px;
+    }
+
+    .envie-eyebrow {
+        display: block;
+        height: auto;
+        padding: 0;
+        border: 0;
+        border-radius: 0;
+        font: 600 11px/1.5 var(--font-primary);
+        letter-spacing: .12em;
+    }
+
+    .envie-title {
+        font-size: 34px;
+        line-height: 1.08;
+        letter-spacing: -.02em;
+    }
+
+    .envie-subtitle {
+        font-size: 16px;
+        line-height: 1.55;
+    }
+
+    .envie-cards .envie-container,
+    .envie-form-wrap .envie-container {
+        padding: 0 16px;
+    }
+
+    .envie-cards__grid {
+        margin-top: -72px;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .envie-card {
+        gap: 14px;
+        padding: 18px 20px;
+        box-shadow: none;
+    }
+
+    .envie-card--accent {
+        padding: 22px;
+        box-shadow: 0 24px 48px -24px rgba(17, 26, 51, .45);
+    }
+
+    .envie-card.is-pressed {
+        padding: 17.5px 19.5px;
+    }
+
+    .envie-card.is-pressed::after {
+        display: none;
+    }
+
+    .envie-card__head {
+        flex-direction: row;
+        align-items: center;
+        gap: 14px;
+    }
+
+    .envie-card__text {
+        gap: 3px;
+    }
+
+    .envie-card__tile {
+        width: 44px;
+        height: 44px;
+        border-radius: 10px;
+    }
+
+    .envie-card__tile svg {
+        width: 22px;
+        height: 22px;
+    }
+
+    .envie-card__title {
+        font-size: 18px;
+        letter-spacing: 0;
+    }
+
+    .envie-card--accent .envie-card__title {
+        font-size: 20px;
+    }
+
+    .envie-card__support {
+        font-size: 14px;
+        line-height: 1.4;
+    }
+
+    .envie-btn {
+        height: 48px;
+        font-size: 15px;
+    }
+
+    .envie-btn--primary {
+        height: 56px;
+        font-size: 17px;
+    }
+
+    .envie-form-wrap {
+        margin-top: 12px;
+    }
+
+    .envie-form {
+        display: flex;
+        flex-direction: column;
+        gap: 18px;
+        padding: 20px;
+        box-shadow: none;
+    }
+
+    .envie-field input[type="text"] {
+        padding: 0 14px;
+    }
+
+    .envie-field textarea {
+        min-height: 168px;
+        padding: 12px 14px;
+        font-size: 15px;
+        line-height: 1.55;
+    }
+
+    .envie-drop {
+        gap: 12px;
+        min-height: 64px;
+        padding: 0 14px;
+    }
+
+    .envie-drop__tile {
+        width: 36px;
+        height: 36px;
+        border-radius: 8px;
+    }
+
+    .envie-drop__tile svg {
+        width: 18px;
+        height: 18px;
+    }
+
+    .envie-drop__text {
+        font-size: 14px;
+    }
+
+    .envie-form__actions {
+        align-items: stretch;
+        padding-top: 0;
+    }
+
+    .envie-btn--submit {
+        width: 100%;
+    }
+
+    .envie-confirmation {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 20px;
+        padding: 32px 24px;
+        box-shadow: none;
+    }
+
+    .envie-confirmation__check {
+        width: 56px;
+        height: 56px;
+    }
+
+    .envie-confirmation__check svg {
+        width: 28px;
+        height: 28px;
+    }
+
+    .envie-confirmation__text {
+        font-size: 22px;
+        line-height: 1.35;
+        letter-spacing: 0;
+    }
+
+    .envie-after {
+        padding: 40px 0;
+    }
+
+    .envie-after .envie-container {
+        gap: 20px;
+        padding: 0 20px;
+    }
+
+    .envie-after__list {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        padding-top: 20px;
+    }
+
+    .envie-after__list li {
+        gap: 12px;
+        font-size: 16px;
+    }
+
+    .envie-after__list li > span:last-child {
+        padding-top: 0;
+    }
+
+    .envie-check {
+        width: 26px;
+        height: 26px;
+    }
+
+    .envie-check svg {
+        width: 15px;
+        height: 15px;
+    }
+
+    .envie-after__legal {
+        margin-top: 4px;
+    }
+
+    .envie-page .footer-trust {
+        font-size: 13px;
+        line-height: 1.6;
+        text-align: center;
+    }
+}
