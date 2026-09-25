@@ -242,13 +242,18 @@ class EnvieSuaListaController {
         this.fileInput = this.form.querySelector('input[type="file"]');
         this.fileText = this.form.querySelector('.envie-drop__text');
         this.fileTextDefault = this.fileText ? this.fileText.textContent : '';
+        this.lista = this.form.querySelector('textarea[name="lista"]');
+        this.listaMark = this.lista ? this.lista.closest('.envie-field').querySelector('.envie-req') : null;
         this.confirmation = this.wrap.querySelector('.envie-confirmation');
         this.openers = Array.from(document.querySelectorAll('button[data-origem][aria-controls="' + wrapId + '"]'));
         this.smooth = !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
         this.openers.forEach(button => button.addEventListener('click', () => this.open(button)));
         if (this.fileInput) {
-            this.fileInput.addEventListener('change', () => this._showFileName());
+            this.fileInput.addEventListener('change', () => {
+                this._showFileName();
+                this._syncListaRequired();
+            });
         }
         this.form.addEventListener('submit', event => this._submit(event));
     }
@@ -283,6 +288,14 @@ class EnvieSuaListaController {
         if (!this.fileText) return;
         const file = this.fileInput.files && this.fileInput.files[0];
         this.fileText.textContent = file ? file.name : this.fileTextDefault;
+    }
+
+    // "Sua lista" is required unless a file is attached: a buyer may send only the file.
+    _syncListaRequired() {
+        if (!this.lista) return;
+        const hasFile = !!(this.fileInput && this.fileInput.files && this.fileInput.files.length);
+        this.lista.required = !hasFile;
+        if (this.listaMark) this.listaMark.hidden = hasFile;
     }
 
     async _submit(event) {
