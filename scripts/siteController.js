@@ -238,13 +238,14 @@ class EnvieSuaListaController {
         if (!this.wrap) return;
 
         this.form = this.wrap.querySelector('form');
+        this.confirmation = this.wrap.querySelector('.envie-confirmation');
+        if (!this.form || !this.confirmation) return;
         this.origem = this.form.querySelector('input[name="origem"]');
         this.fileInput = this.form.querySelector('input[type="file"]');
         this.fileText = this.form.querySelector('.envie-drop__text');
         this.fileTextDefault = this.fileText ? this.fileText.textContent : '';
         this.lista = this.form.querySelector('textarea[name="lista"]');
         this.listaMark = this.lista ? this.lista.closest('.envie-field').querySelector('.envie-req') : null;
-        this.confirmation = this.wrap.querySelector('.envie-confirmation');
         this.openers = Array.from(document.querySelectorAll('button[data-origem][aria-controls="' + wrapId + '"]'));
         this.smooth = !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -329,6 +330,9 @@ class EnvieSuaListaController {
         this.confirmation.hidden = false;
         const status = this.confirmation.querySelector('[role="status"]');
         status.textContent = status.dataset.message;
+        // The focused submit button left with the form; keep keyboard and
+        // screen-reader users at the answer instead of the top of the page.
+        this.confirmation.focus({ preventScroll: true });
         this.confirmation.scrollIntoView({ behavior: this.smooth ? 'smooth' : 'auto', block: 'center' });
     }
 }

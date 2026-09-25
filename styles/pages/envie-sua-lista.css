@@ -160,6 +160,7 @@
     background: #FFFFFF;
     color: #1B2747;
     font: 600 16px/1 var(--font-primary);
+    white-space: nowrap;
     text-decoration: none;
     cursor: pointer;
     transition: background-color var(--duration-fast) var(--ease-out),
@@ -230,6 +231,7 @@
 
 .envie-form-wrap {
     margin-top: 24px;
+    scroll-margin-top: 96px; /* 72px fixed navbar + 24px */
 }
 
 .envie-form {
@@ -397,6 +399,10 @@
 
 .envie-confirmation[hidden] {
     display: none;
+}
+
+.envie-confirmation:focus {
+    outline: none;
 }
 
 .envie-confirmation__check {
@@ -609,6 +615,7 @@
 
     .envie-form-wrap {
         margin-top: 12px;
+        scroll-margin-top: 88px; /* 64px fixed navbar + 24px */
     }
 
     .envie-form {
