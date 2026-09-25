@@ -230,6 +230,113 @@ class ProductCarouselController {
     }
 }
 
+/* ===================== Envie Sua Lista Page Controller ===================== */
+
+class EnvieSuaListaController {
+    constructor(wrapId = 'envie-form') {
+        this.wrap = document.getElementById(wrapId);
+        if (!this.wrap) return;
+
+        this.form = this.wrap.querySelector('form');
+        this.confirmation = this.wrap.querySelector('.envie-confirmation');
+        if (!this.form || !this.confirmation) return;
+        this.origem = this.form.querySelector('input[name="origem"]');
+        this.fileInput = this.form.querySelector('input[type="file"]');
+        this.fileText = this.form.querySelector('.envie-drop__text');
+        this.fileTextDefault = this.fileText ? this.fileText.textContent : '';
+        this.lista = this.form.querySelector('textarea[name="lista"]');
+        this.listaMark = this.lista ? this.lista.closest('.envie-field').querySelector('.envie-req') : null;
+        this.openers = Array.from(document.querySelectorAll('button[data-origem][aria-controls="' + wrapId + '"]'));
+        this.smooth = !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+        this.openers.forEach(button => button.addEventListener('click', () => this.open(button)));
+        if (this.fileInput) {
+            this.fileInput.addEventListener('change', () => {
+                this._showFileName();
+                this._syncListaRequired();
+            });
+        }
+        this.form.addEventListener('submit', event => this._submit(event));
+    }
+
+    // "Enviar arquivo" and "Escrever lista" open the same form; the hidden
+    // origem field records which one did.
+    open(button) {
+        this.openers.forEach(other => {
+            const pressed = other === button;
+            other.setAttribute('aria-expanded', String(pressed));
+            const card = other.closest('.envie-card');
+            if (card) card.classList.toggle('is-pressed', pressed);
+        });
+        this.wrap.hidden = false;
+        const behavior = this.smooth ? 'smooth' : 'auto';
+
+        if (!this.form) {
+            // Already sent: the confirmation stands where the form was.
+            this.confirmation.scrollIntoView({ behavior, block: 'center' });
+            return;
+        }
+        this.origem.value = button.dataset.origem;
+        if (button.dataset.origem === 'FER-WEB-FILE' && this.fileInput) {
+            this.fileInput.focus({ preventScroll: true });
+            this.fileInput.closest('.envie-drop').scrollIntoView({ behavior, block: 'center' });
+        } else {
+            this.wrap.scrollIntoView({ behavior, block: 'start' });
+        }
+    }
+
+    _showFileName() {
+        if (!this.fileText) return;
+        const file = this.fileInput.files && this.fileInput.files[0];
+        this.fileText.textContent = file ? file.name : this.fileTextDefault;
+    }
+
+    // "Sua lista" is required unless a file is attached: a buyer may send only the file.
+    _syncListaRequired() {
+        if (!this.lista) return;
+        const hasFile = !!(this.fileInput && this.fileInput.files && this.fileInput.files.length);
+        this.lista.required = !hasFile;
+        if (this.listaMark) this.listaMark.hidden = hasFile;
+    }
+
+    async _submit(event) {
+        event.preventDefault();
+        if (!this.form.checkValidity()) {
+            this.form.reportValidity();
+            return;
+        }
+        const button = this.form.querySelector('button[type="submit"]');
+        button.disabled = true;
+        try {
+            const response = await fetch(this.form.action, {
+                method: 'POST',
+                body: new FormData(this.form),
+                headers: { Accept: 'application/json' },
+            });
+            if (!response.ok) throw new Error('Formspree answered ' + response.status);
+            this._confirm();
+        } catch (error) {
+            // Never claim a list arrived when it did not: hand the same form to
+            // Formspree as a normal post, so its own page reports the result.
+            button.disabled = false;
+            HTMLFormElement.prototype.submit.call(this.form);
+        }
+    }
+
+    // Artboard 06: the confirmation replaces the form in the same place.
+    _confirm() {
+        this.form.remove();
+        this.form = null;
+        this.confirmation.hidden = false;
+        const status = this.confirmation.querySelector('[role="status"]');
+        status.textContent = status.dataset.message;
+        // The focused submit button left with the form; keep keyboard and
+        // screen-reader users at the answer instead of the top of the page.
+        this.confirmation.focus({ preventScroll: true });
+        this.confirmation.scrollIntoView({ behavior: this.smooth ? 'smooth' : 'auto', block: 'center' });
+    }
+}
+
 /* ===================== Local Dev Auto Refresh ===================== */
 
 class DevAutoRefreshController {
@@ -325,5 +432,8 @@ document.addEventListener('DOMContentLoaded', () => {
     if (document.body.classList.contains('home-page')) {
         new HomePageController();
         new ProductCarouselController();
+    }
+    if (document.body.classList.contains('envie-page')) {
+        new EnvieSuaListaController();
     }
 });

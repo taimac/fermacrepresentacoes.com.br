@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="pt" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Bobinas, chapas, tiras, blanks, perfis e telhas. Mande o que você precisa do jeito que estiver — planilha, foto do pedido ou uma mensagem — e receba a cotação em até 1 dia útil.">
+    <title>Envie sua lista — Fermac Representações</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="styles/pages/main.css?v=20260507-dev-refresh-2">
+    <link rel="stylesheet" href="styles/pages/envie-sua-lista.css?v=20260924">
+    <script src="translations/strings.js?v=20260507-dev-refresh-2"></script>
+</head>
+<body class="envie-page">
+
+    <a href="#main-content" class="skip-link" data-i18n="skip.link">Ir para o conteúdo</a>
+
+    <!-- ===== NAVBAR ===== -->
+    <header>
+        <nav class="navbar" id="navbar" role="navigation" aria-label="Navegação principal">
+            <div class="nav-container">
+                <a href="index.html" class="nav-logo" aria-label="Fermac Representações — Página inicial">
+                    <img src="assets/images/logo.png" alt="Fermac Representações" width="120" height="40">
+                </a>
+                <ul class="nav-links" role="list">
+                    <li><a href="index.html" data-i18n="nav.home">Início</a></li>
+                    <li><a href="about.html" data-i18n="nav.about">Sobre</a></li>
+                    <li><a href="products.html" data-i18n="nav.products">Produtos</a></li>
+                    <li><a href="contact.html" data-i18n="nav.contact">Contato</a></li>
+                    <li><a href="envie-sua-lista.html" class="nav-cta" lang="pt" aria-current="page">Envie sua lista</a></li>
+                </ul>
+                <div class="nav-controls">
+                    <button id="langToggle" class="lang-toggle" aria-label="Mudar idioma" data-i18n-aria="lang.toggle.aria">EN</button>
+                    <button id="mobileMenuBtn" class="mobile-menu-btn" aria-label="Abrir menu" aria-expanded="false">
+                        <span></span><span></span><span></span>
+                    </button>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main id="main-content" lang="pt">
+
+        <!-- ===== HERO ===== -->
+        <section class="envie-hero" aria-labelledby="envie-title">
+            <div class="envie-container envie-hero__inner">
+                <p class="envie-eyebrow">Representante Panatlântica · aços planos · Serra Gaúcha</p>
+                <h1 class="envie-title" id="envie-title">Precisa de aço? Envie sua lista.</h1>
+                <p class="envie-subtitle">Bobinas, chapas, tiras, blanks, perfis e telhas. Mande o que você precisa do jeito que estiver — planilha, foto do pedido ou uma mensagem — e receba a cotação em até 1 dia útil.</p>
+            </div>
+        </section>
+
+        <!-- ===== TRÊS FORMAS DE ENVIAR ===== -->
+        <section class="envie-cards" aria-label="Três formas de enviar">
+            <div class="envie-container envie-cards__grid">
+
+                <article class="envie-card envie-card--accent">
+                    <div class="envie-card__head">
+                        <div class="envie-card__tile" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"></path></svg>
+                        </div>
+                        <div class="envie-card__text">
+                            <h2 class="envie-card__title">WhatsApp</h2>
+                            <p class="envie-card__support">Mensagem já preenchida, é só completar</p>
+                        </div>
+                    </div>
+                    <a class="envie-btn envie-btn--primary" href="https://wa.me/5554999921239?text=Ol%C3%A1%2C%20vim%20pelo%20site%20da%20Fermac.%20Segue%20minha%20necessidade%3A%0A%0AMaterial%3A%0AEspessura%20%2F%20dimens%C3%A3o%3A%0AQuantidade%3A%0APrazo%3A%0ACidade%20de%20entrega%3A%0A%0ARef.%3A%20FER-WEB-WA" target="_blank" rel="noopener" data-origem="FER-WEB-WA">Abrir WhatsApp</a>
+                </article>
+
+                <article class="envie-card" data-card="FER-WEB-FILE">
+                    <div class="envie-card__head">
+                        <div class="envie-card__tile" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.44 11.05-9.19 9.19a6 6 0 0 1-8.49-8.49l8.57-8.57A4 4 0 1 1 18 8.84l-8.59 8.57a2 2 0 0 1-2.83-2.83l8.49-8.48"></path></svg>
+                        </div>
+                        <div class="envie-card__text">
+                            <h2 class="envie-card__title">Anexar arquivo</h2>
+                            <p class="envie-card__support">Planilha, PDF ou foto do pedido</p>
+                        </div>
+                    </div>
+                    <button type="button" class="envie-btn envie-btn--outline" data-origem="FER-WEB-FILE" aria-controls="envie-form" aria-expanded="false">Enviar arquivo</button>
+                </article>
+
+                <article class="envie-card" data-card="FER-WEB-FORM">
+                    <div class="envie-card__head">
+                        <div class="envie-card__tile" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"></path><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"></path></svg>
+                        </div>
+                        <div class="envie-card__text">
+                            <h2 class="envie-card__title">Digitar aqui</h2>
+                            <p class="envie-card__support">Material, espessura, dimensão, quantidade, prazo</p>
+                        </div>
+                    </div>
+                    <button type="button" class="envie-btn envie-btn--outline" data-origem="FER-WEB-FORM" aria-controls="envie-form" aria-expanded="false">Escrever lista</button>
+                </article>
+
+            </div>
+        </section>
+
+        <!-- ===== FORMULÁRIO (abre abaixo dos cards) ===== -->
+        <section class="envie-form-wrap" id="envie-form" hidden>
+            <div class="envie-container">
+                <form class="envie-form" action="https://formspree.io/f/xwvywjgd" method="POST" enctype="multipart/form-data">
+                    <input type="hidden" name="origem" value="FER-WEB-FORM">
+
+                    <label class="envie-field">
+                        <span class="envie-field__label">Empresa <span class="envie-req">*</span></span>
+                        <input type="text" name="empresa" required autocomplete="organization">
+                    </label>
+
+                    <label class="envie-field">
+                        <span class="envie-field__label">Seu nome <span class="envie-req">*</span></span>
+                        <input type="text" name="nome" required autocomplete="name">
+                    </label>
+
+                    <label class="envie-field envie-field--full">
+                        <span class="envie-field__label">WhatsApp ou e-mail para resposta <span class="envie-req">*</span></span>
+                        <input type="text" name="contato" required>
+                    </label>
+
+                    <label class="envie-field envie-field--full">
+                        <span class="envie-field__label">Sua lista <span class="envie-req">*</span></span>
+                        <textarea name="lista" rows="6" required placeholder="Ex.: Chapa ZC 0,50 x 1200 x 3000 — 1.500 kg — outubro&#10;     Tira FQ 2,25 x 90 — 2.000 kg — quando possível"></textarea>
+                    </label>
+
+                    <label class="envie-field">
+                        <span class="envie-field__label">Prazo necessário <span class="envie-opt">(opcional)</span></span>
+                        <input type="text" name="prazo">
+                    </label>
+
+                    <label class="envie-field">
+                        <span class="envie-field__label">Cidade de entrega <span class="envie-opt">(opcional)</span></span>
+                        <input type="text" name="cidade" autocomplete="address-level2">
+                    </label>
+
+                    <label class="envie-field envie-field--full">
+                        <span class="envie-field__label">Anexar arquivo <span class="envie-opt">(planilha, PDF, JPG/PNG)</span></span>
+                        <span class="envie-drop">
+                            <span class="envie-drop__tile" aria-hidden="true">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.44 11.05-9.19 9.19a6 6 0 0 1-8.49-8.49l8.57-8.57A4 4 0 1 1 18 8.84l-8.59 8.57a2 2 0 0 1-2.83-2.83l8.49-8.48"></path></svg>
+                            </span>
+                            <span class="envie-drop__text">Planilha, PDF ou foto do pedido</span>
+                            <input class="envie-drop__input" type="file" name="anexo" accept=".xls,.xlsx,.csv,.pdf,.jpg,.jpeg,.png">
+                        </span>
+                    </label>
+
+                    <div class="envie-form__actions">
+                        <button type="submit" class="envie-btn envie-btn--primary envie-btn--submit">Enviar lista</button>
+                        <p class="envie-legal">Seus dados são usados apenas para responder à sua solicitação. Não compartilhamos com terceiros nem enviamos comunicação não solicitada.</p>
+                    </div>
+                </form>
+
+                <div class="envie-confirmation" tabindex="-1" hidden>
+                    <div class="envie-confirmation__check" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg>
+                    </div>
+                    <p class="envie-confirmation__text" role="status" data-message="Lista recebida. Você recebe a cotação em até 1 dia útil no contato informado."></p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== O QUE ACONTECE DEPOIS ===== -->
+        <section class="envie-after" aria-labelledby="envie-after-title">
+            <div class="envie-container">
+                <h2 class="envie-after__label" id="envie-after-title">O que acontece depois</h2>
+                <ul class="envie-after__list" role="list">
+                    <li>
+                        <span class="envie-check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg></span>
+                        <span>Você recebe confirmação na hora</span>
+                    </li>
+                    <li>
+                        <span class="envie-check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg></span>
+                        <span>Cotação com preço, prazo e alternativas de fornecimento</span>
+                    </li>
+                    <li>
+                        <span class="envie-check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg></span>
+                        <span>Sem cadastro, sem lista de e-mails</span>
+                    </li>
+                </ul>
+                <p class="envie-legal envie-after__legal">Seus dados são usados apenas para responder à sua solicitação. Não compartilhamos com terceiros nem enviamos comunicação não solicitada.</p>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <img src="assets/images/logo.png" alt="Fermac Representações" class="footer-brand__logo" width="100" height="33">
+                    <p class="footer-brand__tagline" data-i18n="footer.tagline">Representação comercial industrial com relacionamento, experiência e acompanhamento próximo.</p>
+                    <p class="footer-brand__location">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" width="14" height="14" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0zM15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                        <span data-i18n="footer.location">Caxias do Sul, RS</span>
+                    </p>
+                </div>
+                <div class="footer-links">
+                    <h3 class="footer-links__title" data-i18n="footer.links.title">Links</h3>
+                    <ul>
+                        <li><a href="index.html" data-i18n="nav.home">Início</a></li>
+                        <li><a href="about.html" data-i18n="nav.about">Sobre</a></li>
+                        <li><a href="products.html" data-i18n="nav.products">Produtos</a></li>
+                        <li><a href="contact.html" data-i18n="nav.contact">Contato</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h3 class="footer-links__title" data-i18n="footer.contact.title">Contato</h3>
+                    <div class="footer-contact__item">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                        <a href="mailto:fermac@fermacrepresentacoes.com.br">fermac@fermacrepresentacoes.com.br</a>
+                    </div>
+                </div>
+            </div>
+            <p class="footer-trust" lang="pt">Representante Panatlântica desde 2002 · Caxias do Sul, RS · fermacrepresentacoes.com.br · WhatsApp (54) 99992-1239</p>
+            <div class="footer-bottom">
+                <p class="footer-bottom__copy" data-i18n="footer.copy">© 2026 Fermac Representações.</p>
+                <p class="footer-bottom__cnpj" data-i18n="footer.cnpj">Representação comercial industrial</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="scripts/siteController.js?v=20260924"></script>
+</body>
+</html>

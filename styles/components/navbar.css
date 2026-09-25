@@ -95,6 +95,31 @@
     transform: scaleX(1);
 }
 
+/* "Envie sua lista" — the accented last item (design handoff, spec §7) */
+.nav-links a.nav-cta,
+.nav-links a.nav-cta.active {
+    display: inline-flex;
+    align-items: center;
+    height: 36px;
+    padding: 0 16px;
+    border: 1px solid #D97706;
+    border-radius: 999px;
+    background: rgba(217, 119, 6, .08);
+    color: #F59E0B;
+    transition: background-color var(--duration-fast) var(--ease-out),
+                color var(--duration-fast) var(--ease-out);
+}
+
+.nav-links a.nav-cta::after {
+    display: none;
+}
+
+.nav-links a.nav-cta:hover,
+.nav-links a.nav-cta:focus-visible {
+    background: #D97706;
+    color: #FFFFFF;
+}
+
 /* Nav controls (lang toggle + hamburger) */
 .nav-controls {
     display: flex;
@@ -135,6 +160,13 @@
     }
     .nav-logo img {
         height: 32px;
+    }
+    .nav-links a.nav-cta,
+    .nav-links a.nav-cta.active {
+        width: auto;
+        min-height: 48px;
+        justify-content: center;
+        padding: 0 24px;
     }
     .nav-controls {
         gap: var(--space-sm);
