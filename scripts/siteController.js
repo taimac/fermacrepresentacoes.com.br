@@ -31,10 +31,16 @@ class NavbarController {
         this.navbar.querySelectorAll('.nav-links a').forEach(link => {
             const href = link.getAttribute('href');
             if (!href) return;
-            const target = new URL(href, window.location.href);
+            let target;
+            try {
+                target = new URL(href, window.location.href);
+            } catch (error) {
+                return; // a malformed href must not stop the other controllers
+            }
             if (target.origin === window.location.origin
                 && NavbarController.pagePath(target.pathname) === current) {
                 link.classList.add('active');
+                link.setAttribute('aria-current', 'page');
             }
         });
     }
@@ -173,10 +179,21 @@ class SmoothScrollController {
     constructor() {
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
-                const target = document.querySelector(this.getAttribute('href'));
+                const hash = this.getAttribute('href');
+                let target = null;
+                try {
+                    target = document.querySelector(hash);
+                } catch (error) {
+                    return; // "#" alone, or not a valid selector
+                }
                 if (target) {
                     e.preventDefault();
                     target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    // Move keyboard and screen-reader focus with the view
+                    // (skip link, group chips), and keep the hash shareable.
+                    if (!target.hasAttribute('tabindex')) target.setAttribute('tabindex', '-1');
+                    target.focus({ preventScroll: true });
+                    history.replaceState(null, '', hash);
                 }
             });
         });
@@ -380,13 +397,14 @@ class TecnicoDecoderController {
         // A short query that is a code matches codes only ("NO" is also
         // inside "normal"); longer words ("chapa", "tira") search everything.
         const byCode = query.length <= 2 && this.rows.some(({ code }) => code === query);
-        // A typed measure ("1,25") finds the thickness row.
-        const isNumber = /^\d+([,.]\d+)?$/.test(query);
+        // A typed measure ("1,25") also finds the thickness row; a bare
+        // number ("7008", "36") searches the text like any other query.
+        const isMeasure = /^\d+[,.]\d+$/.test(query);
         let shown = 0;
         this.rows.forEach(({ row, code, text }) => {
             const match = !query
-                || (isNumber ? 'number' in row.dataset
-                    : byCode ? code.includes(query) : text.includes(query));
+                || (isMeasure && 'number' in row.dataset)
+                || (byCode ? code.includes(query) : text.includes(query));
             row.hidden = !match;
             if (match) shown += 1;
         });
