@@ -188,7 +188,7 @@ test('an unknown shape is a programming error', () => {
     assert.throws(() => P.calculate('perfil', {}));
 });
 
-test('the only density the page shows is 7,85 kg/dm³', () => {
+test('the only density the page shows is 7,85 kg/dm³, and the note gives no other factor', () => {
     const html = fs.readFileSync(path.join(__dirname, '..', 'tecnico', 'calculadora-peso.html'), 'utf8');
     const densities = [...html.matchAll(/(\d+[,.]\d+)\s*kg\/dm³/g)].map(match => match[1]);
     assert.ok(densities.length > 0, 'the page states its density');
@@ -196,4 +196,11 @@ test('the only density the page shows is 7,85 kg/dm³', () => {
     // Every factor in the formulas is 7,85 too.
     const factors = [...html.matchAll(/×\s*(\d+[,.]\d+)\s*</g)].map(match => match[1]);
     assert.deepEqual([...new Set(factors)], ['7,85']);
+    // The note under the result names no percentage and no other factor.
+    assert.ok(!/\d\s*%/.test(html), 'no percentage on the page');
+    assert.ok(!/cerca de/i.test(html), 'no "cerca de" estimate on the page');
+    const decimals = [...html.matchAll(/\b(\d+),(\d+)\b/g)].map(match => Number(match[1] + '.' + match[2]));
+    assert.ok(decimals.every(value => value <= 7.85 || value > 20),
+        'no decimal factor between 7,85 and 20 on the page');
+    assert.ok(html.includes('O peso comercial informado em uma cotação pode diferir do peso teórico calculado aqui, conforme o critério de cálculo adotado pelo fornecedor.'));
 });
