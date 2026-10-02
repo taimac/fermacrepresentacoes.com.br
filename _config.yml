@@ -1,0 +1,6 @@
+# Purpose: GitHub Pages (Jekyll) build settings for the static site.
+# Date: 2026-10-02
+# Domain: Fermac
+# The unit tests are for development only and are not published.
+exclude:
+  - tests
