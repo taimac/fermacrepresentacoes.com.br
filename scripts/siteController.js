@@ -24,14 +24,31 @@ class NavbarController {
         }
     }
 
+    // Compare whole resolved paths, not file names: /tecnico/index.html and
+    // /index.html share a file name, and /tecnico/ has none.
     _setActiveLink() {
-        const current = window.location.pathname.split('/').pop() || 'index.html';
+        const current = NavbarController.pagePath(window.location.pathname);
         this.navbar.querySelectorAll('.nav-links a').forEach(link => {
             const href = link.getAttribute('href');
-            if (href && href.includes(current)) {
+            if (!href) return;
+            let target;
+            try {
+                target = new URL(href, window.location.href);
+            } catch (error) {
+                return; // a malformed href must not stop the other controllers
+            }
+            if (target.origin === window.location.origin
+                && NavbarController.pagePath(target.pathname) === current) {
                 link.classList.add('active');
+                link.setAttribute('aria-current', 'page');
             }
         });
+    }
+
+    // "/a/index.html", "/a/index", "/a/" name one page; so do "/a/x.html"
+    // and "/a/x" (GitHub Pages serves both).
+    static pagePath(pathname) {
+        return pathname.replace(/\.html$/, '').replace(/\/index$/, '/');
     }
 }
 
@@ -162,10 +179,21 @@ class SmoothScrollController {
     constructor() {
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
-                const target = document.querySelector(this.getAttribute('href'));
+                const hash = this.getAttribute('href');
+                let target = null;
+                try {
+                    target = document.querySelector(hash);
+                } catch (error) {
+                    return; // "#" alone, or not a valid selector
+                }
                 if (target) {
                     e.preventDefault();
                     target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    // Move keyboard and screen-reader focus with the view
+                    // (skip link, group chips), and keep the hash shareable.
+                    if (!target.hasAttribute('tabindex')) target.setAttribute('tabindex', '-1');
+                    target.focus({ preventScroll: true });
+                    history.replaceState(null, '', hash);
                 }
             });
         });
@@ -244,8 +272,33 @@ class EnvieSuaListaController {
         this.openers = Array.from(document.querySelectorAll('button[data-origem][aria-controls="' + wrapId + '"]'));
         this.smooth = !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+        this._applyArrivalOrigem();
         this.openers.forEach(button => button.addEventListener('click', () => this.open(button)));
         this.form.addEventListener('submit', event => this._submit(event));
+    }
+
+    // A /tecnico page links here with ?origem=FER-WEB-TEC-<SLUG> (CAM-FER-001
+    // §5). That code then replaces the card codes in the WhatsApp prefills
+    // and in the form. Without it, or with anything else, the page keeps its
+    // own codes (FER-WEB-WA, FER-WEB-FILE, FER-WEB-FORM).
+    _applyArrivalOrigem() {
+        let code;
+        try {
+            code = new URLSearchParams(window.location.search).get('origem');
+        } catch (error) {
+            return;
+        }
+        if (!code || code.length > 48 || !/^FER-WEB-TEC-[A-Z0-9]+(?:-[A-Z0-9]+)*$/.test(code)) return;
+
+        document.querySelectorAll('a[data-origem][href^="https://wa.me/"]').forEach(link => {
+            const href = link.getAttribute('href');
+            const own = 'Ref.%3A%20' + link.dataset.origem;
+            if (!href.endsWith(own)) return;
+            link.setAttribute('href', href.slice(0, -own.length) + 'Ref.%3A%20' + code);
+            link.dataset.origem = code;
+        });
+        this.openers.forEach(button => { button.dataset.origem = code; });
+        if (this.origem) this.origem.value = code;
     }
 
     // "Escrever lista" opens the form; the hidden origem field records the
@@ -304,6 +357,65 @@ class EnvieSuaListaController {
         // screen-reader users at the answer instead of the top of the page.
         this.confirmation.focus({ preventScroll: true });
         this.confirmation.scrollIntoView({ behavior: this.smooth ? 'smooth' : 'auto', block: 'center' });
+    }
+}
+
+/* ===================== Tecnico Decoder Controller ===================== */
+
+// Decodificador de descrições: a lookup box over the code list. The list
+// is plain HTML and readable without this script; the box only appears
+// when the script runs.
+class TecnicoDecoderController {
+    constructor() {
+        this.root = document.querySelector('[data-decoder]');
+        this.box = document.querySelector('[data-decoder-search]');
+        if (!this.root || !this.box) return;
+
+        this.input = this.box.querySelector('input');
+        this.status = this.box.querySelector('[role="status"]');
+        this.empty = this.root.querySelector('[data-decoder-empty]');
+        this.toc = document.querySelector('.tec-toc');
+        this.groups = Array.from(this.root.querySelectorAll('.tec-group'));
+        this.rows = Array.from(this.root.querySelectorAll('.tec-code')).map(row => ({
+            row,
+            code: TecnicoDecoderController.fold(row.querySelector('dt').textContent),
+            text: TecnicoDecoderController.fold(row.textContent + ' ' + (row.dataset.terms || '')),
+        }));
+
+        this.box.hidden = false;
+        this.input.addEventListener('input', () => this.filter());
+    }
+
+    // Case- and accent-insensitive, and blind to spaces, so "nbr 7008"
+    // finds NBR7008 and "decapado" finds DEC.
+    static fold(value) {
+        return value.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/\s+/g, '');
+    }
+
+    filter() {
+        const query = TecnicoDecoderController.fold(this.input.value);
+        // A short query that is a code matches codes only ("NO" is also
+        // inside "normal"); longer words ("chapa", "tira") search everything.
+        const byCode = query.length <= 2 && this.rows.some(({ code }) => code === query);
+        // A typed measure ("1,25") also finds the thickness row; a bare
+        // number ("7008", "36") searches the text like any other query.
+        const isMeasure = /^\d+[,.]\d+$/.test(query);
+        let shown = 0;
+        this.rows.forEach(({ row, code, text }) => {
+            const match = !query
+                || (isMeasure && 'number' in row.dataset)
+                || (byCode ? code.includes(query) : text.includes(query));
+            row.hidden = !match;
+            if (match) shown += 1;
+        });
+        this.groups.forEach(group => {
+            group.hidden = !group.querySelector('.tec-code:not([hidden])');
+        });
+        if (this.toc) this.toc.hidden = Boolean(query);
+        this.empty.hidden = shown > 0;
+        this.status.textContent = query
+            ? (shown === 1 ? '1 código encontrado.' : shown + ' códigos encontrados.')
+            : '';
     }
 }
 
@@ -405,5 +517,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     if (document.body.classList.contains('envie-page')) {
         new EnvieSuaListaController();
+    }
+    if (document.body.classList.contains('tecnico-decoder-page')) {
+        new TecnicoDecoderController();
     }
 });

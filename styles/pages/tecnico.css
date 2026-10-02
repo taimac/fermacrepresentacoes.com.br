@@ -1,0 +1,408 @@
+/*
+ * Biblioteca técnica (/tecnico/)
+ * Page-only styles for the brand-neutral /tecnico pages. Loaded after
+ * styles/pages/main.css; every rule is scoped to .tec-* or to the
+ * .tecnico-page body class, so no other page changes. Colours, spacing
+ * and type come from styles/base/variables.css.
+ */
+
+.tecnico-page {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+}
+
+.tecnico-page main {
+    flex: 1 0 auto;
+}
+
+.tec-container {
+    width: 100%;
+    max-width: calc(var(--container-md) + 2 * var(--space-lg));
+    margin: 0 auto;
+    padding: 0 var(--space-lg);
+}
+
+/* ===== Wordmark (text only, no company name) ===== */
+
+.tec-wordmark {
+    font-size: var(--text-lg);
+    white-space: nowrap;
+}
+
+/* The text wordmark is wider than the logo image the navbar caps for. */
+.tecnico-page .nav-logo {
+    max-width: none;
+}
+
+/* ===== Hero ===== */
+
+.tec-hero {
+    background: var(--gradient-hero);
+    padding: calc(72px + var(--space-3xl)) 0 var(--space-3xl); /* fixed navbar is 72px */
+}
+
+.tec-eyebrow {
+    margin: 0 0 var(--space-md);
+    color: var(--color-warning);
+    font-size: var(--text-sm);
+    font-weight: var(--font-weight-semibold);
+    letter-spacing: .12em;
+    text-transform: uppercase;
+}
+
+.tec-title {
+    margin: 0 0 var(--space-md);
+    color: var(--text-white);
+    font-size: clamp(var(--text-3xl), 5vw, var(--text-5xl));
+    font-weight: var(--font-weight-extrabold);
+    line-height: var(--line-height-tight);
+    letter-spacing: -.02em;
+}
+
+.tec-lead {
+    margin: 0;
+    max-width: 640px;
+    color: var(--text-on-dark);
+    font-size: var(--text-lg);
+    line-height: var(--line-height-relaxed);
+    text-wrap: pretty;
+}
+
+/* ===== Body ===== */
+
+.tec-body {
+    padding: var(--space-2xl) 0 var(--space-3xl);
+}
+
+.tec-section-title {
+    margin: 0 0 var(--space-lg);
+    color: var(--primary);
+    font-size: var(--text-2xl);
+    font-weight: var(--font-weight-bold);
+}
+
+/* ===== Index: page list ===== */
+
+.tec-pages {
+    display: grid;
+    gap: var(--space-md);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.tec-page-card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+    padding: var(--space-lg);
+    border: 1px solid var(--border-light);
+    border-radius: var(--border-radius-xl);
+    background: var(--bg-primary);
+    box-shadow: var(--shadow-sm);
+    color: var(--text-primary);
+    text-decoration: none;
+    transition: border-color var(--duration-fast) var(--ease-out),
+                box-shadow var(--duration-fast) var(--ease-out);
+}
+
+.tec-page-card:hover,
+.tec-page-card:focus-visible {
+    border-color: var(--border-accent);
+    box-shadow: var(--shadow-md);
+    text-decoration: none;
+}
+
+.tec-page-card:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+}
+
+.tec-page-card__title {
+    color: var(--primary);
+    font-size: var(--text-xl);
+    font-weight: var(--font-weight-bold);
+}
+
+.tec-page-card__text {
+    color: var(--text-secondary);
+    line-height: var(--line-height-normal);
+}
+
+/* ===== Decoder: search ===== */
+
+.tec-search {
+    margin-bottom: var(--space-lg);
+}
+
+.tec-search[hidden] {
+    display: none;
+}
+
+.tec-search__label {
+    display: block;
+    margin-bottom: var(--space-sm);
+    color: var(--text-primary);
+    font-size: var(--text-sm);
+    font-weight: var(--font-weight-semibold);
+}
+
+.tec-search__input {
+    width: 100%;
+    height: 52px;
+    padding: 0 var(--space-md);
+    border: 1.5px solid var(--border-medium);
+    border-radius: var(--border-radius-lg);
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    font: var(--font-weight-normal) var(--text-base) var(--font-primary);
+}
+
+.tec-search__input:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px var(--accent-light);
+}
+
+.tec-search__status {
+    min-height: 1.5em;
+    margin: var(--space-sm) 0 0;
+    color: var(--text-secondary);
+    font-size: var(--text-sm);
+}
+
+/* ===== Decoder: group index ===== */
+
+.tec-toc ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+    margin: 0 0 var(--space-xl);
+    padding: 0;
+    list-style: none;
+}
+
+.tec-toc a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 36px;
+    padding: 0 var(--space-md);
+    border: 1px solid var(--border-light);
+    border-radius: var(--border-radius-full);
+    background: var(--bg-secondary);
+    color: var(--primary);
+    font-size: var(--text-sm);
+    font-weight: var(--font-weight-medium);
+    text-decoration: none;
+}
+
+.tec-toc a:hover,
+.tec-toc a:focus-visible {
+    border-color: var(--primary);
+    text-decoration: none;
+}
+
+.tec-toc[hidden] {
+    display: none;
+}
+
+/* ===== Decoder: groups and codes ===== */
+
+.tec-group {
+    padding: var(--space-xl) 0;
+    border-top: 1px solid var(--border-light);
+    scroll-margin-top: calc(72px + var(--space-md));
+}
+
+.tec-group[hidden] {
+    display: none;
+}
+
+.tec-group__title {
+    margin: 0 0 var(--space-xs);
+    color: var(--primary);
+    font-size: var(--text-2xl);
+    font-weight: var(--font-weight-bold);
+}
+
+.tec-group__intro {
+    margin: 0 0 var(--space-lg);
+    color: var(--text-secondary);
+    line-height: var(--line-height-normal);
+}
+
+.tec-codes {
+    display: grid;
+    gap: var(--space-sm);
+    margin: 0;
+}
+
+.tec-code {
+    display: grid;
+    grid-template-columns: 9rem minmax(0, 1fr);
+    gap: var(--space-md);
+    align-items: baseline;
+    padding: var(--space-md) var(--space-lg);
+    border: 1px solid var(--border-light);
+    border-radius: var(--border-radius-lg);
+    background: var(--bg-secondary);
+}
+
+.tec-code[hidden] {
+    display: none;
+}
+
+.tec-code dt {
+    color: var(--primary);
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: var(--text-lg);
+    font-weight: var(--font-weight-bold);
+    overflow-wrap: anywhere;
+}
+
+.tec-code dd {
+    margin: 0;
+    color: var(--text-primary);
+    line-height: var(--line-height-normal);
+}
+
+.tec-empty {
+    margin: var(--space-xl) 0 0;
+    padding: var(--space-lg);
+    border: 1px dashed var(--border-medium);
+    border-radius: var(--border-radius-lg);
+    color: var(--text-secondary);
+}
+
+.tec-empty[hidden] {
+    display: none;
+}
+
+/* ===== CTA (the only branded element) ===== */
+
+.tec-cta {
+    margin-top: var(--space-2xl);
+    padding: var(--space-xl);
+    border: 2px solid var(--border-accent);
+    border-radius: var(--border-radius-xl);
+    background: var(--bg-primary);
+    box-shadow: var(--shadow-lg);
+}
+
+.tec-cta__sponsor {
+    margin: 0 0 var(--space-sm);
+    color: var(--accent-hover);
+    font-size: var(--text-sm);
+    font-weight: var(--font-weight-semibold);
+    letter-spacing: .06em;
+    text-transform: uppercase;
+}
+
+.tec-cta__title {
+    margin: 0 0 var(--space-sm);
+    color: var(--primary);
+    font-size: var(--text-3xl);
+    font-weight: var(--font-weight-extrabold);
+    letter-spacing: -.01em;
+}
+
+.tec-cta__text {
+    margin: 0 0 var(--space-lg);
+    max-width: 560px;
+    color: var(--text-secondary);
+    font-size: var(--text-lg);
+    line-height: var(--line-height-relaxed);
+}
+
+/* Same shape as Envie sua lista's primary button (.envie-btn--primary). */
+.tec-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 56px;
+    padding: 0 var(--space-xl);
+    border-radius: var(--border-radius-full);
+    background: var(--gradient-accent);
+    box-shadow: var(--shadow-md);
+    color: var(--text-white);
+    font-size: var(--text-lg);
+    font-weight: var(--font-weight-semibold);
+    white-space: nowrap;
+    text-decoration: none;
+    transition: filter var(--duration-fast) var(--ease-out);
+}
+
+.tec-btn:hover,
+.tec-btn:focus-visible {
+    color: var(--text-white);
+    filter: brightness(1.06);
+    text-decoration: none;
+}
+
+.tec-btn:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+}
+
+/* ===== Footer (brand-neutral) ===== */
+
+.tec-footer {
+    padding: var(--space-xl) 0;
+    background: var(--bg-dark);
+    color: var(--text-on-dark);
+    font-size: var(--text-sm);
+    line-height: var(--line-height-normal);
+}
+
+.tec-footer p {
+    margin: 0 0 var(--space-sm);
+}
+
+.tec-footer p:last-child {
+    margin-bottom: 0;
+}
+
+.tec-footer a {
+    color: var(--text-white);
+}
+
+/* ===== Phone ===== */
+
+@media (max-width: 768px) {
+    .tec-container {
+        padding: 0 var(--space-md);
+    }
+
+    .tec-hero {
+        padding: calc(64px + var(--space-xl)) 0 var(--space-xl); /* fixed navbar is 64px here */
+    }
+
+    .tec-lead {
+        font-size: var(--text-base);
+    }
+
+    .tec-group {
+        scroll-margin-top: calc(64px + var(--space-md));
+    }
+
+    .tec-code {
+        grid-template-columns: minmax(0, 1fr);
+        gap: var(--space-xs);
+        padding: var(--space-md);
+    }
+
+    .tec-cta {
+        padding: var(--space-lg);
+    }
+
+    .tec-cta__title {
+        font-size: var(--text-2xl);
+    }
+
+    .tec-btn {
+        width: 100%;
+    }
+}
