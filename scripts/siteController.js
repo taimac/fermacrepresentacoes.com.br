@@ -535,8 +535,10 @@ class TecnicoPesoController {
         else this.status.textContent = '';
     }
 
-    // The measures as they were read, so "1.250" typed as a thickness is
-    // visible as 1.250 mm rather than silently used.
+    // The measures as they were read, without thousands dots, so a dotted
+    // width or length read as thousands ("25.400" → 25400 mm) is visible
+    // rather than silently used. (In the thickness field a lone dot is a
+    // decimal mark: "1.250" is 1,25 mm.)
     _describe(shape, v) {
         const m = (mm, min) => this.calc.formatMeasure(mm, min);
         if (shape === 'bobina' || shape === 'tira-rolo') {

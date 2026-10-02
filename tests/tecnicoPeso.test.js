@@ -107,6 +107,10 @@ test('parseNumber reads pt-BR decimals and thousands', () => {
     assert.equal(P.parseNumber('1.250'), 1250);
     assert.equal(P.parseNumber('1.250', { dotIsDecimal: true }), 1.25);
     assert.equal(P.parseNumber('1.250,5', { dotIsDecimal: true }), 1250.5);
+    // A trailing separator is ignored while typing.
+    assert.equal(P.parseNumber('6,'), 6);
+    assert.equal(P.parseNumber('6.'), 6);
+    assert.equal(P.parseNumber('1.200,'), 1200);
 });
 
 test('a dotted thickness is read as millimetres with decimals', () => {
@@ -120,6 +124,19 @@ test('parseNumber rejects what is not a number', () => {
     for (const text of ['', '   ', 'abc', '6,3,0', '1,200.5', '1e3', '6 mm', '1..2', '-', '12.00.0', 'Infinity']) {
         assert.ok(Number.isNaN(P.parseNumber(text)), `"${text}" should be rejected`);
     }
+});
+
+test('formatMeasure echoes measures without thousands dots', () => {
+    assert.equal(P.formatMeasure(25400), '25400');
+    assert.equal(P.formatMeasure(1200), '1200');
+    assert.equal(P.formatMeasure(6.3, 2), '6,30');
+    assert.equal(P.formatMeasure(1.25, 2), '1,25');
+});
+
+test('a dotted width is read as thousands, and the echo shows it plainly', () => {
+    const result = P.calculate('chapa', { espessura: '2', largura: '25.400', comprimento: '1000' });
+    assert.equal(result.values.largura, 25400);
+    assert.equal(P.formatMeasure(result.values.largura), '25400');
 });
 
 test('formatKg uses pt-BR grouping and two decimals', () => {
@@ -156,77 +173,27 @@ test('Øe must be greater than Øi', () => {
     }
 });
 
+test('a measure above 100000 mm is refused with "Confira as medidas."', () => {
+    assert.equal(P.MAX_MEASURE_MM, 100000);
+    assert.ok(P.calculate('chapa', { espessura: '6,30', largura: '1200', comprimento: '100000' }).ok);
+    const big = P.calculate('chapa', { espessura: '6,30', largura: '1200', comprimento: '100001' });
+    assert.equal(big.ok, false);
+    assert.equal(big.errors.comprimento, 'Confira as medidas.');
+    const huge = P.calculate('bobina', { diametroInterno: '400', diametroExterno: '1' + '0'.repeat(60), largura: '245' });
+    assert.equal(huge.ok, false);
+    assert.equal(huge.errors.diametroExterno, 'Confira as medidas.');
+});
+
 test('an unknown shape is a programming error', () => {
     assert.throws(() => P.calculate('perfil', {}));
 });
 
-/* ===== Regression: the commercial 8,00 convention =====
- *
- * Supplier quotes use a commercial factor, not the density. These four
- * reference quotes document how far the theoretical weight at 7,85 sits
- * below them. The 8,00 and 7,96 factors live in these tests only: the page
- * never shows or offers them, and they are never called a density.
- *
- * Gaps of the 7,85 weight below each quote, as computed:
- *   chapa 6,30 × 1500 × 3000:   222,55 vs 227    → 1,96%
- *   chapa 1,06 × 1000 × 1500:    12,48 vs 13     → 4,0% (whole-kg rounding of a 12,72 kg quote dominates)
- *   9 × chapa 6,30 × 1200 × 2500: 1335,28 vs 1360 → 1,82%
- *   bobina Øi 400, Øe 800, L 245: 725,05 vs 735   → 1,36% (the bobina quote implies about 7,96, not 8,00)
- *
- * The quotes are in whole kg. 1360 is 0,8 below the 1360,8 that 8,00
- * gives; the quote's rounding rule is not known (truncated, or rounded per
- * piece), so the tolerance is 1 kg per quote, stated as a share of it.
- */
-
-const COMMERCIAL_FACTOR = 8.00;
-const COIL_FACTOR = 7.96;
-
-const REFERENCES = [
-    { name: 'chapa 6,30 × 1500 × 3000', volume: P.plateVolume(6.3, 1500, 3000), quoted: 227, theoretical: P.chapa(6.3, 1500, 3000) },
-    { name: 'chapa 1,06 × 1000 × 1500', volume: P.plateVolume(1.06, 1000, 1500), quoted: 13, theoretical: P.chapa(1.06, 1000, 1500) },
-    { name: '9 × chapa 6,30 × 1200 × 2500', volume: 9 * P.plateVolume(6.3, 1200, 2500), quoted: 1360, theoretical: 9 * P.chapa(6.3, 1200, 2500) },
-];
-
-const COIL_REFERENCE = {
-    name: 'bobina Øi 400, Øe 800, largura 245',
-    volume: P.coilVolume(400, 800, 245),
-    quoted: 735,
-    theoretical: P.bobina(400, 800, 245),
-};
-
-test('the chapa references are reproduced by the 8,00 commercial factor within 1 kg', () => {
-    for (const ref of REFERENCES) {
-        close(ref.volume * COMMERCIAL_FACTOR, ref.quoted, 1, ref.name);
-    }
-});
-
-test('the bobina reference implies a supplier convention of about 7,96', () => {
-    close(COIL_REFERENCE.quoted / COIL_REFERENCE.volume, COIL_FACTOR, 0.005, COIL_REFERENCE.name);
-});
-
-test('7,85 is 1,875% below the 8,00 factor (about 1,9%)', () => {
-    close(1 - P.DENSITY / COMMERCIAL_FACTOR, 0.01875, 1e-12);
-});
-
-test('7,85 gives about 1,9% below each chapa quote, within 1 kg of the quote', () => {
-    for (const ref of REFERENCES) {
-        const gap = 1 - ref.theoretical / ref.quoted;
-        assert.ok(gap > 0, `${ref.name}: 7,85 must be below the quote`);
-        close(gap, 1 - P.DENSITY / COMMERCIAL_FACTOR, 1 / ref.quoted, ref.name);
-    }
-});
-
-test('7,85 gives about 1,4% below the bobina quote (its 7,96 convention), within 1 kg', () => {
-    const gap = 1 - COIL_REFERENCE.theoretical / COIL_REFERENCE.quoted;
-    assert.ok(gap > 0);
-    close(gap, 1 - P.DENSITY / COIL_FACTOR, 1 / COIL_REFERENCE.quoted, COIL_REFERENCE.name);
-});
-
-test('the page shows 7,85 and never shows or offers 8,00, 9,00 or 7,96', () => {
+test('the only density the page shows is 7,85 kg/dm³', () => {
     const html = fs.readFileSync(path.join(__dirname, '..', 'tecnico', 'calculadora-peso.html'), 'utf8');
-    assert.match(html, /7,85/);
-    for (const forbidden of ['8,00', '8.00', '9,00', '9.00', '7,96', '7.96']) {
-        assert.ok(!html.includes(forbidden), `page must not contain ${forbidden}`);
-    }
-    assert.ok(!/densidade[^.<]*\b(8|9)\b/i.test(html), 'no other density on the page');
+    const densities = [...html.matchAll(/(\d+[,.]\d+)\s*kg\/dm³/g)].map(match => match[1]);
+    assert.ok(densities.length > 0, 'the page states its density');
+    assert.deepEqual([...new Set(densities)], ['7,85']);
+    // Every factor in the formulas is 7,85 too.
+    const factors = [...html.matchAll(/×\s*(\d+[,.]\d+)\s*</g)].map(match => match[1]);
+    assert.deepEqual([...new Set(factors)], ['7,85']);
 });

@@ -20,6 +20,12 @@
 
     const DENSITY = 7.85; // kg/dm³, carbon steel
 
+    // A conservative technical ceiling: no single measure of a flat steel
+    // product reaches 100 m. Anything above it is a typing slip.
+    const MAX_MEASURE_MM = 100000;
+
+    const CHECK_MEASURES = 'Confira as medidas.';
+
     const MM_PER_DM = 100;
 
     // Thickness × width × length, all in mm → dm³.
@@ -65,15 +71,18 @@
      * ("6.30", "0.5", "0.500"), because that is what a buyer typing a
      * thickness means. With options.dotIsDecimal (the thickness field) a
      * lone dot is always a decimal mark, so "1.250" is 1,25 mm: no flat
-     * product is 1.250 mm thick. Spaces are ignored. A leading minus is read, so the caller can say
-     * "maior que zero" rather than "use só números". Returns a number, or
-     * NaN for anything else.
+     * product is 1.250 mm thick. Spaces are ignored. A trailing comma or
+     * dot is ignored ("6," → 6), so a field is not flagged while the user
+     * is still typing "6,30". A leading minus is read, so the caller can
+     * say "maior que zero" rather than "use só números". Returns a number,
+     * or NaN for anything else.
      */
     function parseNumber(text, options) {
         if (typeof text !== 'string') return NaN;
         let value = text.replace(/\s+/g, '');
         const sign = value.startsWith('-') ? -1 : 1;
         if (sign < 0) value = value.slice(1);
+        value = value.replace(/^(\d[\d.,]*)[,.]$/, '$1');
         if (!value) return NaN;
         const dotIsDecimal = Boolean(options && options.dotIsDecimal);
         let normal;
@@ -102,13 +111,15 @@
         return FORMAT_DECIMALS.format(kg) + ' kg';
     }
 
-    // Measures echoed back as read: 1200 → "1.200"; 6.3 with two
-    // minimum decimals (a thickness) → "6,30".
+    // Measures echoed back as read, without thousands dots, so a dotted
+    // input read as thousands shows plainly: "25.400" → "25400";
+    // 6.3 with two minimum decimals (a thickness) → "6,30".
     function formatMeasure(mm, minimumFractionDigits) {
         const min = minimumFractionDigits || 0;
         return new Intl.NumberFormat('pt-BR', {
             minimumFractionDigits: min,
             maximumFractionDigits: Math.max(min, 3),
+            useGrouping: false,
         }).format(mm);
     }
 
@@ -144,6 +155,8 @@
                 errors[field] = 'Use só números, com vírgula para decimais (ex.: 6,30).';
             } else if (!(number > 0)) {
                 errors[field] = 'A medida precisa ser maior que zero.';
+            } else if (number > MAX_MEASURE_MM) {
+                errors[field] = CHECK_MEASURES;
             } else {
                 values[field] = number;
             }
@@ -158,11 +171,13 @@
         const kg = spec.form === 'plate'
             ? chapa(values.espessura, values.largura, values.comprimento)
             : bobina(values.diametroInterno, values.diametroExterno, values.largura);
+        if (!Number.isFinite(kg)) return { ok: false, errors: { [spec.fields[0]]: CHECK_MEASURES } };
         return { ok: true, kg, values };
     }
 
     return {
         DENSITY,
+        MAX_MEASURE_MM,
         SHAPES,
         plateVolume,
         coilVolume,
