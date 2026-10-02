@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="pt" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Quanto pesa uma chapa, uma bobina ou uma tira de aço-carbono? Informe as medidas em milímetros e veja o peso teórico, calculado com a densidade de 7,85 kg/dm³.">
+    <meta name="robots" content="index, follow">
+    <title>Calculadora de peso teórico — Biblioteca técnica</title>
+    <link rel="canonical" href="https://fermacrepresentacoes.com.br/tecnico/calculadora-peso.html">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="../styles/pages/main.css?v=20260507-dev-refresh-2">
+    <link rel="stylesheet" href="../styles/pages/tecnico.css?v=20261002-t01">
+</head>
+<body class="tecnico-page tecnico-peso-page">
+
+    <a href="#main-content" class="skip-link">Ir para o conteúdo</a>
+
+    <!-- ===== NAVBAR (brand-neutral: the /tecnico shell carries no company name) ===== -->
+    <header>
+        <nav class="navbar" id="navbar" role="navigation" aria-label="Navegação da biblioteca técnica">
+            <div class="nav-container">
+                <a href="./" class="nav-logo" aria-label="Biblioteca técnica — início">
+                    <span class="nav-logo-text tec-wordmark">Biblioteca técnica</span>
+                </a>
+                <ul class="nav-links" id="tec-nav-links" role="list">
+                    <li><a href="./">Início</a></li>
+                    <li><a href="calculadora-peso.html">Calculadora de peso</a></li>
+                    <li><a href="decodificador.html">Decodificador</a></li>
+                </ul>
+                <div class="nav-controls">
+                    <button id="mobileMenuBtn" class="mobile-menu-btn" aria-label="Abrir menu" aria-controls="tec-nav-links" aria-expanded="false">
+                        <span></span><span></span><span></span>
+                    </button>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main id="main-content" lang="pt">
+
+        <!-- ===== HERO ===== -->
+        <section class="tec-hero" aria-labelledby="tec-title">
+            <div class="tec-container">
+                <p class="tec-eyebrow">Biblioteca técnica · aços planos</p>
+                <h1 class="tec-title" id="tec-title">Calculadora de peso teórico</h1>
+                <p class="tec-lead">Quanto pesa uma chapa 6,30 × 1200 × 3000? Quantos quilos tem uma bobina? Informe as medidas em milímetros e veja o peso teórico de uma chapa, bobina ou tira de aço-carbono, calculado com a densidade de 7,85 kg/dm³.</p>
+            </div>
+        </section>
+
+        <section class="tec-body" aria-label="Calculadora">
+            <div class="tec-container">
+
+                <!-- ===== CALCULATOR (shown only when the script runs; the formulas below work without it) ===== -->
+                <form class="tec-calc" data-peso-form hidden novalidate>
+
+                    <fieldset class="tec-choice">
+                        <legend class="tec-choice__legend">O que você quer pesar?</legend>
+                        <div class="tec-choice__options">
+                            <label class="tec-choice__option"><input type="radio" name="forma" value="chapa" checked> <span>Chapa</span></label>
+                            <label class="tec-choice__option"><input type="radio" name="forma" value="bobina"> <span>Bobina</span></label>
+                            <label class="tec-choice__option"><input type="radio" name="forma" value="tira"> <span>Tira</span></label>
+                        </div>
+                    </fieldset>
+
+                    <fieldset class="tec-choice" data-peso-tira hidden>
+                        <legend class="tec-choice__legend">Como você tem as medidas da tira?</legend>
+                        <div class="tec-choice__options">
+                            <label class="tec-choice__option"><input type="radio" name="tira" value="comprimento" checked> <span>Pelo comprimento</span></label>
+                            <label class="tec-choice__option"><input type="radio" name="tira" value="rolo"> <span>Pelos diâmetros do rolo</span></label>
+                        </div>
+                    </fieldset>
+
+                    <div class="tec-fields">
+                        <div class="tec-field" data-field="espessura">
+                            <label class="tec-field__label" for="peso-espessura">Espessura (mm)</label>
+                            <input class="tec-field__input" id="peso-espessura" name="espessura" type="text" inputmode="decimal" autocomplete="off" spellcheck="false" placeholder="ex.: 6,30" aria-describedby="peso-espessura-erro">
+                            <p class="tec-field__error" id="peso-espessura-erro"></p>
+                        </div>
+                        <div class="tec-field" data-field="diametroInterno">
+                            <label class="tec-field__label" for="peso-di">Diâmetro interno, Øi (mm)</label>
+                            <input class="tec-field__input" id="peso-di" name="diametroInterno" type="text" inputmode="decimal" autocomplete="off" spellcheck="false" aria-describedby="peso-di-erro">
+                            <p class="tec-field__error" id="peso-di-erro"></p>
+                        </div>
+                        <div class="tec-field" data-field="diametroExterno">
+                            <label class="tec-field__label" for="peso-de">Diâmetro externo, Øe (mm)</label>
+                            <input class="tec-field__input" id="peso-de" name="diametroExterno" type="text" inputmode="decimal" autocomplete="off" spellcheck="false" aria-describedby="peso-de-erro">
+                            <p class="tec-field__error" id="peso-de-erro"></p>
+                        </div>
+                        <div class="tec-field" data-field="largura">
+                            <label class="tec-field__label" for="peso-largura">Largura (mm)</label>
+                            <input class="tec-field__input" id="peso-largura" name="largura" type="text" inputmode="decimal" autocomplete="off" spellcheck="false" placeholder="ex.: 1200" aria-describedby="peso-largura-erro">
+                            <p class="tec-field__error" id="peso-largura-erro"></p>
+                        </div>
+                        <div class="tec-field" data-field="comprimento">
+                            <label class="tec-field__label" for="peso-comprimento">Comprimento (mm)</label>
+                            <input class="tec-field__input" id="peso-comprimento" name="comprimento" type="text" inputmode="decimal" autocomplete="off" spellcheck="false" placeholder="ex.: 3000" aria-describedby="peso-comprimento-erro">
+                            <p class="tec-field__error" id="peso-comprimento-erro"></p>
+                        </div>
+                    </div>
+
+                    <button class="tec-btn tec-btn--calc" type="submit">Calcular</button>
+
+                    <div class="tec-result" data-peso-result role="group" aria-labelledby="peso-resultado-rotulo" hidden>
+                        <p class="tec-result__label" id="peso-resultado-rotulo">Peso teórico — sem margem de corte e sem embalagem</p>
+                        <p class="tec-result__value" data-peso-value></p>
+                        <p class="tec-result__measures" data-peso-measures></p>
+                        <p class="tec-result__note">O peso comercial informado em uma cotação pode diferir do peso teórico calculado aqui, conforme o critério de cálculo adotado pelo fornecedor.</p>
+                    </div>
+                    <p class="sr-only" role="status" aria-live="polite" data-peso-status></p>
+                </form>
+
+                <!-- ===== FORMULAS (readable without the script) ===== -->
+                <section class="tec-formulas" aria-labelledby="tec-formulas-title">
+                    <h2 class="tec-section-title" id="tec-formulas-title">Como a conta é feita</h2>
+                    <p>Peso teórico = volume × densidade. A densidade do aço-carbono é 7,85 kg/dm³. As medidas entram em milímetros e são divididas por 100, para virar decímetros: assim o volume sai em dm³ e o peso, em quilos.</p>
+                    <dl class="tec-formula-list">
+                        <div class="tec-formula">
+                            <dt>Chapa</dt>
+                            <dd><span class="tec-formula__math">espessura × largura × comprimento × 7,85</span> Com as três medidas em decímetros.</dd>
+                        </div>
+                        <div class="tec-formula">
+                            <dt>Bobina</dt>
+                            <dd><span class="tec-formula__math">π/4 × (Øe² − Øi²) × largura × 7,85</span> Com as medidas em decímetros. Øe é o diâmetro externo e Øi, o interno: a conta pega a área do anel entre os dois e multiplica pela largura.</dd>
+                        </div>
+                        <div class="tec-formula">
+                            <dt>Tira</dt>
+                            <dd>Cortada no comprimento, a conta é a da chapa. Em rolo, é a da bobina, com a largura da tira.</dd>
+                        </div>
+                    </dl>
+                    <p class="tec-formulas__example">Exemplo: chapa 6,30 × 1200 × 3000 mm. Em decímetros, 0,063 × 12 × 30 = 22,68 dm³; e 22,68 × 7,85 = 178,04 kg.</p>
+                </section>
+
+                <!-- ===== CTA: the only place the page names a company ===== -->
+                <aside class="tec-cta" aria-labelledby="tec-cta-title">
+                    <p class="tec-cta__sponsor">Fermac Representações · representante Panatlântica</p>
+                    <h2 class="tec-cta__title" id="tec-cta-title">Precisa cotar?</h2>
+                    <p class="tec-cta__text">Mande o que você precisa do jeito que estiver — planilha, foto do pedido ou uma mensagem — e receba a cotação em até 1 dia útil.</p>
+                    <a class="tec-btn" href="../envie-sua-lista.html?origem=FER-WEB-TEC-CALCULADORA-PESO">Envie sua lista</a>
+                </aside>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ===== FOOTER (brand-neutral) ===== -->
+    <footer class="tec-footer">
+        <div class="tec-container">
+            <p>Biblioteca técnica · conteúdo escrito com palavras próprias. Normas são citadas só como referência; nenhum texto, tabela ou figura é reproduzido.</p>
+            <p><a href="./">Início da biblioteca</a></p>
+        </div>
+    </footer>
+
+    <script src="../scripts/tecnicoPeso.js?v=20261002-t01"></script>
+    <script src="../scripts/siteController.js?v=20261002-t01"></script>
+</body>
+</html>

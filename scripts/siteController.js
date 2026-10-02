@@ -419,6 +419,139 @@ class TecnicoDecoderController {
     }
 }
 
+/* ===================== Tecnico Peso Controller ===================== */
+
+// Calculadora de peso teórico: the form over scripts/tecnicoPeso.js (loaded
+// before this file as window.TecnicoPeso). The formulas on the page are
+// plain HTML and readable without this script; the form only appears when
+// the script runs. Results are computed on "Calcular" and then follow
+// every edit of the measures; changing the shape starts over, so the new
+// shape's empty fields are not flagged before the user types.
+class TecnicoPesoController {
+    constructor(calc) {
+        this.calc = calc;
+        this.form = document.querySelector('[data-peso-form]');
+        if (!this.calc || !this.form) return;
+
+        this.tiraChoice = this.form.querySelector('[data-peso-tira]');
+        this.fields = new Map(Array.from(this.form.querySelectorAll('.tec-field')).map(field => [
+            field.dataset.field,
+            { field, input: field.querySelector('input'), error: field.querySelector('.tec-field__error') },
+        ]));
+        this.result = this.form.querySelector('[data-peso-result]');
+        this.value = this.form.querySelector('[data-peso-value]');
+        this.measures = this.form.querySelector('[data-peso-measures]');
+        this.status = this.form.querySelector('[data-peso-status]');
+        this.live = false;
+
+        this.form.hidden = false;
+        this._applyShape();
+        this.form.addEventListener('change', event => {
+            if (event.target.type === 'radio') {
+                this._applyShape();
+                this._reset();
+            }
+        });
+        this.form.addEventListener('input', event => {
+            if (this.live && event.target.type !== 'radio') this._update(false);
+        });
+        this.form.addEventListener('submit', event => {
+            event.preventDefault();
+            this.live = true;
+            this._update(true);
+        });
+    }
+
+    // "chapa", "bobina", "tira-comprimento" or "tira-rolo"
+    _shape() {
+        const forma = this.form.querySelector('input[name="forma"]:checked').value;
+        if (forma !== 'tira') return forma;
+        return 'tira-' + this.form.querySelector('input[name="tira"]:checked').value;
+    }
+
+    // Show only the fields the shape needs; values typed in shared fields
+    // (largura) are kept when the shape changes.
+    _applyShape() {
+        const shape = this._shape();
+        this.tiraChoice.hidden = !shape.startsWith('tira');
+        const needed = this.calc.SHAPES[shape].fields;
+        this.fields.forEach(({ field, input }, key) => {
+            field.hidden = !needed.includes(key);
+            if (field.hidden) this._setError(key, '');
+            input.disabled = field.hidden;
+        });
+    }
+
+    // Back to the state before the first "Calcular": no result, no errors.
+    _reset() {
+        this.live = false;
+        this.result.hidden = true;
+        this.status.textContent = '';
+        this.fields.forEach((_, key) => this._setError(key, ''));
+    }
+
+    // Empty the live region first, so the same message twice is announced
+    // twice.
+    _announce(message) {
+        this.status.textContent = '';
+        window.requestAnimationFrame(() => { this.status.textContent = message; });
+    }
+
+    _setError(key, message) {
+        const { input, error } = this.fields.get(key);
+        error.textContent = message;
+        if (message) input.setAttribute('aria-invalid', 'true');
+        else input.removeAttribute('aria-invalid');
+    }
+
+    _update(fromSubmit) {
+        const shape = this._shape();
+        const needed = this.calc.SHAPES[shape].fields;
+        const raw = {};
+        needed.forEach(key => { raw[key] = this.fields.get(key).input.value; });
+        const outcome = this.calc.calculate(shape, raw);
+
+        needed.forEach(key => this._setError(key, outcome.ok ? '' : (outcome.errors[key] || '')));
+        if (!outcome.ok) {
+            this.result.hidden = true;
+            if (fromSubmit) {
+                const first = needed.find(key => outcome.errors[key]);
+                this.fields.get(first).input.focus();
+                this._announce('Confira as medidas destacadas.');
+            } else {
+                this.status.textContent = '';
+            }
+            return;
+        }
+
+        const weight = this.calc.formatKg(outcome.kg);
+        const measures = this._describe(shape, outcome.values);
+        this.value.textContent = weight;
+        this.measures.textContent = measures;
+        this.result.hidden = false;
+        // Announce on "Calcular" only; edits update the visible result
+        // quietly and leave no stale announcement behind.
+        if (fromSubmit) this._announce('Peso teórico: ' + weight + '. ' + measures + '.');
+        else this.status.textContent = '';
+    }
+
+    // The measures as they were read, without thousands dots, so a dotted
+    // width or length read as thousands ("25.400" → 25400 mm) is visible
+    // rather than silently used. (In the thickness field a lone dot is a
+    // decimal mark: "1.250" is 1,25 mm.)
+    _describe(shape, v) {
+        const m = (mm, min) => this.calc.formatMeasure(mm, min);
+        if (shape === 'bobina' || shape === 'tira-rolo') {
+            const name = shape === 'bobina' ? 'Bobina' : 'Rolo de tira';
+            return name + ': Øi ' + m(v.diametroInterno) + ' mm, Øe ' + m(v.diametroExterno)
+                + ' mm, largura ' + m(v.largura) + ' mm';
+        }
+        const name = shape === 'chapa' ? 'Chapa' : 'Tira';
+        return name + ' ' + m(v.espessura, 2) + ' × ' + m(v.largura) + ' × ' + m(v.comprimento)
+            + ' mm (espessura × largura × comprimento)';
+    }
+}
+
 /* ===================== Local Dev Auto Refresh ===================== */
 
 class DevAutoRefreshController {
@@ -520,5 +653,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     if (document.body.classList.contains('tecnico-decoder-page')) {
         new TecnicoDecoderController();
+    }
+    if (document.body.classList.contains('tecnico-peso-page')) {
+        new TecnicoPesoController(window.TecnicoPeso);
     }
 });

@@ -1,0 +1,13 @@
+# Purpose: GitHub Pages (Jekyll) build settings for the static site.
+# Date: 2026-10-02
+# Domain: Fermac
+# A user exclude list replaces Jekyll's defaults, so the usual defaults are
+# listed again. CNAME is read by GitHub Pages from the repository and need
+# not be served. The unit tests are for development only.
+exclude:
+  - CNAME
+  - tests
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor
