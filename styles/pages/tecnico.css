@@ -364,8 +364,6 @@
     display: grid;
     gap: var(--space-sm);
     margin: 0;
-    padding: 0;
-    list-style: none;
 }
 
 .tec-check,
@@ -396,32 +394,33 @@
     gap: var(--space-xs);
 }
 
-.tec-check__term,
-.tec-reason__term {
+.tec-check dt,
+.tec-reason dt {
     color: var(--primary);
     font-weight: var(--font-weight-bold);
     overflow-wrap: anywhere;
 }
 
-.tec-check__text,
-.tec-reason__text {
+.tec-check dd,
+.tec-reason dd {
+    margin: 0;
     color: var(--text-primary);
     line-height: var(--line-height-normal);
 }
 
 /* Inline links in body text: the darker accent for contrast, and an
    underline so the link is not marked by colour alone. */
-.tec-check__text a {
+.tec-check dd a {
     color: var(--accent-hover);
     text-decoration: underline;
     text-underline-offset: 2px;
 }
 
-.tec-check__text a:hover {
+.tec-check dd a:hover {
     color: var(--primary);
 }
 
-.tec-check__text a:focus-visible {
+.tec-check dd a:focus-visible {
     outline: 2px solid var(--accent);
     outline-offset: 2px;
 }
@@ -437,7 +436,7 @@
         padding: var(--space-md);
     }
 
-    .tec-check__text {
+    .tec-check dd {
         grid-column: 2;
     }
 
