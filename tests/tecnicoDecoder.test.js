@@ -246,7 +246,7 @@ test('GR 50 binds to the standard written before it', () => {
     assert.equal(a1011.code, 'ASTM A1011 GR 50');
     assert.equal(a1011.scope, 'ASTM A1011');
     assert.notEqual(a572.explanation, a1011.explanation);
-    assert.match(a1011.explanation, /não diz de qual família/);
+    assert.match(a1011.explanation, /a sigla GR 50 sozinha não diz de qual família/);
     assert.match(a1011.explanation, /SS/);
     assert.match(a1011.explanation, /HSLAS/);
 });
@@ -315,6 +315,33 @@ test('a run of unresolved tokens right after a marker is one part', () => {
     ]);
 });
 
+test('a recognised ASTM or NBR row starts a new scope, even when it is a grade', () => {
+    assert.deepEqual(parts('CHAPA ASTM A572 ASTM A36 GR 50'), [
+        ['CHAPA', R, 'CHAPA'],
+        ['ASTM A572', R, 'ASTM A572'],
+        ['ASTM A36', R, 'ASTM A36'],
+        ['GR 50', U, null],
+    ]);
+    assert.deepEqual(parts('CSN ASTM A36 COR 420'), [
+        ['CSN', R, 'CSN'],
+        ['ASTM A36', R, 'ASTM A36'],
+        ['COR 420', U, null],
+    ]);
+});
+
+test('edition and metric suffixes on a standard do not hide the grade', () => {
+    const last = text => decode(text).spans.at(-1);
+    assert.equal(last('ABNT NBR 6656:2016 LNE 380').code, 'NBR 6656 LNE 380');
+    assert.equal(last('NBR 6656/2016 LNE 380').code, 'NBR 6656 LNE 380');
+    assert.equal(last('NBR6656:2016 LNE380').code, 'NBR 6656 LNE 380');
+    assert.equal(last('ASTM A572/A572M GR 50').code, 'ASTM A572 GR 50');
+    assert.equal(last('ASTM A572M GR 50').code, 'ASTM A572 GR 50');
+    assert.equal(last('ASTM A1011/A1011M GR50').code, 'ASTM A1011 GR 50');
+    assert.equal(decode('ABNT NBR 6656:2016 LNE 380').spans[0].text, 'ABNT NBR 6656:2016', 'shown as typed');
+    // A grade pair is not an edition.
+    assert.equal(decode('ASTM A572 GR 50/55').spans[1].status, U);
+});
+
 /* ===== GR and whole tokens ===== */
 
 test('GR alone is "grossa"', () => {
@@ -323,6 +350,31 @@ test('GR alone is "grossa"', () => {
     assert.equal(gr.explanation, 'Grossa, ou seja, chapa grossa.');
     // A thickness after GR is not a grade number.
     assert.equal(decode('CHAPA GR 8,00').spans[1].code, 'GR');
+});
+
+test('GR followed by a letter or compound grade is a grade, never "grossa"', () => {
+    // Standards without a row: the whole designation is one unresolved part.
+    assert.deepEqual(parts('CHAPA ASTM A283 GR C'), [['CHAPA', R, 'CHAPA'], ['ASTM A283 GR C', U, null]]);
+    assert.deepEqual(parts('TIRA API 5L GR B'), [['TIRA', R, 'TIRA'], ['API 5L GR B', U, null]]);
+    // A known standard with no such grade: the grade is one unresolved part.
+    assert.deepEqual(parts('CHAPA ASTM A36 GR B'), [
+        ['CHAPA', R, 'CHAPA'],
+        ['ASTM A36', R, 'ASTM A36'],
+        ['GR B', U, null],
+    ]);
+    assert.deepEqual(parts('CHAPA ASTM A572 GR 50/55'), [
+        ['CHAPA', R, 'CHAPA'],
+        ['ASTM A572', R, 'ASTM A572'],
+        ['GR 50/55', U, null],
+    ]);
+    assert.deepEqual(parts('CHAPA GR 50A'), [['CHAPA', R, 'CHAPA'], ['GR 50A', U, null]]);
+    for (const text of ['CHAPA ASTM A283 GR C', 'TIRA API 5L GR B', 'CHAPA ASTM A36 GR B', 'CHAPA ASTM A572 GR 50/55', 'CHAPA GR 50A']) {
+        assert.ok(!decode(text).spans.some(part => part.code === 'GR'), `${text}: no "grossa"`);
+    }
+    // A thickness after GR is still "grossa" + thickness.
+    assert.deepEqual(parts('CHAPA GR 6,30'), [['CHAPA', R, 'CHAPA'], ['GR', R, 'GR'], ['6,30', E, null]]);
+    // A word after GR is not a grade.
+    assert.equal(decode('CHAPA GR LTQ').spans[1].code, 'GR');
 });
 
 test('whole tokens only: no part matches inside a word', () => {
@@ -366,9 +418,27 @@ test('thickness with "mm", glued or apart, is one part', () => {
     assert.equal(ROWS[thickness.index].code, 'N,NN');
 });
 
-test('a dotted number is not a thickness', () => {
+test('a dotted number with three decimals or none is not a thickness', () => {
     assert.equal(decode('1.200').spans[0].status, U);
     assert.equal(decode('1200').spans[0].status, U);
+});
+
+test('a decimal dot with one or two decimals is a thickness', () => {
+    assert.deepEqual(parts('CHAPA 4.75'), [['CHAPA', R, 'CHAPA'], ['4.75', E, null]]);
+    assert.deepEqual(parts('4.0mm'), [['4.0mm', E, null]]);
+    assert.deepEqual(parts('4.0 mm'), [['4.0 mm', E, null]]);
+});
+
+test('X between digits separates the measures', () => {
+    assert.deepEqual(parts('CHAPA 4,75X1200X3000'), [
+        ['CHAPA', R, 'CHAPA'],
+        ['4,75', E, null],
+        ['1200', U, null],
+        ['3000', U, null],
+    ]);
+    assert.deepEqual(parts('4.75x1200').map(part => part[0]), ['4.75', '1200']);
+    // An X that is not between digits stays in the token.
+    assert.equal(decode('XPTO').spans[0].text, 'XPTO');
 });
 
 test('a number-suffix hyphen splits the parts', () => {

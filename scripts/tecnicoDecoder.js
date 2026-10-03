@@ -13,9 +13,12 @@
  *   normalise  strip accents, upper case; "2,00mm" → "2,00" + "MM";
  *              hyphens separate tokens ("300-Q03" → "300" + "Q03")
  *   match      whole tokens only, longest alias first, up to 3 tokens
- *   bind       N,NN is the thickness; a norma or fabricante row opens a
- *              scope, and a scoped row matches only inside its scope;
- *              GR is "grossa" unless a whole number follows it; a run of
+ *              "4,75X1200" → "4,75" + "1200"; an edition or metric suffix
+ *              on a standard is dropped ("6656:2016", "A572/A572M" → "A572")
+ *   bind       N,NN (or N.N, N.NN) is the thickness; a norma or fabricante
+ *              row, or any ASTM/NBR/SAE row, opens a scope, and a scoped
+ *              row matches only inside its scope; GR is "grossa" unless a
+ *              grade follows it ("GR 50", "GR B", "GR 50/55"); a run of
  *              unresolved tokens right after a marker is one part
  */
 (function (root, factory) {
@@ -40,11 +43,25 @@
 
     const THICKNESS_EXPLANATION = 'Espessura em milímetros.';
 
-    // A thickness is written with a decimal comma ("0,50", "4,0"). A dot is
-    // not read as a decimal mark: "1.200" in a description is a width.
-    const THICKNESS = /^\d{1,3},\d{1,3}$/;
-    const INTEGER = /^\d+$/;
-    const NUMBER_WITH_MM = /^(\d+(?:,\d+)?)(MM)$/i;
+    // A thickness is written with a decimal comma ("0,50", "4,0"), or with a
+    // dot and one or two decimals ("4.75"). Three decimals after a dot are
+    // not read as a thickness: "1.200" in a description is a width.
+    const THICKNESS = /^\d{1,3}(?:,\d{1,3}|\.\d{1,2})$/;
+    const NUMBER_WITH_MM = /^(\d+(?:[.,]\d+)?)(MM)$/i;
+
+    // What follows GR when GR names a grade, not "grossa": a number, a
+    // number with a letter, a single class letter, or a pair ("50/55").
+    const GRADE_LIKE = /^(\d+[A-Z]?|[A-E])(\/\d+)?$/;
+
+    // Edition and metric suffixes on a standard's number, dropped before
+    // matching: "6656:2016", "6656/2016", "A572/A572M", "A572M".
+    const EDITION = /^([A-Z]*\d{3,5})[:/](?:19|20)\d{2}$/;
+    const METRIC_PAIR = /^(A\d{2,4})\/A\d{2,4}M$/;
+    const METRIC = /^(A\d{2,4})M$/;
+
+    // Rows whose code names a standard family; recognising one starts a
+    // new scope even when the row is a grade ("ASTM A36").
+    const STANDARD_CODE = /^(?:NBR|ABNT|ASTM|SAE|AISI|EN|DIN|JIS|API|ISO)(?:\s|\d|$)/;
 
     // A standard this page has no row for still starts a new scope: a grade
     // after "NBR 6655" must not bind to an earlier producer or standard.
@@ -56,6 +73,10 @@
     // "Ç" → "C", "ã" → "A": accent- and case-blind.
     function fold(value) {
         return String(value).normalize('NFD').replace(/[̀-ͯ]/g, '').toUpperCase();
+    }
+
+    function standardPart(norm) {
+        return norm.replace(EDITION, '$1').replace(METRIC_PAIR, '$1').replace(METRIC, '$1');
     }
 
     // An alias as a matching key: folded, hyphens read as spaces, single spaces.
@@ -83,13 +104,27 @@
             }
             raw = raw.replace(EDGE_PUNCTUATION, '');
             if (!raw) continue;
-            const withMm = raw.match(NUMBER_WITH_MM);
-            if (withMm) {
-                tokens.push({ norm: fold(withMm[1]), start, end: start + withMm[1].length });
-                tokens.push({ norm: 'MM', start: start + withMm[1].length, end: start + raw.length });
-            } else {
-                tokens.push({ norm: fold(raw), start, end: start + raw.length });
+            // "4,75X1200X3000": X between digits separates the measures.
+            const pieces = [];
+            const times = /(?<=\d)[xX](?=\d)/g;
+            let from = 0;
+            let cut;
+            while ((cut = times.exec(raw)) !== null) {
+                pieces.push([from, cut.index]);
+                from = cut.index + 1;
             }
+            pieces.push([from, raw.length]);
+            pieces.forEach(([a, b]) => {
+                const piece = raw.slice(a, b);
+                const at = start + a;
+                const withMm = piece.match(NUMBER_WITH_MM);
+                if (withMm) {
+                    tokens.push({ norm: fold(withMm[1]), start: at, end: at + withMm[1].length });
+                    tokens.push({ norm: 'MM', start: at + withMm[1].length, end: at + piece.length });
+                } else {
+                    tokens.push({ norm: standardPart(fold(piece)), start: at, end: at + piece.length });
+                }
+            });
         }
         return tokens;
     }
@@ -192,7 +227,7 @@
                 const usable = candidates.filter(position => {
                     const row = rows[position];
                     if (row.scope) return scope !== null && scopeKey(row.scope) === scope;
-                    if (key === 'GR' && next && INTEGER.test(next.norm)) return false;
+                    if (key === 'GR' && next && GRADE_LIKE.test(next.norm)) return false;
                     return true;
                 });
                 if (usable.length) {
@@ -232,7 +267,7 @@
             if (match) {
                 const row = rows[match.position];
                 spans.push(span(original, tokens, i, i + match.size, STATUS.RECOGNISED, row, match.position));
-                if (MARKER_TYPES.has(row.type)) {
+                if (MARKER_TYPES.has(row.type) || STANDARD_CODE.test(keyOf(row.code))) {
                     scope = scopeKey(row.code);
                     inRun = true;
                 } else {
@@ -253,9 +288,9 @@
                 continue;
             }
 
-            // "GR 50" with no standard that owns it: one unresolved part.
+            // "GR 50", "GR B" with no standard that owns it: one unresolved part.
             const next = tokens[i + 1];
-            const to = token.norm === 'GR' && next && INTEGER.test(next.norm) ? i + 2 : i + 1;
+            const to = token.norm === 'GR' && next && GRADE_LIKE.test(next.norm) ? i + 2 : i + 1;
             unresolved(i, to);
             i = to;
         }

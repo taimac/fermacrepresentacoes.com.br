@@ -422,14 +422,26 @@ class TecnicoDecoderController {
         return copy.textContent.trim();
     }
 
+    // A description is decoded when it has two parts or more and at least
+    // one of them is known. Words that name no code ("revestimento de
+    // zinco"), or a phrase from the list itself ("chapa grossa") that leaves
+    // a part unknown, are searched in the list instead, as before.
     update() {
         const decoded = this.decoderRows ? this.decoder.decode(this.input.value, this.decoderRows) : null;
-        if (decoded && decoded.total > 1) {
+        const isDescription = decoded && decoded.total > 1 && decoded.recognized > 0
+            && (decoded.recognized === decoded.total || !this.filterFinds());
+        if (isDescription) {
             this.showDecoded(decoded);
         } else {
             this.hideDecoded();
             this.filter();
         }
+    }
+
+    // Whether the plain list search finds any row for the box as typed.
+    filterFinds() {
+        const query = TecnicoDecoderController.fold(this.input.value);
+        return Boolean(query) && this.rows.some(({ text }) => text.includes(query));
     }
 
     filter() {
