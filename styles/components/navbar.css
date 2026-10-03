@@ -147,6 +147,25 @@
     transition: transform var(--duration-normal), opacity var(--duration-normal);
 }
 
+/* Narrow desktop, just above the hamburger breakpoint: six items (and the
+   /tecnico list) must stay on one line each without touching the logo. */
+@media (min-width: 769px) and (max-width: 900px) {
+    .nav-container {
+        padding: 0 var(--space-lg);
+    }
+    .nav-links {
+        gap: 0.75rem;
+    }
+    .nav-links a {
+        font-size: var(--text-sm);
+        white-space: nowrap;
+    }
+    .nav-links a.nav-cta,
+    .nav-links a.nav-cta.active {
+        padding: 0 12px;
+    }
+}
+
 @media (max-width: 768px) {
     .mobile-menu-btn {
         display: flex;

@@ -37,6 +37,13 @@
     max-width: none;
 }
 
+/* Narrow desktop: leave room for the five nav items next to the wordmark. */
+@media (min-width: 769px) and (max-width: 900px) {
+    .tec-wordmark {
+        font-size: var(--text-base);
+    }
+}
+
 /* ===== Hero ===== */
 
 .tec-hero {
