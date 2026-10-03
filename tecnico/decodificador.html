@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="O que significam FQ, ZC, LTQ, DEC ou NBR7008 na descrição de um produto de aço plano? 30 códigos explicados em linguagem simples, agrupados pelo que cada um informa.">
+    <meta name="description" content="O que significam FQ, ZC, LTQ, DEC ou NBR7008 na descrição de um produto de aço plano? Cole a descrição e veja cada parte explicada em linguagem simples: forma, processo, espessura, norma, grau e fabricante.">
     <meta name="robots" content="index, follow">
     <title>Decodificador de descrições — Biblioteca técnica</title>
     <link rel="canonical" href="https://fermacrepresentacoes.com.br/tecnico/decodificador.html">
@@ -13,7 +13,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="../styles/pages/main.css?v=20261003-tecnico-nav">
-    <link rel="stylesheet" href="../styles/pages/tecnico.css?v=20261003-tecnico-nav">
+    <link rel="stylesheet" href="../styles/pages/tecnico.css?v=20261003-t021">
 </head>
 <body class="tecnico-page tecnico-decoder-page">
 
@@ -49,7 +49,7 @@
             <div class="tec-container">
                 <p class="tec-eyebrow">Biblioteca técnica · aços planos</p>
                 <h1 class="tec-title" id="tec-title">Decodificador de descrições</h1>
-                <p class="tec-lead">O que significam FQ, ZC, LTQ, DEC ou NBR7008 na sua cotação ou na sua nota? Aqui estão 30 códigos usados nas descrições de produtos de aço plano, explicados em linguagem simples e agrupados pelo que cada um informa. Os códigos podem variar de um fornecedor para outro; esta lista traz os que já foram conferidos.</p>
+                <p class="tec-lead">O que significam FQ, ZC, LTQ, DEC ou NBR7008 na sua cotação ou na sua nota? Aqui estão <span data-decoder-count>57</span> códigos usados nas descrições de produtos de aço plano, de formas e processos a normas, graus e designações de fabricante, explicados em linguagem simples e agrupados pelo que cada um informa. Os códigos podem variar de um fornecedor para outro; esta lista traz os que já foram conferidos.</p>
             </div>
         </section>
 
@@ -58,9 +58,14 @@
             <div class="tec-container">
 
                 <div class="tec-search" data-decoder-search hidden>
-                    <label class="tec-search__label" for="tec-search-input">Procurar um código ou uma palavra</label>
-                    <input class="tec-search__input" id="tec-search-input" type="search" autocomplete="off" spellcheck="false" placeholder="Ex.: ZC, decapado, NBR">
+                    <label class="tec-search__label" for="tec-search-input">Cole a descrição do material ou procure um código</label>
+                    <input class="tec-search__input" id="tec-search-input" type="search" autocomplete="off" spellcheck="false" placeholder="Ex.: CHAPA FQ 2,65 NBR 6656, ou só ZC" aria-describedby="tec-search-hint">
+                    <p class="tec-search__hint" id="tec-search-hint">Cada parte com significado conferido é explicada; as outras aparecem como “não conferido”, sem palpite.</p>
                     <p class="tec-search__status" role="status" aria-live="polite"></p>
+                    <div class="tec-decode" data-decoder-result hidden>
+                        <p class="tec-decode__line"><span class="tec-decode__label">Descrição</span> <span class="tec-decode__original" data-decoder-line></span></p>
+                        <ol class="tec-decode__parts" data-decoder-parts aria-label="Partes da descrição"></ol>
+                    </div>
                 </div>
 
                 <nav class="tec-toc" aria-label="Grupos de códigos">
@@ -75,6 +80,8 @@
                         <li><a href="#grau">Grau</a></li>
                         <li><a href="#grau-aplicacao">Grau e aplicação</a></li>
                         <li><a href="#norma">Norma</a></li>
+                        <li><a href="#normas-graus">Normas e graus</a></li>
+                        <li><a href="#fabricante">Designações de fabricante</a></li>
                     </ul>
                 </nav>
 
@@ -84,12 +91,12 @@
                         <h2 class="tec-group__title" id="forma-title">Forma</h2>
                         <p class="tec-group__intro">Em que formato o material é fornecido.</p>
                         <dl class="tec-codes">
-                            <div class="tec-code"><dt>BOB</dt><dd>Bobina.</dd></div>
-                            <div class="tec-code"><dt>CHAPA</dt><dd>Chapa.</dd></div>
-                            <div class="tec-code"><dt>TIRA</dt><dd>Tira: bobina cortada em largura menor.</dd></div>
-                            <div class="tec-code"><dt>GR</dt><dd>Grossa, ou seja, chapa grossa.</dd></div>
-                            <div class="tec-code"><dt>TR</dt><dd>Tira relaminada.</dd></div>
-                            <div class="tec-code"><dt>BLANK</dt><dd>Blank: peça cortada no formato.</dd></div>
+                            <div class="tec-code" data-type="forma"><dt>BOB</dt><dd>Bobina.</dd></div>
+                            <div class="tec-code" data-type="forma"><dt>CHAPA</dt><dd>Chapa.</dd></div>
+                            <div class="tec-code" data-type="forma"><dt>TIRA</dt><dd>Tira: bobina cortada em largura menor.</dd></div>
+                            <div class="tec-code" data-type="forma"><dt>GR</dt><dd>Grossa, ou seja, chapa grossa.</dd></div>
+                            <div class="tec-code" data-type="forma"><dt>TR</dt><dd>Tira relaminada.</dd></div>
+                            <div class="tec-code" data-type="forma"><dt>BLANK</dt><dd>Blank: peça cortada no formato.</dd></div>
                         </dl>
                     </section>
 
@@ -97,10 +104,10 @@
                         <h2 class="tec-group__title" id="processo-title">Processo</h2>
                         <p class="tec-group__intro">Como o aço foi laminado.</p>
                         <dl class="tec-codes">
-                            <div class="tec-code"><dt>FF</dt><dd>Fina a frio, ou seja, laminado a frio.</dd></div>
-                            <div class="tec-code"><dt>FQ</dt><dd>Fina a quente, ou seja, laminado a quente.</dd></div>
-                            <div class="tec-code"><dt>LTQ</dt><dd>Laminado de tiras a quente.</dd></div>
-                            <div class="tec-code"><dt>REL</dt><dd>Relaminado.</dd></div>
+                            <div class="tec-code" data-type="processo"><dt>FF</dt><dd>Fina a frio, ou seja, laminado a frio.</dd></div>
+                            <div class="tec-code" data-type="processo"><dt>FQ</dt><dd>Fina a quente, ou seja, laminado a quente.</dd></div>
+                            <div class="tec-code" data-type="processo"><dt>LTQ</dt><dd>Laminado de tiras a quente.</dd></div>
+                            <div class="tec-code" data-type="processo"><dt>REL</dt><dd>Relaminado.</dd></div>
                         </dl>
                     </section>
 
@@ -108,7 +115,7 @@
                         <h2 class="tec-group__title" id="dimensao-title">Dimensão</h2>
                         <p class="tec-group__intro">A espessura, escrita em número.</p>
                         <dl class="tec-codes">
-                            <div class="tec-code" data-terms="mm" data-number><dt>N,NN</dt><dd>Espessura em milímetros. É o primeiro número da descrição, escrito com vírgula (por exemplo, 0,50).</dd></div>
+                            <div class="tec-code" data-type="dimensão" data-terms="mm" data-number><dt>N,NN</dt><dd>Espessura em milímetros. É o primeiro número da descrição, escrito com vírgula (por exemplo, 0,50).</dd></div>
                         </dl>
                     </section>
 
@@ -116,8 +123,8 @@
                         <h2 class="tec-group__title" id="superficie-title">Superfície</h2>
                         <p class="tec-group__intro">Como a superfície do aço é entregue.</p>
                         <dl class="tec-codes">
-                            <div class="tec-code"><dt>OL</dt><dd>Oleado: superfície com óleo protetivo.</dd></div>
-                            <div class="tec-code"><dt>DEC</dt><dd>Decapado.</dd></div>
+                            <div class="tec-code" data-type="acabamento"><dt>OL</dt><dd>Oleado: superfície com óleo protetivo.</dd></div>
+                            <div class="tec-code" data-type="acabamento"><dt>DEC</dt><dd>Decapado.</dd></div>
                         </dl>
                     </section>
 
@@ -125,7 +132,7 @@
                         <h2 class="tec-group__title" id="forma-superficie-title">Forma e superfície</h2>
                         <p class="tec-group__intro">Um só código que informa as duas coisas.</p>
                         <dl class="tec-codes">
-                            <div class="tec-code"><dt>BbOL</dt><dd>Bobina oleada.</dd></div>
+                            <div class="tec-code" data-type="forma"><dt>BbOL</dt><dd>Bobina oleada.</dd></div>
                         </dl>
                     </section>
 
@@ -133,9 +140,9 @@
                         <h2 class="tec-group__title" id="revestimento-title">Revestimento</h2>
                         <p class="tec-group__intro">A camada aplicada sobre o aço.</p>
                         <dl class="tec-codes">
-                            <div class="tec-code"><dt>ZC</dt><dd>Zincado: revestimento de zinco por imersão a quente.</dd></div>
-                            <div class="tec-code"><dt>REV</dt><dd>Revestimento: indica o tipo de zincado.</dd></div>
-                            <div class="tec-code"><dt>RV</dt><dd>Revestimento: indica o tipo de zincado.</dd></div>
+                            <div class="tec-code" data-type="revestimento"><dt>ZC</dt><dd>Zincado: revestimento de zinco por imersão a quente.</dd></div>
+                            <div class="tec-code" data-type="revestimento"><dt>REV</dt><dd>Revestimento: indica o tipo de zincado.</dd></div>
+                            <div class="tec-code" data-type="revestimento"><dt>RV</dt><dd>Revestimento: indica o tipo de zincado.</dd></div>
                         </dl>
                     </section>
 
@@ -143,9 +150,9 @@
                         <h2 class="tec-group__title" id="acabamento-title">Acabamento</h2>
                         <p class="tec-group__intro">O acabamento do zincado.</p>
                         <dl class="tec-codes">
-                            <div class="tec-code"><dt>CR</dt><dd>Cromatizado: passivação sobre o zinco.</dd></div>
-                            <div class="tec-code"><dt>MI</dt><dd>Lantejoula minimizada, no zincado.</dd></div>
-                            <div class="tec-code"><dt>NO</dt><dd>Lantejoula normal, no zincado.</dd></div>
+                            <div class="tec-code" data-type="acabamento"><dt>CR</dt><dd>Cromatizado: passivação sobre o zinco.</dd></div>
+                            <div class="tec-code" data-type="acabamento"><dt>MI</dt><dd>Lantejoula minimizada, no zincado.</dd></div>
+                            <div class="tec-code" data-type="acabamento"><dt>NO</dt><dd>Lantejoula normal, no zincado.</dd></div>
                         </dl>
                     </section>
 
@@ -153,10 +160,10 @@
                         <h2 class="tec-group__title" id="grau-title">Grau</h2>
                         <p class="tec-group__intro">A qualidade do aço.</p>
                         <dl class="tec-codes">
-                            <div class="tec-code"><dt>SAE1010</dt><dd>Aço-carbono SAE 1010.</dd></div>
-                            <div class="tec-code"><dt>G4RL</dt><dd>Grau 4 relaminado.</dd></div>
-                            <div class="tec-code"><dt>ASTM A36</dt><dd>Aço estrutural ASTM A36.</dd></div>
-                            <div class="tec-code"><dt>SAE1006</dt><dd>Aço-carbono SAE 1006.</dd></div>
+                            <div class="tec-code" data-type="grau" data-aliases="SAE 1010"><dt>SAE1010</dt><dd>Aço-carbono SAE 1010.</dd></div>
+                            <div class="tec-code" data-type="grau"><dt>G4RL</dt><dd>Grau 4 relaminado.</dd></div>
+                            <div class="tec-code" data-type="grau" data-aliases="ASTM A 36|A36"><dt>ASTM A36</dt><dd>Aço estrutural ASTM A36.</dd></div>
+                            <div class="tec-code" data-type="grau" data-aliases="SAE 1006"><dt>SAE1006</dt><dd>Aço-carbono SAE 1006.</dd></div>
                         </dl>
                     </section>
 
@@ -164,7 +171,7 @@
                         <h2 class="tec-group__title" id="grau-aplicacao-title">Grau e aplicação</h2>
                         <p class="tec-group__intro">Um código que diz a qualidade do aço pelo uso a que ele se destina.</p>
                         <dl class="tec-codes">
-                            <div class="tec-code"><dt>EEP</dt><dd>Estampagem extra profunda.</dd></div>
+                            <div class="tec-code" data-type="grau"><dt>EEP</dt><dd>Estampagem extra profunda.</dd></div>
                         </dl>
                     </section>
 
@@ -172,15 +179,56 @@
                         <h2 class="tec-group__title" id="norma-title">Norma</h2>
                         <p class="tec-group__intro">A norma técnica do produto. NBR é a sigla das normas brasileiras da ABNT; aqui cada uma aparece só pelo número e pelo assunto, sem reproduzir o texto da norma.</p>
                         <dl class="tec-codes">
-                            <div class="tec-code"><dt>NBR6658</dt><dd>Norma de bobinas e chapas finas a frio de aço-carbono para uso geral.</dd></div>
-                            <div class="tec-code"><dt>NBR7008</dt><dd>Norma de chapas e bobinas zincadas por imersão a quente.</dd></div>
-                            <div class="tec-code"><dt>NBR5007</dt><dd>Norma de aço relaminado.</dd></div>
-                            <div class="tec-code"><dt>NBR5915</dt><dd>Norma de chapas finas a frio para estampagem.</dd></div>
-                            <div class="tec-code"><dt>NBR8300</dt><dd>Norma de chapas grossas.</dd></div>
+                            <div class="tec-code" data-type="norma" data-aliases="NBR 6658|ABNT NBR 6658|ABNT NBR6658"><dt>NBR6658</dt><dd>Norma de bobinas e chapas finas a frio de aço-carbono para uso geral.</dd></div>
+                            <div class="tec-code" data-type="norma" data-aliases="NBR 7008|ABNT NBR 7008|ABNT NBR7008"><dt>NBR7008</dt><dd>Norma de chapas e bobinas zincadas por imersão a quente.</dd></div>
+                            <div class="tec-code" data-type="norma" data-aliases="NBR 5007|ABNT NBR 5007|ABNT NBR5007"><dt>NBR5007</dt><dd>Norma de aço relaminado.</dd></div>
+                            <div class="tec-code" data-type="norma" data-aliases="NBR 5915|ABNT NBR 5915|ABNT NBR5915"><dt>NBR5915</dt><dd>Norma de chapas finas a frio para estampagem.</dd></div>
+                            <div class="tec-code" data-type="norma" data-aliases="NBR 8300|ABNT NBR 8300|ABNT NBR8300"><dt>NBR8300</dt><dd>Norma de chapas grossas.</dd></div>
                         </dl>
                     </section>
 
-                    <p class="tec-empty" data-decoder-empty hidden>Nenhum código encontrado. Este decodificador traz por enquanto 30 códigos; se o seu não está aqui, pergunte junto com a sua lista.</p>
+                    <section class="tec-group" id="normas-graus" aria-labelledby="normas-graus-title">
+                        <h2 class="tec-group__title" id="normas-graus-title">Normas e graus</h2>
+                        <p class="tec-group__intro">Normas de produto e os graus que dependem delas. Um grau só vale para a norma escrita antes dele na descrição: o grau 50 de uma norma não é o grau 50 de outra.</p>
+                        <dl class="tec-codes">
+                            <div class="tec-code" data-type="norma" data-aliases="ASTM A 572|A572" data-situacao="atual"><dt>ASTM A572</dt><dd>Norma americana de aço estrutural de alta resistência e baixa liga ao nióbio e ao vanádio, para chapas, perfis e barras.</dd></div>
+                            <div class="tec-code" data-type="grau" data-aliases="GR 50|GR50|GRAU 50" data-scope="ASTM A572" data-situacao="atual"><dt>ASTM A572 GR 50</dt><dd>Grau 50 da norma ASTM A572.</dd></div>
+                            <div class="tec-code" data-type="norma" data-aliases="ASTM A 1011|A1011" data-situacao="atual"><dt>ASTM A1011</dt><dd>Norma americana de chapas e tiras laminadas a quente de aço-carbono estrutural e de alta resistência e baixa liga.</dd></div>
+                            <div class="tec-code" data-type="grau" data-aliases="GR 50|GR50|GRAU 50" data-scope="ASTM A1011" data-situacao="atual"><dt>ASTM A1011 GR 50</dt><dd>Grau 50 da norma ASTM A1011. A norma tem um grau 50 em mais de uma família, como a estrutural (SS) e a de alta resistência e baixa liga (HSLAS); a descrição não diz de qual família é.</dd></div>
+                            <div class="tec-code" data-type="norma" data-aliases="ASTM A 653|A653" data-situacao="atual"><dt>ASTM A653</dt><dd>Norma americana de chapas de aço revestidas por imersão a quente, com zinco (zincado) ou com liga de zinco e ferro.</dd></div>
+                            <div class="tec-code" data-type="norma" data-aliases="NBR6656|ABNT NBR 6656|ABNT NBR6656" data-situacao="atual"><dt>NBR 6656</dt><dd>Norma de bobinas e chapas laminadas a quente de aço acalmado para peças de conformação crítica, como longarinas e travessas.</dd></div>
+                            <div class="tec-code" data-type="grau" data-aliases="LNE 380|LNE380" data-scope="NBR 6656" data-situacao="atual"><dt>NBR 6656 LNE 380</dt><dd>Grau LNE 380 da NBR 6656.</dd></div>
+                            <div class="tec-code" data-type="norma" data-aliases="NBR5906|ABNT NBR 5906|ABNT NBR5906" data-situacao="não conferida"><dt>NBR 5906</dt><dd>Norma de bobinas e chapas laminadas a quente de aço-carbono para estampagem. <span class="tec-tag">situação não conferida</span></dd></div>
+                        </dl>
+                    </section>
+
+                    <section class="tec-group" id="fabricante" aria-labelledby="fabricante-title">
+                        <h2 class="tec-group__title" id="fabricante-title">Designações de fabricante</h2>
+                        <p class="tec-group__intro">Nomes que cada usina dá aos próprios aços. Valem só depois da sigla do fabricante e não são sinônimos de graus de norma. “Histórica” marca uma designação de marca que não existe mais; “situação não conferida” marca uma designação documentada cuja situação atual não foi confirmada.</p>
+                        <dl class="tec-codes">
+                            <div class="tec-code" data-type="fabricante" data-situacao="atual"><dt>CSN</dt><dd>Companhia Siderúrgica Nacional. A sigla abre as designações próprias da CSN.</dd></div>
+                            <div class="tec-code" data-type="grau" data-aliases="COR 420|COR420" data-scope="CSN" data-situacao="atual"><dt>CSN COR 420</dt><dd>Aço patinável da CSN: estrutural e resistente à corrosão atmosférica.</dd></div>
+                            <div class="tec-code" data-type="grau" data-aliases="COR 500|COR500" data-scope="CSN" data-situacao="atual"><dt>CSN COR 500</dt><dd>Aço patinável da CSN: estrutural e resistente à corrosão atmosférica.</dd></div>
+                            <div class="tec-code" data-type="grau" data-aliases="ARQ CIVIL 300|ARQ CIVIL300" data-scope="CSN" data-situacao="não conferida"><dt>CSN ARQ CIVIL 300</dt><dd>Aço estrutural da CSN para a construção civil. <span class="tec-tag">situação não conferida</span></dd></div>
+                            <div class="tec-code" data-type="fabricante" data-aliases="USIMINAS" data-situacao="atual"><dt>USI</dt><dd>Usiminas. O prefixo USI abre as designações próprias da Usiminas.</dd></div>
+                            <div class="tec-code" data-type="grau" data-aliases="SAC 300|SAC300" data-scope="USI" data-situacao="atual"><dt>USI SAC 300</dt><dd>Aço estrutural patinável da série USI-SAC, da Usiminas, resistente à corrosão atmosférica.</dd></div>
+                            <div class="tec-code" data-type="grau" data-aliases="SAC 350|SAC350" data-scope="USI" data-situacao="atual"><dt>USI SAC 350</dt><dd>Aço estrutural patinável da série USI-SAC, da Usiminas, resistente à corrosão atmosférica. Antes chamado USI-SAC-50.</dd></div>
+                            <div class="tec-code" data-type="grau" data-aliases="LN 380|LN380" data-scope="USI" data-situacao="atual"><dt>USI LN 380</dt><dd>Aço da família USI-LN, da Usiminas: alta resistência e baixa liga, para longarinas e chassis. Não é o grau LN da NBR 6655.</dd></div>
+                            <div class="tec-code" data-type="grau" data-aliases="LN 500|LN500" data-scope="USI" data-situacao="atual"><dt>USI LN 500</dt><dd>Aço da família USI-LN, da Usiminas: alta resistência e baixa liga, para longarinas e chassis. Não é o grau LN da NBR 6655.</dd></div>
+                            <div class="tec-code" data-type="grau" data-aliases="LN 600|LN600" data-scope="USI" data-situacao="atual"><dt>USI LN 600</dt><dd>Aço da família USI-LN, da Usiminas: alta resistência e baixa liga, para longarinas e chassis. Não é o grau LN da NBR 6655.</dd></div>
+                            <div class="tec-code" data-type="grau" data-aliases="LN 700|LN700" data-scope="USI" data-situacao="atual"><dt>USI LN 700</dt><dd>Aço da família USI-LN, da Usiminas: alta resistência e baixa liga, para longarinas e chassis. Não é o grau LN da NBR 6655.</dd></div>
+                            <div class="tec-code" data-type="grau" data-aliases="TB1|TB 1" data-scope="USI" data-situacao="atual"><dt>USI TB1</dt><dd>Aço da série USI-TB, grau 1, da Usiminas, para tubos soldados de pequeno diâmetro.</dd></div>
+                            <div class="tec-code" data-type="grau" data-aliases="RW 350|RW350" data-scope="USI" data-situacao="atual"><dt>USI RW 350</dt><dd>Aço da série USI-RW, grau 350, da Usiminas, para rodas automotivas.</dd></div>
+                            <div class="tec-code" data-type="fabricante" data-aliases="COSIPA" data-situacao="histórica"><dt>COS</dt><dd>Cosipa, a Companhia Siderúrgica Paulista. A marca passou a ser Usiminas em 2009. <span class="tec-tag">histórica</span></dd></div>
+                            <div class="tec-code" data-type="grau" data-aliases="AR COR 300|AR COR300" data-scope="COS" data-situacao="histórica"><dt>COS-AR-COR 300</dt><dd>Aço patinável da Cosipa, resistente à corrosão atmosférica. <span class="tec-tag">histórica</span></dd></div>
+                            <div class="tec-code" data-type="grau" data-aliases="AR COR 400|AR COR400" data-scope="COS" data-situacao="histórica"><dt>COS-AR-COR 400</dt><dd>Aço patinável da Cosipa, resistente à corrosão atmosférica. <span class="tec-tag">histórica</span></dd></div>
+                            <div class="tec-code" data-type="fabricante" data-situacao="histórica"><dt>CST</dt><dd>Companhia Siderúrgica de Tubarão, hoje ArcelorMittal Tubarão. <span class="tec-tag">histórica</span></dd></div>
+                            <div class="tec-code" data-type="grau" data-aliases="COR 400|COR400" data-scope="CST" data-situacao="histórica"><dt>CST COR 400</dt><dd>Aço patinável da CST, resistente à corrosão atmosférica. <span class="tec-tag">histórica</span></dd></div>
+                            <div class="tec-code" data-type="grau" data-aliases="CIVIL 300|CIVIL300" data-scope="CST" data-situacao="histórica"><dt>CST CIVIL 300</dt><dd>Aço estrutural da CST para a construção civil. <span class="tec-tag">histórica</span></dd></div>
+                        </dl>
+                    </section>
+
+                    <p class="tec-empty" data-decoder-empty hidden>Nenhum código encontrado. Este decodificador traz por enquanto <span data-decoder-count>57</span> códigos; se o seu não está aqui, pergunte junto com a sua lista.</p>
                 </div>
 
                 <!-- ===== CTA: the only place the page names a company ===== -->
@@ -204,6 +252,7 @@
         </div>
     </footer>
 
-    <script src="../scripts/siteController.js?v=20261002-t01"></script>
+    <script src="../scripts/tecnicoDecoder.js?v=20261003-t021"></script>
+    <script src="../scripts/siteController.js?v=20261003-t021"></script>
 </body>
 </html>

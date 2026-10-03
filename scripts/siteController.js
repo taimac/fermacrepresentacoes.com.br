@@ -362,17 +362,24 @@ class EnvieSuaListaController {
 
 /* ===================== Tecnico Decoder Controller ===================== */
 
-// Decodificador de descrições: a lookup box over the code list. The list
-// is plain HTML and readable without this script; the box only appears
-// when the script runs.
+// Decodificador de descrições: a box over the code list. The list is plain
+// HTML and readable without this script; the box only appears when the
+// script runs. One word filters the list as before; a pasted description
+// (two parts or more) is decoded part by part by scripts/tecnicoDecoder.js
+// (loaded before this file as window.TecnicoDecoder), and the list then
+// shows only the rows that the description used.
 class TecnicoDecoderController {
-    constructor() {
+    constructor(decoder) {
         this.root = document.querySelector('[data-decoder]');
         this.box = document.querySelector('[data-decoder-search]');
         if (!this.root || !this.box) return;
 
+        this.decoder = decoder || null;
         this.input = this.box.querySelector('input');
         this.status = this.box.querySelector('[role="status"]');
+        this.result = this.box.querySelector('[data-decoder-result]');
+        this.line = this.box.querySelector('[data-decoder-line]');
+        this.parts = this.box.querySelector('[data-decoder-parts]');
         this.empty = this.root.querySelector('[data-decoder-empty]');
         this.toc = document.querySelector('.tec-toc');
         this.groups = Array.from(this.root.querySelectorAll('.tec-group'));
@@ -381,9 +388,25 @@ class TecnicoDecoderController {
             code: TecnicoDecoderController.fold(row.querySelector('dt').textContent),
             text: TecnicoDecoderController.fold(row.textContent + ' ' + (row.dataset.terms || '')),
         }));
+        this.decoderRows = this.decoder
+            ? this.rows.map(({ row }) => this.decoder.makeRow({
+                code: row.querySelector('dt').textContent,
+                explanation: TecnicoDecoderController.explanation(row.querySelector('dd')),
+                type: row.dataset.type,
+                aliases: row.dataset.aliases,
+                scope: row.dataset.scope,
+                situacao: row.dataset.situacao,
+                number: 'number' in row.dataset,
+            }))
+            : null;
+
+        // The count on the page follows the rows, so it cannot drift.
+        document.querySelectorAll('[data-decoder-count]').forEach(count => {
+            count.textContent = String(this.rows.length);
+        });
 
         this.box.hidden = false;
-        this.input.addEventListener('input', () => this.filter());
+        this.input.addEventListener('input', () => this.update());
     }
 
     // Case- and accent-insensitive, and blind to spaces, so "nbr 7008"
@@ -392,14 +415,31 @@ class TecnicoDecoderController {
         return value.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/\s+/g, '');
     }
 
+    // The row's sentence without its status tag ("histórica").
+    static explanation(dd) {
+        const copy = dd.cloneNode(true);
+        copy.querySelectorAll('.tec-tag').forEach(tag => tag.remove());
+        return copy.textContent.trim();
+    }
+
+    update() {
+        const decoded = this.decoderRows ? this.decoder.decode(this.input.value, this.decoderRows) : null;
+        if (decoded && decoded.total > 1) {
+            this.showDecoded(decoded);
+        } else {
+            this.hideDecoded();
+            this.filter();
+        }
+    }
+
     filter() {
         const query = TecnicoDecoderController.fold(this.input.value);
         // A short query that is a code matches codes only ("NO" is also
         // inside "normal"); longer words ("chapa", "tira") search everything.
         const byCode = query.length <= 2 && this.rows.some(({ code }) => code === query);
-        // A typed measure ("1,25") also finds the thickness row; a bare
-        // number ("7008", "36") searches the text like any other query.
-        const isMeasure = /^\d+[,.]\d+$/.test(query);
+        // A typed measure ("1,25", "2,00mm") also finds the thickness row; a
+        // bare number ("7008", "36") searches the text like any other query.
+        const isMeasure = /^\d+[,.]\d+(mm)?$/.test(query);
         let shown = 0;
         this.rows.forEach(({ row, code, text }) => {
             const match = !query
@@ -408,14 +448,70 @@ class TecnicoDecoderController {
             row.hidden = !match;
             if (match) shown += 1;
         });
-        this.groups.forEach(group => {
-            group.hidden = !group.querySelector('.tec-code:not([hidden])');
-        });
-        if (this.toc) this.toc.hidden = Boolean(query);
-        this.empty.hidden = shown > 0;
+        this.showGroups(Boolean(query), shown);
         this.status.textContent = query
             ? (shown === 1 ? '1 código encontrado.' : shown + ' códigos encontrados.')
             : '';
+    }
+
+    // A description: the line as typed, then each part with its meaning or
+    // "não conferido"; the list below keeps only the rows that were used.
+    showDecoded(decoded) {
+        const used = new Set(decoded.spans.filter(part => 'index' in part).map(part => part.index));
+        this.rows.forEach(({ row }, position) => {
+            row.hidden = !used.has(position);
+        });
+        this.showGroups(true, used.size);
+
+        this.line.textContent = decoded.original.trim();
+        this.parts.replaceChildren(...decoded.spans.map(part => TecnicoDecoderController.partItem(part, this.decoder)));
+        this.result.hidden = false;
+        this.status.textContent = this.decoder.summary(decoded) + '.';
+    }
+
+    hideDecoded() {
+        if (!this.result) return;
+        this.result.hidden = true;
+        this.parts.replaceChildren();
+        this.line.textContent = '';
+    }
+
+    showGroups(filtered, shown) {
+        this.groups.forEach(group => {
+            group.hidden = !group.querySelector('.tec-code:not([hidden])');
+        });
+        if (this.toc) this.toc.hidden = filtered;
+        this.empty.hidden = shown > 0;
+    }
+
+    static partItem(part, decoder) {
+        const item = document.createElement('li');
+        item.className = 'tec-part tec-part--' + part.status;
+        const text = document.createElement('span');
+        text.className = 'tec-part__text';
+        text.textContent = part.text;
+        const note = document.createElement('span');
+        note.className = 'tec-part__note';
+        if (part.status === decoder.STATUS.UNRESOLVED) {
+            note.textContent = 'não conferido';
+        } else {
+            // Name the row when the typed text is shorter ("GR50" → "ASTM A1011 GR 50").
+            if (part.code && decoder.keyOf(part.code) !== decoder.keyOf(part.text)) {
+                const code = document.createElement('strong');
+                code.className = 'tec-part__code';
+                code.textContent = part.code;
+                note.append(code, ' ');
+            }
+            note.append(part.explanation || '');
+            if (part.situacao && part.situacao !== 'atual') {
+                const tag = document.createElement('span');
+                tag.className = 'tec-tag';
+                tag.textContent = part.situacao === 'histórica' ? 'histórica' : 'situação não conferida';
+                note.append(' ', tag);
+            }
+        }
+        item.append(text, note);
+        return item;
     }
 }
 
@@ -652,7 +748,7 @@ document.addEventListener('DOMContentLoaded', () => {
         new EnvieSuaListaController();
     }
     if (document.body.classList.contains('tecnico-decoder-page')) {
-        new TecnicoDecoderController();
+        new TecnicoDecoderController(window.TecnicoDecoder);
     }
     if (document.body.classList.contains('tecnico-peso-page')) {
         new TecnicoPesoController(window.TecnicoPeso);
