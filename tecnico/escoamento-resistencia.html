@@ -56,7 +56,7 @@
         <section class="tec-body" aria-label="Limite de escoamento e resistência à tração">
             <div class="tec-container">
 
-                <p class="tec-note">Em duas frases: o limite de escoamento (LE) é o esforço a partir do qual o aço deixa de voltar à forma e começa a deformar de vez. O limite de resistência à tração (LR) é o maior esforço que ele aguenta antes de romper. Os dois saem do mesmo ensaio e são medidos em MPa.</p>
+                <p class="tec-note">Em duas frases: o limite de escoamento (LE) é o esforço (a força por milímetro quadrado, que os técnicos chamam de tensão) a partir do qual o aço deixa de voltar à forma e começa a deformar de vez. O limite de resistência à tração (LR) é o maior esforço que ele aguenta antes de romper. Os dois saem do mesmo ensaio e são medidos em MPa.</p>
 
                 <nav class="tec-toc" aria-label="Partes da página">
                     <ul role="list">
@@ -71,7 +71,7 @@
 
                 <section class="tec-group" id="ensaio" aria-labelledby="ensaio-title">
                     <h2 class="tec-group__title" id="ensaio-title">O ensaio que mede os dois</h2>
-                    <p class="tec-group__intro">O LE e o LR não saem de uma conta: são medidos em um ensaio, o ensaio de tração.</p>
+                    <p class="tec-group__intro">O LE e o LR não saem de uma tabela nem de uma fórmula: são medidos em um ensaio, o ensaio de tração.</p>
                     <p class="tec-text">No ensaio de tração, um pedaço do aço, chamado corpo de prova, é preso pelas duas pontas e puxado devagar até romper. Durante o ensaio, a máquina mede a força que faz e o quanto o corpo de prova esticou.</p>
                     <p class="tec-text">Um corpo de prova mais grosso aguenta mais força. Por isso a força é dividida pela área da seção do corpo de prova, medida antes do ensaio. O resultado dessa divisão se chama tensão. O LE e o LR são dois valores de tensão.</p>
                     <p class="tec-text">O jeito de fazer o ensaio é padronizado. A norma brasileira que descreve o método é a ABNT NBR ISO 6892-1, citada aqui só como referência.</p>
@@ -82,9 +82,9 @@
                     <p class="tec-group__intro">O ensaio desenha uma curva: de um lado, quanto o corpo de prova esticou; do outro, a tensão.</p>
 
                     <figure class="tec-figure">
-                        <svg viewBox="0 0 320 256" role="img" aria-labelledby="curva-svg-title curva-svg-desc" xmlns="http://www.w3.org/2000/svg">
+                        <svg viewBox="0 0 320 270" role="img" aria-labelledby="curva-svg-title curva-svg-desc" xmlns="http://www.w3.org/2000/svg">
                             <title id="curva-svg-title">Curva genérica de um ensaio de tração: tensão conforme o corpo de prova estica</title>
-                            <desc id="curva-svg-desc">A curva sobe em linha reta até o ponto LE, o limite de escoamento: é o trecho 1, em que o aço estica e volta. Depois sobe mais devagar até o ponto mais alto, LR, o limite de resistência à tração: é o trecho 2, em que o aço estica e fica. Depois do ponto mais alto a curva desce até o corpo de prova romper: é o trecho 3. O desenho não tem escala nem valores.</desc>
+                            <desc id="curva-svg-desc">A curva sobe em linha reta até o ponto LE, o limite de escoamento: é o trecho 1, em que o aço estica e volta. Depois sobe mais devagar até o ponto mais alto, LR, o limite de resistência à tração: é o trecho 2, em que o aço estica e fica. Depois do ponto mais alto a curva desce até o corpo de prova romper: é o trecho 3, em que o aço perde força e rompe. O desenho não tem escala nem valores.</desc>
 
                             <!-- Guides from each marked point down to the axis -->
                             <line class="tec-curve__guide" x1="112" y1="84" x2="112" y2="176"/>
@@ -108,17 +108,18 @@
                             <text class="tec-curve__axis-label" x="42" y="16">Tensão</text>
 
                             <!-- The three stretches, named under the axis -->
-                            <rect class="tec-curve__zone" x="35" y="184" width="75" height="42" rx="6"/>
-                            <rect class="tec-curve__zone tec-curve__zone--mid" x="114" y="184" width="106" height="42" rx="6"/>
-                            <rect class="tec-curve__zone" x="224" y="184" width="72" height="42" rx="6"/>
-                            <text class="tec-curve__text" x="72.5" y="201" text-anchor="middle">1. Estica</text>
-                            <text class="tec-curve__text" x="72.5" y="217" text-anchor="middle">e volta</text>
-                            <text class="tec-curve__text" x="167" y="201" text-anchor="middle">2. Estica</text>
-                            <text class="tec-curve__text" x="167" y="217" text-anchor="middle">e fica</text>
-                            <text class="tec-curve__text" x="260" y="201" text-anchor="middle">3. Cede</text>
-                            <text class="tec-curve__text" x="260" y="217" text-anchor="middle">e rompe</text>
+                            <rect class="tec-curve__zone" x="35" y="184" width="75" height="56" rx="6"/>
+                            <rect class="tec-curve__zone tec-curve__zone--mid" x="114" y="184" width="106" height="56" rx="6"/>
+                            <rect class="tec-curve__zone" x="224" y="184" width="72" height="56" rx="6"/>
+                            <text class="tec-curve__text" x="72.5" y="208" text-anchor="middle">1. Estica</text>
+                            <text class="tec-curve__text" x="72.5" y="224" text-anchor="middle">e volta</text>
+                            <text class="tec-curve__text" x="167" y="208" text-anchor="middle">2. Estica</text>
+                            <text class="tec-curve__text" x="167" y="224" text-anchor="middle">e fica</text>
+                            <text class="tec-curve__text" x="260" y="201" text-anchor="middle">3. Perde</text>
+                            <text class="tec-curve__text" x="260" y="216" text-anchor="middle">força</text>
+                            <text class="tec-curve__text" x="260" y="231" text-anchor="middle">e rompe</text>
 
-                            <text class="tec-curve__axis-label" x="171" y="246" text-anchor="middle">Quanto o corpo de prova esticou</text>
+                            <text class="tec-curve__axis-label" x="171" y="260" text-anchor="middle">Quanto o corpo de prova esticou</text>
                         </svg>
                         <figcaption>Curva genérica, sem escala e sem valores. O formato muda de um aço para outro.</figcaption>
                     </figure>
@@ -130,10 +131,10 @@
                         </div>
                         <div class="tec-reason">
                             <dt>2. Estica e fica</dt>
-                            <dd>A partir do limite de escoamento (LE), o aço cede: o que ele esticar daqui em diante não volta mais. É a deformação plástica, ou permanente. A tensão ainda sobe até o ponto mais alto da curva, que é o limite de resistência à tração (LR).</dd>
+                            <dd>A partir do limite de escoamento (LE), parte do que o aço estica fica: ao tirar a força, ele volta só um pouco e fica mais comprido do que era. É a deformação plástica, ou permanente. A tensão ainda sobe até o ponto mais alto da curva, que é o limite de resistência à tração (LR).</dd>
                         </div>
                         <div class="tec-reason">
-                            <dt>3. Cede e rompe</dt>
+                            <dt>3. Perde força e rompe</dt>
                             <dd>Depois do ponto mais alto, a força que o corpo de prova aguenta cai, até ele romper.</dd>
                         </div>
                     </dl>
@@ -147,11 +148,11 @@
                     <dl class="tec-reasons">
                         <div class="tec-reason">
                             <dt>A peça não pode ficar torta no uso</dt>
-                            <dd>Um suporte, uma prateleira, uma travessa. Enquanto o esforço fica abaixo do LE, a peça cede um pouco e volta quando a carga sai. Se o esforço passa do LE, ela fica deformada. Por isso quem projeta a peça toma o LE como teto para o esforço de uso.</dd>
+                            <dd>Um suporte, uma prateleira, uma travessa. Enquanto o esforço fica abaixo do LE, a peça flexiona um pouco e volta quando a carga sai. Se o esforço passa do LE, ela fica deformada. Por isso quem projeta a peça mantém a tensão de uso abaixo do LE.</dd>
                         </div>
                         <div class="tec-reason">
                             <dt>A peça vai ser dobrada ou estampada</dt>
-                            <dd>Aqui é o contrário: a deformação permanente é o que se quer. Para a chapa ficar na forma nova, o esforço da dobra ou da prensa precisa passar do LE. Quando a ferramenta solta a peça, uma parte da deformação volta: é o retorno elástico, que depende, entre outras coisas, do LE do aço. Nos aços para estampagem, é comum a especificação limitar o LE e o LR a um valor máximo e garantir um alongamento mínimo.</dd>
+                            <dd>Aqui é o contrário: a deformação permanente é o que se quer. Para a chapa ficar na forma nova, o esforço da dobra ou da prensa precisa passar do LE. Quando a ferramenta solta a peça, uma parte da deformação volta: é o retorno elástico, que depende, entre outras coisas, do LE do aço. Nos aços para estampagem, a especificação costuma limitar o LE por cima (um máximo ou uma faixa) e exigir um alongamento mínimo; o LR também costuma vir limitado, como máximo ou como faixa.</dd>
                         </div>
                         <div class="tec-reason">
                             <dt>A peça não pode romper</dt>
@@ -164,10 +165,10 @@
                     <h2 class="tec-group__title" id="numeros-title">Como os números aparecem</h2>
                     <p class="tec-group__intro">A unidade, o mínimo da norma, o valor do certificado e os símbolos.</p>
                     <p class="tec-text">O LE e o LR são tensões, e a unidade usada é o megapascal (MPa). Você também pode encontrar N/mm² (newton por milímetro quadrado): é a mesma unidade com outro nome, e o número não muda.</p>
-                    <p class="tec-text">Em documentos antigos você pode encontrar o kgf/mm² (quilograma-força por milímetro quadrado), uma unidade que saiu de uso. Para passar de kgf/mm² para megapascal, multiplique o número por 9,80665, ou seja, quase 10.</p>
+                    <p class="tec-text">Em documentos antigos você pode encontrar o kgf/mm² (quilograma-força por milímetro quadrado), uma unidade fora do Sistema Internacional (SI), que está em desuso. Para passar de kgf/mm² para megapascal, multiplique o número por 9,80665, ou seja, um pouco menos de 10.</p>
                     <p class="tec-example" data-exemplo="ilustrativo"><span class="tec-example__label">Exemplo ilustrativo</span> O número é inventado e não é de nenhum aço. Um LE de 100 MPa quer dizer 100 newtons para cada milímetro quadrado de seção. Uma tira com 20 mm² de seção, puxada pelas pontas, começaria a deformar de vez com 2.000 newtons, perto de 204 kgf.</p>
                     <p class="tec-text">Na norma do aço, o valor vem como limite: um mínimo, um máximo ou uma faixa. No certificado do material vem o valor medido no ensaio de uma amostra daquele lote, que é comparado com o limite da norma.</p>
-                    <p class="tec-text">Os mesmos valores também aparecem como símbolos, que vêm da norma do ensaio: R<sub>e</sub>, R<sub>eH</sub> ou R<sub>eL</sub> para o limite de escoamento; R<sub>p0,2</sub> para o limite de escoamento convencional; R<sub>m</sub> para o limite de resistência à tração; A para o alongamento.</p>
+                    <p class="tec-text">Os mesmos valores também aparecem como símbolos, que vêm, em geral, da norma do ensaio: R<sub>e</sub>, R<sub>eH</sub> ou R<sub>eL</sub> para o limite de escoamento; R<sub>p0,2</sub> para o limite de escoamento convencional; R<sub>m</sub> para o limite de resistência à tração; A para o alongamento.</p>
                     <p class="tec-text">E o nome muda um pouco de um texto para outro: o que o mercado chama de limite de resistência (LR) também aparece como resistência à tração. É a mesma medida.</p>
                 </section>
 

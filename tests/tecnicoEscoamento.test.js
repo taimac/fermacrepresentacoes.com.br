@@ -172,8 +172,20 @@ test('the figure has no axis values: its only digits number the three stretches'
     const labels = [...svg.matchAll(/<text\b[^>]*>([\s\S]*?)<\/text>/g)].map(match => textOf(match[1]));
     assert.ok(labels.length >= 8);
     const numbered = labels.filter(label => /\d/.test(label));
-    assert.deepEqual(numbered, ['1. Estica', '2. Estica', '3. Cede']);
+    assert.deepEqual(numbered, ['1. Estica', '2. Estica', '3. Perde']);
     for (const label of ['LE', 'LR', 'Tensão']) assert.ok(labels.includes(label), `${label} is on the figure`);
+    // The text alternative too: its only digits are "trecho 1", "trecho 2", "trecho 3".
+    const alternative = ['title', 'desc'].map(tag => {
+        const match = svg.match(new RegExp(`<${tag}\\b[^>]*>([\\s\\S]*?)</${tag}>`));
+        assert.ok(match, `the SVG has a <${tag}>`);
+        return textOf(match[1]);
+    }).join(' ');
+    assert.deepEqual(alternative.match(/trecho \d+/g), ['trecho 1', 'trecho 2', 'trecho 3']);
+    assert.doesNotMatch(alternative.replace(/trecho [123](?!\d)/g, ''), /\d/, 'a number in the text alternative');
+    // Nor does any other attribute of the figure carry text with a number in it.
+    for (const [, name, value] of svg.matchAll(/\b(aria-label|alt|title)="([^"]*)"/g)) {
+        assert.doesNotMatch(value, /\d/, `a number in ${name}`);
+    }
 });
 
 /* ===== Identity and numbers ===== */
@@ -202,8 +214,11 @@ test('one block is marked as the illustrative example, and says so', () => {
 test('no value in MPa, N/mm² or kgf/mm² outside the illustrative example', () => {
     const outside = HTML.replace(EXAMPLE, '');
     assert.notEqual(outside, HTML);
-    for (const part of [textOf(outside), ...[...outside.matchAll(/\bcontent="([^"]*)"/g)].map(match => match[1])]) {
-        assert.doesNotMatch(part, /\d\s*(?:MPa|N\/mm|kgf)/, 'a number with a unit of stress or force');
+    // The visible text, and every attribute value: aria-label, title, alt, content and the rest.
+    const attributes = [...outside.matchAll(/\s[\w:-]+="([^"]*)"/g)].map(match => match[1]);
+    assert.ok(attributes.length > 100);
+    for (const part of [textOf(outside), ...attributes]) {
+        assert.doesNotMatch(part, /\d\s*(?:MPa|N\/mm|kgf)/i, 'a number with a unit of stress or force');
     }
     // The only number-and-unit relation outside the example is the kgf/mm² factor.
     assert.ok(textOf(outside).includes('multiplique o número por 9,80665'));
