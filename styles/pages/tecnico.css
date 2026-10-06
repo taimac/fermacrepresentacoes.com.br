@@ -743,23 +743,165 @@
 
 /* Inline links in body text: the darker accent for contrast, and an
    underline so the link is not marked by colour alone. */
-.tec-check dd a {
+.tec-check dd a,
+.tec-text a {
     color: var(--accent-hover);
     text-decoration: underline;
     text-underline-offset: 2px;
 }
 
-.tec-check dd a:hover {
+.tec-check dd a:hover,
+.tec-text a:hover {
     color: var(--primary);
 }
 
-.tec-check dd a:focus-visible {
+.tec-check dd a:focus-visible,
+.tec-text a:focus-visible {
     outline: 2px solid var(--accent);
     outline-offset: 2px;
 }
 
+/* ===== Escoamento e resistência: running text, figure, example ===== */
+
+.tec-text {
+    margin: 0 0 var(--space-md);
+    max-width: 680px;
+    color: var(--text-primary);
+    line-height: var(--line-height-relaxed);
+}
+
+.tec-text:last-child {
+    margin-bottom: 0;
+}
+
+/* A paragraph that follows a list of cards. */
+.tec-text--after {
+    margin-top: var(--space-lg);
+}
+
+.tec-text sub {
+    font-size: .75em;
+    line-height: 0;
+}
+
+.tec-figure {
+    margin: 0 0 var(--space-lg);
+    padding: var(--space-md);
+    border: 1px solid var(--border-light);
+    border-radius: var(--border-radius-lg);
+    background: var(--bg-primary);
+}
+
+.tec-figure svg {
+    display: block;
+    width: 100%;
+    max-width: 520px;
+    height: auto;
+    margin: 0 auto;
+}
+
+.tec-figure figcaption {
+    margin-top: var(--space-sm);
+    color: var(--text-secondary);
+    font-size: var(--text-sm);
+    line-height: var(--line-height-normal);
+    text-align: center;
+}
+
+/* The curve is drawn in a 320-unit-wide box, so one unit is close to one
+   pixel on a 360 px screen: the text sizes below stay readable there. */
+.tec-curve__axis {
+    fill: none;
+    stroke: var(--text-secondary);
+    stroke-width: 1.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.tec-curve__guide {
+    stroke: var(--border-dark);
+    stroke-width: 1;
+    stroke-dasharray: 4 4;
+}
+
+.tec-curve__line {
+    fill: none;
+    stroke: var(--primary);
+    stroke-width: 3;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.tec-curve__point {
+    fill: var(--accent);
+    stroke: var(--bg-primary);
+    stroke-width: 2;
+}
+
+.tec-curve__break {
+    fill: none;
+    stroke: var(--accent-hover);
+    stroke-width: 3;
+    stroke-linecap: round;
+}
+
+.tec-curve__zone {
+    fill: var(--bg-steel);
+}
+
+.tec-curve__zone--mid {
+    fill: var(--accent-light);
+}
+
+.tec-curve__label {
+    fill: var(--primary);
+    font-size: 14px;
+    font-weight: var(--font-weight-bold);
+}
+
+.tec-curve__text {
+    fill: var(--text-primary);
+    font-size: 12.5px;
+    font-weight: var(--font-weight-medium);
+}
+
+.tec-curve__axis-label {
+    fill: var(--text-secondary);
+    font-size: 12px;
+}
+
+/* The one illustrative example: set apart so it is not read as a property. */
+.tec-example {
+    margin: 0 0 var(--space-md);
+    max-width: 680px;
+    padding: var(--space-md) var(--space-lg);
+    border: 1px dashed var(--border-dark);
+    border-radius: var(--border-radius-lg);
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+    line-height: var(--line-height-relaxed);
+}
+
+.tec-example__label {
+    display: block;
+    margin-bottom: var(--space-xs);
+    color: var(--accent-hover);
+    font-size: var(--text-sm);
+    font-weight: var(--font-weight-semibold);
+    letter-spacing: .06em;
+    text-transform: uppercase;
+}
+
 @media (max-width: 768px) {
     .tec-note {
+        padding: var(--space-md);
+    }
+
+    .tec-figure {
+        padding: var(--space-sm);
+    }
+
+    .tec-example {
         padding: var(--space-md);
     }
 
