@@ -293,6 +293,10 @@ test('the symbols are the ones checked against the public sources', () => {
     assert.ok(!/lote|corrida/i.test(visible(HTML)), 'no lot-specific claim on the page');
     // The page never says the certificate decides what the part carries.
     assert.ok(!/aguenta o esforço|garantia de resultado|não é garantia/i.test(visible(HTML)), 'no guarantee wording');
+    // The Rm guidance does not rule a design use out: the certificate's Rm alone
+    // is simply not enough to dimension a component.
+    assert.ok(!/não para dimensionar/.test(visible(HTML)), 'no categorical exclusion of the design use');
+    assert.ok(visible(section('resistencia')).includes('o certificado não basta'), 'the warning is kept');
 });
 
 test('the only property values on the page are the ones of the illustrative example', () => {
