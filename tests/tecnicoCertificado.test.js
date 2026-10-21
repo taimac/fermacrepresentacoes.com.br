@@ -77,7 +77,8 @@ test('the first screen names the three numbers and what the certificate does not
     for (const piece of [
         'escoamento', 'resistência', 'alongamento', 'ensaio de tração',
         'começa a deformar de vez', 'antes de romper', 'esticou até partir',
-        'não decidem por você',
+        'evita comprar no escuro',
+        'evita um erro mais caro',
     ]) {
         assert.ok(lead.includes(piece), `the lead says "${piece}"`);
     }
