@@ -84,6 +84,9 @@ test('the first screen names the three numbers and what the certificate does not
     // The note right under the hero: what the certificate is, and what it is not.
     const note = visible(one(HTML, /<p class="tec-note">[\s\S]*?<\/p>/, 'first note'));
     assert.ok(note.includes('documento de inspeção'));
+    // The delivery of a certificate is conditional on the order.
+    assert.match(note, /quando o pedido o exige/i);
+    assert.ok(!/vem acompanhado do certificado/.test(visible(HTML)), 'no unconditional delivery promise');
     assert.ok(note.includes('Três números são o foco'));
     assert.ok(note.includes('não o que a sua peça vai aguentar'));
 });
