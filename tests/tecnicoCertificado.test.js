@@ -77,13 +77,14 @@ test('the first screen names the three numbers and what the certificate does not
     for (const piece of [
         'escoamento', 'resistência', 'alongamento', 'ensaio de tração',
         'começa a deformar de vez', 'antes de romper', 'esticou até partir',
-        'não decide por você',
+        'não decidem por você',
     ]) {
         assert.ok(lead.includes(piece), `the lead says "${piece}"`);
     }
     // The note right under the hero: what the certificate is, and what it is not.
     const note = visible(one(HTML, /<p class="tec-note">[\s\S]*?<\/p>/, 'first note'));
     assert.ok(note.includes('documento de inspeção'));
+    assert.ok(note.includes('Três números são o foco'));
     assert.ok(note.includes('não o que a sua peça vai aguentar'));
 });
 
@@ -276,6 +277,8 @@ test('the symbols are the ones checked against the public sources', () => {
     for (const piece of ['A=ΔL/L0×100', 'A5', 'A10', '5,65', '11,3']) {
         assert.ok(elongation.includes(piece), piece);
     }
+    // The page never says that every value printed comes from the tensile test.
+    assert.ok(!/valores impressos no certificado/.test(visible(HTML)), 'no claim about all printed values');
     // The page never says the results belong to the delivered lot.
     assert.ok(!/lote|corrida/i.test(visible(HTML)), 'no lot-specific claim on the page');
     // The page never says the certificate decides what the part carries.
