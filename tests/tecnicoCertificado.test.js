@@ -197,6 +197,11 @@ test('every part named in the outline is on the page, in order', () => {
     const checks = [...section('conferir').matchAll(/<dt>([\s\S]*?)<\/dt>/g)].map(match => visible(match[1]));
     assert.equal(checks.length, 6);
     assert.ok(checks[0].includes('É o documento certo?'));
+    // The checks that read a mechanical result are conditional: a document
+    // that does not report one is not the case the page assumes.
+    for (const conditional of checks.slice(2, 5)) {
+        assert.match(conditional, /se o documento traz/i);
+    }
     assert.ok(checks[5].includes('batem com o que foi especificado'));
 });
 
