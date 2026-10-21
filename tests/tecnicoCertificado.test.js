@@ -310,6 +310,9 @@ test('the only property values on the page are the ones of the illustrative exam
 test('the reading of the three numbers is guidance, not a guarantee', () => {
     assert.ok(visible(section('juntos')).includes('Não é uma medida de distância até a ruptura'));
     assert.ok(visible(section('juntos')).includes('não é cálculo de projeto'));
+    // The yield factor is not presented as a margin: the consulted source supports
+    // the calculation of the ratio only.
+    assert.ok(!/folga/.test(visible(HTML)), 'the ratio is not read as a margin');
     assert.ok(visible(section('certificado')).includes('nunca de um número isolado do certificado'));
     assert.ok(!/garantimos|garantid[oa]s?\b|com certeza|sempre melhor/i.test(visible(HTML)));
 });
