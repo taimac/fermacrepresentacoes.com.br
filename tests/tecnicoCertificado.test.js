@@ -202,6 +202,8 @@ test('every part named in the outline is on the page, in order', () => {
     assert.ok(checks[0].includes('É o documento certo?'));
     // The checks that read a mechanical result are conditional: a document
     // that does not report one is not the case the page assumes.
+    // The unit check covers the stress values only: elongation is in %.
+    assert.match(checks[2], /escoamento ou resistência/);
     for (const conditional of checks.slice(2, 5)) {
         assert.match(conditional, /se o documento traz/i);
     }
