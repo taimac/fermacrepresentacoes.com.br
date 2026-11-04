@@ -195,7 +195,7 @@ test('each list row has one term and one explanation', () => {
 
 test('every part named in the outline is on the page, in order', () => {
     const ids = [...HTML.matchAll(/<section class="tec-group" id="([^"]+)"/g)].map(match => match[1]);
-    assert.deepEqual(ids, ['certificado', 'ensaio', 'escoamento', 'resistencia', 'alongamento', 'juntos', 'conferir', 'glossario', 'fontes']);
+    assert.deepEqual(ids, ['certificado', 'ensaio', 'escoamento', 'resistencia', 'alongamento', 'juntos', 'conferir', 'limite', 'glossario', 'fontes']);
     const toc = [...one(HTML, /<nav class="tec-toc"[\s\S]*?<\/nav>/, 'table of contents').matchAll(/href="#([^"]+)"/g)].map(match => match[1]);
     assert.deepEqual(toc, ids);
     const checks = [...section('conferir').matchAll(/<dt>([\s\S]*?)<\/dt>/g)].map(match => visible(match[1]));
