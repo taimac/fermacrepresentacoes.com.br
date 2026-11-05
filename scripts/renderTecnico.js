@@ -19,6 +19,8 @@ const path = require('node:path');
 const ROOT = path.resolve(__dirname, '..');
 const TEMPLATE = path.join(ROOT, 'tecnico', '_template.html');
 const ORIGEM_PATTERN = /^FER-WEB-TEC-[A-Z0-9]+(?:-[A-Z0-9]+)*$/;
+const SLUG_PATTERN = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
+const LOCAL_LINK_PATTERN = /^[a-z0-9-]+\.html$/;
 
 function fail(message) {
     throw new Error(message);
@@ -62,11 +64,18 @@ function esc(value) {
         .replace(/"/g, '&quot;');
 }
 
+/**
+ * Inline markdown: bold, italic, code, and same-directory links only.
+ * Anything that is not a bare `page.html` target stays literal text, so an
+ * article cannot link off-site or into another directory.
+ */
 function inline(text) {
     return esc(text)
         .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
         .replace(/(^|\s)\*([^*]+)\*/g, '$1<em>$2</em>')
-        .replace(/`([^`]+)`/g, '<code>$1</code>');
+        .replace(/`([^`]+)`/g, '<code>$1</code>')
+        .replace(/\[([^\]]+)\]\(([^)]+)\)/g, (whole, label, target) =>
+            LOCAL_LINK_PATTERN.test(target) ? `<a href="${target}">${label}</a>` : whole);
 }
 
 function slugify(text) {
@@ -82,11 +91,13 @@ function slugify(text) {
 /**
  * Convert the article markdown into page sections.
  * `##` opens a section; `###` becomes a subsection heading inside it.
- * The first `##` level is not assumed to be a title — the hero carries the title.
+ * Section ids are made unique so two identical headings cannot produce
+ * duplicate ids, a broken anchor and an ambiguous aria-labelledby.
  */
 function renderBody(markdown) {
     const lines = markdown.split(/\r?\n/);
     const sections = [];
+    const usedIds = new Set();
     let current = null;
     let paragraph = [];
     let list = null;
@@ -114,7 +125,12 @@ function renderBody(markdown) {
         if (h2) {
             flushParagraph(); flushList();
             const title = h2[1].trim();
-            current = { id: slugify(title), title, blocks: [] };
+            const base = slugify(title) || 'secao';
+            let id = base;
+            let n = 2;
+            while (usedIds.has(id)) { id = `${base}-${n++}`; }
+            usedIds.add(id);
+            current = { id, title, blocks: [] };
             sections.push(current);
             continue;
         }
@@ -155,7 +171,8 @@ function renderToc(sections) {
 /** Validate everything the publication gate depends on. */
 function validate(meta, sections) {
     const problems = [];
-    if (meta.status !== 'draft' && meta.status !== 'approved') {
+    if (meta.status === 'blocked') problems.push('status is blocked — a blocked article is not rendered');
+    else if (meta.status !== 'draft' && meta.status !== 'approved') {
         problems.push(`status must be draft or approved, got "${meta.status || ''}"`);
     }
     if (meta.approved !== 'true' && meta.approved !== true) {
@@ -164,6 +181,9 @@ function validate(meta, sections) {
     if (meta.brand !== 'fermac') problems.push('brand must be fermac');
     if (meta.format !== 'article') problems.push('format must be article');
     if (!meta.slug) problems.push('slug is required');
+    else if (!SLUG_PATTERN.test(meta.slug)) {
+        problems.push(`slug "${meta.slug}" must match ${SLUG_PATTERN} — it becomes a filename and the canonical URL`);
+    }
     const code = meta.attribution && meta.attribution.code;
     if (!code) problems.push('attribution.code is required');
     else if (!ORIGEM_PATTERN.test(code)) problems.push(`attribution.code "${code}" does not match ${ORIGEM_PATTERN}`);
@@ -171,6 +191,12 @@ function validate(meta, sections) {
     if (!meta.description) problems.push('description is required');
     if (!sections.length) problems.push('no sections');
     return problems;
+}
+
+/** Single pass, so content that contains a placeholder token cannot be re-expanded. */
+function fill(template, values) {
+    return template.replace(/\{\{([A-Z]+)\}\}/g, (whole, key) =>
+        Object.prototype.hasOwnProperty.call(values, key) ? values[key] : whole);
 }
 
 function render(articleText) {
@@ -184,38 +210,64 @@ function render(articleText) {
     }
     const template = fs.readFileSync(TEMPLATE, 'utf8');
     const lead = meta.lead || meta.description;
-    return template
-        .replace(/\{\{TITLE\}\}/g, esc(meta.title))
-        .replace(/\{\{DESCRIPTION\}\}/g, esc(meta.description))
-        .replace(/\{\{LEAD\}\}/g, esc(lead))
-        .replace(/\{\{SLUG\}\}/g, esc(meta.slug))
-        .replace(/\{\{ORIGEM\}\}/g, esc(meta.attribution.code))
-        .replace('{{TOC}}', renderToc(sections))
-        .replace('{{BODY}}', renderSections(sections));
+    return fill(template, {
+        TITLE: esc(meta.title),
+        DESCRIPTION: esc(meta.description),
+        LEAD: esc(lead),
+        SLUG: esc(meta.slug),
+        ORIGEM: esc(meta.attribution.code),
+        TOC: renderToc(sections),
+        BODY: renderSections(sections),
+    });
+}
+
+/** Resolve the output path: inside the repo it must be tecnico/, outside is a preview. */
+function outputPath(slug, requested) {
+    const target = path.resolve(requested || path.join(ROOT, 'tecnico', `${slug}.html`));
+    const allowed = path.resolve(ROOT, 'tecnico') + path.sep;
+    const insideRepo = target === ROOT || target.startsWith(ROOT + path.sep);
+    if (insideRepo && !target.startsWith(allowed)) {
+        fail(`refusing to write inside the repository outside tecnico/: ${target}`);
+    }
+    return target;
+}
+
+function parseArgs(argv) {
+    const args = { input: null, out: null };
+    for (let i = 0; i < argv.length; i += 1) {
+        const arg = argv[i];
+        if (arg === '--out') {
+            args.out = argv[i + 1];
+            if (!args.out) fail('--out needs a path');
+            i += 1;
+            continue;
+        }
+        if (arg.startsWith('--')) fail(`unknown option: ${arg}`);
+        if (!args.input) args.input = arg;
+        else fail(`unexpected argument: ${arg}`);
+    }
+    if (!args.input) fail('usage: node scripts/renderTecnico.js <article.md> [--out <path>]');
+    return args;
 }
 
 function main(argv) {
-    const args = argv.slice(2);
-    const input = args.find(arg => !arg.startsWith('--'));
-    const outIndex = args.indexOf('--out');
-    if (!input) {
-        console.error('usage: node scripts/renderTecnico.js <article.md> [--out <path>]');
-        return 2;
-    }
+    let args;
     let html;
     try {
-        html = render(fs.readFileSync(input, 'utf8'));
+        args = parseArgs(argv.slice(2));
+        const text = fs.readFileSync(args.input, 'utf8');
+        html = render(text);
+        const target = outputPath(parseFrontmatter(text).meta.slug, args.out);
+        fs.writeFileSync(target, html);
+        console.log(`rendered ${target}`);
+        console.log('next: create the branch, commit the page, open a draft PR — the script never publishes');
+        return 0;
     } catch (error) {
         console.error(error.message);
         return 1;
     }
-    const target = outIndex > -1 ? args[outIndex + 1] : path.join(ROOT, 'tecnico', `${parseFrontmatter(fs.readFileSync(input, 'utf8')).meta.slug}.html`);
-    fs.writeFileSync(target, html);
-    console.log(`rendered ${target}`);
-    console.log('next: create the branch, commit the page, open a draft PR — the script never publishes');
-    return 0;
 }
 
 if (require.main === module) process.exit(main(process.argv));
 
-module.exports = { parseFrontmatter, render, renderBody, validate, slugify };
+module.exports = { parseFrontmatter, render, renderBody, validate, slugify, outputPath, parseArgs };
