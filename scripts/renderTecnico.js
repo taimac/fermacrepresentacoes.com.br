@@ -22,6 +22,19 @@ const ORIGEM_PATTERN = /^FER-WEB-TEC-[A-Z0-9]+(?:-[A-Z0-9]+)*$/;
 const SLUG_PATTERN = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 const LOCAL_LINK_PATTERN = /^[a-z0-9-]+\.html$/;
 
+/**
+ * The destination page drops an origin code longer than this:
+ * `_applyArrivalOrigem()` in scripts/siteController.js returns early, leaving
+ * the generic codes in place. A page that renders a longer code therefore
+ * looks correct and silently loses its attribution, so the same limit is
+ * enforced here. `tests/renderTecnico.test.js` reads the limit out of that
+ * file to keep the two from drifting apart.
+ */
+const ORIGEM_MAX_LENGTH = 48;
+
+/** Ids the page shell already uses. A section id may not take one of them. */
+const SHELL_IDS = ['navbar', 'tec-nav-links', 'mobileMenuBtn', 'main-content', 'tec-title', 'tec-cta-title'];
+
 function fail(message) {
     throw new Error(message);
 }
@@ -97,7 +110,11 @@ function slugify(text) {
 function renderBody(markdown) {
     const lines = markdown.split(/\r?\n/);
     const sections = [];
-    const usedIds = new Set();
+    // Reserved before the first heading is read: the shell's own ids, plus each
+    // section's `<id>-title`, which is the h2's id and the anchor target. A
+    // section called "Foo" followed by one called "Foo title" would otherwise
+    // give the second section the first section's title id.
+    const usedIds = new Set(SHELL_IDS);
     let current = null;
     let paragraph = [];
     let list = null;
@@ -128,8 +145,9 @@ function renderBody(markdown) {
             const base = slugify(title) || 'secao';
             let id = base;
             let n = 2;
-            while (usedIds.has(id)) { id = `${base}-${n++}`; }
+            while (usedIds.has(id) || usedIds.has(`${id}-title`)) { id = `${base}-${n++}`; }
             usedIds.add(id);
+            usedIds.add(`${id}-title`);
             current = { id, title, blocks: [] };
             sections.push(current);
             continue;
@@ -187,6 +205,9 @@ function validate(meta, sections) {
     const code = meta.attribution && meta.attribution.code;
     if (!code) problems.push('attribution.code is required');
     else if (!ORIGEM_PATTERN.test(code)) problems.push(`attribution.code "${code}" does not match ${ORIGEM_PATTERN}`);
+    else if (code.length > ORIGEM_MAX_LENGTH) {
+        problems.push(`attribution.code is ${code.length} characters and the destination accepts at most ${ORIGEM_MAX_LENGTH} — it would be dropped there and the page would lose its attribution`);
+    }
     if (!meta.title) problems.push('title is required');
     if (!meta.description) problems.push('description is required');
     if (!sections.length) problems.push('no sections');
