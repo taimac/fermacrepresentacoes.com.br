@@ -115,6 +115,24 @@ test('missing frontmatter is refused', () => {
     assert.throws(() => render('## Só um título\n\ntexto'), /no YAML frontmatter/);
 });
 
+test('blank and non-scalar title and description fields are refused', () => {
+    for (const bad of [
+        GOOD.replace('title: Página de teste', 'title:'),
+        GOOD.replace('description: Uma descrição de teste com o tamanho que a meta espera.', 'description:'),
+        GOOD.replace('title: Página de teste', 'title:\n  nested: value'),
+        GOOD.replace('description: Uma descrição de teste com o tamanho que a meta espera.', 'description:\n  nested: value'),
+    ]) {
+        assert.throws(() => render(bad), /title must be a non-empty string|description must be a non-empty string/);
+    }
+});
+
+test('a blank or non-scalar optional lead is refused', () => {
+    for (const lead of ['lead:', 'lead:\n  nested: value']) {
+        const bad = GOOD.replace('lead: Uma entrada curta para o hero.', lead);
+        assert.throws(() => render(bad), /lead must be a non-empty string when provided/);
+    }
+});
+
 test('HTML in the article is escaped, never executed', () => {
     const withMarkup = GOOD.replace('Texto final.', 'Texto com <script>alert(1)</script>.');
     const html = render(withMarkup);

@@ -208,8 +208,15 @@ function validate(meta, sections) {
     else if (code.length > ORIGEM_MAX_LENGTH) {
         problems.push(`attribution.code is ${code.length} characters and the destination accepts at most ${ORIGEM_MAX_LENGTH} — it would be dropped there and the page would lose its attribution`);
     }
-    if (!meta.title) problems.push('title is required');
-    if (!meta.description) problems.push('description is required');
+    if (typeof meta.title !== 'string' || !meta.title.trim()) {
+        problems.push('title must be a non-empty string');
+    }
+    if (typeof meta.description !== 'string' || !meta.description.trim()) {
+        problems.push('description must be a non-empty string');
+    }
+    if (meta.lead !== undefined && (typeof meta.lead !== 'string' || !meta.lead.trim())) {
+        problems.push('lead must be a non-empty string when provided');
+    }
     if (!sections.length) problems.push('no sections');
     return problems;
 }
