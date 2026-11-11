@@ -43,22 +43,32 @@ function fail(message) {
 function parseFrontmatter(text) {
     const match = /^---\r?\n([\s\S]*?)\r?\n---\r?\n?/.exec(text);
     if (!match) fail('article has no YAML frontmatter');
-    const meta = {};
+    const meta = Object.create(null);
     let current = null;
     for (const raw of match[1].split(/\r?\n/)) {
         if (!raw.trim() || raw.trim().startsWith('#')) continue;
         const indented = /^\s+/.test(raw);
-        if (indented && current) {
+        if (indented) {
+            if (!current) fail('unexpected indentation in YAML frontmatter');
             const [key, ...rest] = raw.trim().split(':');
-            if (rest.length) meta[current][key.trim()] = rest.join(':').trim().replace(/^["']|["']$/g, '');
+            if (!rest.length || !key.trim()) fail('invalid nested field in YAML frontmatter');
+            const nestedKey = key.trim();
+            if (Object.prototype.hasOwnProperty.call(meta[current], nestedKey)) {
+                fail(`duplicate frontmatter field "${current}.${nestedKey}"`);
+            }
+            meta[current][nestedKey] = rest.join(':').trim().replace(/^['"]|['"]$/g, '');
             continue;
         }
         const idx = raw.indexOf(':');
         if (idx < 0) continue;
         const key = raw.slice(0, idx).trim();
+        if (!key) fail('empty field name in YAML frontmatter');
+        if (Object.prototype.hasOwnProperty.call(meta, key)) {
+            fail(`duplicate frontmatter field "${key}"`);
+        }
         const value = raw.slice(idx + 1).trim();
         if (!value) {
-            meta[key] = {};
+            meta[key] = Object.create(null);
             current = key;
         } else {
             meta[key] = value.replace(/^["']|["']$/g, '');

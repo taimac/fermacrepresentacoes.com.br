@@ -91,6 +91,21 @@ test('an unapproved article is refused', () => {
     assert.throws(() => render(unapproved), /approved must be true/);
 });
 
+test('malformed frontmatter cannot override the approval gate', () => {
+    const indentedOverride = GOOD.replace('approved: true', 'approved: false\n  approved: true');
+    const duplicateOverride = GOOD.replace('approved: true', 'approved: false\napproved: true');
+    assert.throws(() => render(indentedOverride), /unexpected indentation/);
+    assert.throws(() => render(duplicateOverride), /duplicate frontmatter field "approved"/);
+});
+
+test('duplicate nested attribution fields are refused', () => {
+    const duplicateCode = GOOD.replace(
+        '  code: FER-WEB-TEC-PAGINA-TESTE',
+        '  code: FER-WEB-TEC-PAGINA-TESTE\n  code: FER-WEB-TEC-OUTRA',
+    );
+    assert.throws(() => render(duplicateCode), /duplicate frontmatter field "attribution\.code"/);
+});
+
 test('a Fermac article without an attribution code is refused', () => {
     const noCode = GOOD.replace(/\n  code: FER-WEB-TEC-PAGINA-TESTE/, '');
     assert.throws(() => render(noCode), /attribution\.code is required/);
