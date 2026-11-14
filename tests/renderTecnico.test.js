@@ -261,3 +261,10 @@ test('the output path cannot leave tecnico/ inside the repository', () => {
     assert.ok(outputPath('ok').endsWith('/tecnico/ok.html'));
     assert.equal(outputPath('ok', '/tmp/preview.html'), '/tmp/preview.html', 'a preview outside the repo is allowed');
 });
+
+test('JSON-quoted editorial metadata retains accents and quotes', () => {
+    const { parseFrontmatter } = require('../scripts/renderTecnico.js');
+    const value = 'Aço "especial"';
+    const parsed = parseFrontmatter('---\ntitle: ' + JSON.stringify(value) + '\n---\n## Fonte\nTexto\n');
+    assert.strictEqual(parsed.meta.title, value);
+});
