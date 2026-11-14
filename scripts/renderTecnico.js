@@ -39,6 +39,12 @@ function fail(message) {
     throw new Error(message);
 }
 
+function scalar(value) {
+    if (value.startsWith('"')) return JSON.parse(value);
+    if (value.startsWith("'")) { if (!value.endsWith("'")) fail('unterminated scalar'); return value.slice(1,-1).replace(/''/g, "'"); }
+    return value;
+}
+
 /** Parse the small YAML subset the editorial contract uses. */
 function parseFrontmatter(text) {
     const match = /^---\r?\n([\s\S]*?)\r?\n---\r?\n?/.exec(text);
@@ -56,7 +62,7 @@ function parseFrontmatter(text) {
             if (Object.prototype.hasOwnProperty.call(meta[current], nestedKey)) {
                 fail(`duplicate frontmatter field "${current}.${nestedKey}"`);
             }
-            meta[current][nestedKey] = rest.join(':').trim().replace(/^['"]|['"]$/g, '');
+            meta[current][nestedKey] = scalar(rest.join(':').trim());
             continue;
         }
         const idx = raw.indexOf(':');
@@ -71,7 +77,7 @@ function parseFrontmatter(text) {
             meta[key] = Object.create(null);
             current = key;
         } else {
-            meta[key] = value.replace(/^["']|["']$/g, '');
+            meta[key] = scalar(value);
             current = null;
         }
     }
